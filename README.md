@@ -36,3 +36,6 @@ This project requires Ruby 2.5.3.
 1. [User Stories](./doc/user_stories.md)
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
+
+## Project Checking Questions
+1. Is there a convention around keeping rake tasks in one file vs. breaking them out in theo their own files? 
