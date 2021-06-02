@@ -62,7 +62,7 @@ namespace :csv_load do
 
   task transactions: :environment do
     CSV.foreach('./db/data/transactions.csv', headers: true) do |row|
-      if row[4] == 'failure'
+      if row[4] == 'failed'
         result = 0
       elsif row[4] == 'success'
         result = 1
@@ -79,13 +79,12 @@ namespace :csv_load do
     end
   end
 
-  task :all do
-    ENV['ENVIROMENT'] = 'true'
+  task all: :environment do
     Rake::Task["csv_load:customers"].execute
-    Rake::Task["csv_load:invoice_items"].execute
-    Rake::Task["csv_load:items"].execute
     Rake::Task["csv_load:merchants"].execute
-    Rake::Task["csv_load:transactions"].execute
+    Rake::Task["csv_load:items"].execute
     Rake::Task["csv_load:invoices"].execute
+    Rake::Task["csv_load:transactions"].execute
+    Rake::Task["csv_load:invoice_items"].execute
   end
 end
