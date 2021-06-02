@@ -43,6 +43,7 @@ group :development, :test do
   gem 'shoulda-matchers'
   gem 'capybara'
   gem 'orderly'
+  gem 'simplecov', require: false
 end
 
 group :development do
