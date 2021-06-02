@@ -40,5 +40,6 @@ This project requires Ruby 2.5.3.
 ## Project Checking Questions
 1. Is there a convention around keeping rake tasks in one file vs. breaking them out in theo their own files? 
 2. When is the dependent destroy relationship appropriate? How should we make the decision to add that? 
+3. Do we need to be testing the rake tasks? Enums?
 
 ![Schema](https://user-images.githubusercontent.com/78388882/120407604-ba712a80-c30a-11eb-8299-8b499c53ea1f.png)
