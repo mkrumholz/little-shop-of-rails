@@ -1,8 +1,9 @@
 class Admin::MerchantsController < ApplicationController
-  
+
   def index
     @merchants = Merchant.all
   end
+
 
   def show
     @merchant = Merchant.find(params[:id])
@@ -22,5 +23,4 @@ class Admin::MerchantsController < ApplicationController
 
     redirect_to "/admin/merchants/#{merchant.id}?update=true"
   end
-
 end
