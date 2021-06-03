@@ -43,5 +43,6 @@ This project requires Ruby 2.5.3.
 3. Do we need to be testing the rake tasks? Enums?
 4. Should we include validations?
 5. Should the dashboard file path be pluralized?
+6. Coverage file is saying rails helper isn't tested for. What's wrong?
 
 ![Schema](https://user-images.githubusercontent.com/78388882/120407604-ba712a80-c30a-11eb-8299-8b499c53ea1f.png)
