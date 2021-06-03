@@ -9,13 +9,22 @@ RSpec.describe 'index.html.erb' do
         expect(page).to have_content('Admin Dashboard')
       end
     end
-    it 'has links to the merchants index' do
+    it 'has links to the admin merchants index' do
       visit '/admin'
+      save_and_open_page
 
       expect(page).to have_link('Merchants Index')
       click_link('Merchants Index')
 
-      expect(page).to have_path('/admin/merchants')
+      expect(page).to have_current_path('/admin/merchants')
+    end
+    it 'has links to the admin invoices index' do
+      visit '/admin'
+
+      expect(page).to have_link('Invoices Index')
+      click_link('Invoices Index')
+
+      expect(page).to have_current_path('/admin/invoices')
     end
   end
 end
