@@ -1,12 +1,36 @@
 require 'rails_helper'
 
-RSpec.describe Customer do
-  describe 'relationships' do
+RSpec.describe 'index.html.erb' do
+  describe 'visit' do
+    it 'displays a dashboard' do
+      visit '/admin'
 
-    it { should have_many(:invoices).dependent(:destroy) }
+      within('h1#dash') do
+        expect(page).to have_content('Admin Dashboard')
+      end
+    end
+
+    it 'has links to the admin merchants index' do
+      visit '/admin'
+
+
+      expect(page).to have_link('Merchants Index')
+      click_link('Merchants Index')
+
+      expect(page).to have_current_path('/admin/merchants')
+    end
+
+    it 'has links to the admin invoices index' do
+      visit '/admin'
+
+      expect(page).to have_link('Invoices Index')
+      click_link('Invoices Index')
+
+      expect(page).to have_current_path('/admin/invoices')
+    end
 
   end
-  describe 'class methods' do
+  describe 'Top 5 Customers' do
     before :each do
       @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
       @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
@@ -36,18 +60,28 @@ RSpec.describe Customer do
       @invoice_1.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
       @invoice_1.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
       @invoice_3.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
+      visit '/admin'
     end
-    describe '#top_five_completed_transactions' do
-      it 'returns the 5 customers with the most completed transactions' do
-        actual = [
-        [["Reason", "Bado"], 5],
-        [["19th", "Alex"], 4],
-        [["Richard", "Timothy"], 3],
-        [["Johnson", "Madi"], 2],
-        [["Stalone", "Shim"], 1]
-        ]
-        expect(Customer.top_five_completed_transactions).to eq(actual)
-      end
+    it 'shows the 5 customers with the most successful transactions' do
+      expect(page).to have_content("#{@customer_1.first_name} #{@customer_1.last_name}")
+      expect(page).to have_content("#{@customer_3.first_name} #{@customer_3.last_name}")
+      expect(page).to have_content("#{@customer_4.first_name} #{@customer_4.last_name}")
+      expect(page).to have_content("#{@customer_5.first_name} #{@customer_5.last_name}")
+      expect(page).to have_content("#{@customer_6.first_name} #{@customer_6.last_name}")
+      expect(page).to_not have_content("#{@customer_2.first_name} #{@customer_2.last_name}")
+    end
+    it 'orders them by completed transactions, last name' do
+      expect(@customer_4.first_name).to appear_before(@customer_6.first_name)
+      expect(@customer_6.first_name).to appear_before(@customer_5.first_name)
+      expect(@customer_5.first_name).to appear_before(@customer_1.first_name)
+      expect(@customer_1.first_name).to appear_before(@customer_3.first_name)
+    end
+    it 'lists the number of completed transactions' do
+      expect(page).to have_content('5 transactions')
+      expect(page).to have_content('4 transactions')
+      expect(page).to have_content('3 transactions')
+      expect(page).to have_content('2 transactions')
+      expect(page).to have_content('1 transactions')
     end
   end
 end

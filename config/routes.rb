@@ -1,12 +1,17 @@
 Rails.application.routes.draw do
   # For details on the DSL available within this file, see http://guides.rubyonrails.org/routing.html
-  resources :merchants, only: :show do
-    scope module: :merchants do
-      resources :items, only: [:index, :show]
-    end
+
+  resources :admin, only: [:index]
+
+  namespace :admin do
+   resources :merchants, except: [:delete, :put]
+   resources :invoices, only: [:index]
   end
 
   resources :merchants, only: [:show] do
     get '/dashboard', to: 'dashboard#show'
+    scope module: :merchants do
+      resources :items, except: [:delete, :create]
+    end
   end
 end
