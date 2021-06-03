@@ -19,9 +19,9 @@ class Merchants::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     if @item.update!(item_params)
       redirect_to merchant_item_path(@merchant.id, @item.id)
-    else
-      redirect_to edit_merchant_item_path(@merchant.id, @item.id)
-      flash[:alert] = error_message(item.errors)
+    # else
+    #   redirect_to edit_merchant_item_path(@merchant.id, @item.id)
+    #   flash[:alert] = error_message(item.errors)
     end 
   end
 
