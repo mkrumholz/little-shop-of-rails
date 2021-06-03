@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Merchants Index' do
   before :each do
-    @signs = Merchant.create!(name: "Sal's Signs")
-    @tees = Merchant.create!(name: "T-shirts by Terry")
-    @amphs = Merchant.create!(name: "All About Amphibians")
+    @signs = Merchant.create!(name: "Sal's Signs", status: true)
+    @tees = Merchant.create!(name: "T-shirts by Terry", status: true)
+    @amphs = Merchant.create!(name: "All About Amphibians", status: false)
 
     visit('/admin/merchants')
   end

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Merchant Edit' do
   before :each do
-    @signs = Merchant.create!(name: "Sal's Signs")
+    @signs = Merchant.create!(name: "Sal's Signs", status: true)
 
     visit("/admin/merchants/#{@signs.id}/edit")
   end
