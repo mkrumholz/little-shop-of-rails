@@ -120,11 +120,11 @@ RSpec.describe 'index.html.erb' do
       expect(page).to_not have_content(@invoice_5.id)
     end
     it 'links the ids to their admin show page' do
-      expect(page).to expect(page).to have_link("Invoice #{@invoice_1.id}")
-      expect(page).to expect(page).to have_link("Invoice #{@invoice_2.id}")
-      expect(page).to expect(page).to have_link("Invoice #{@invoice_3.id}")
-      expect(page).to expect(page).to have_link("Invoice #{@invoice_4.id}")
-      expect(page).to expect(page).to have_link("Invoice #{@invoice_6.id}")
+      expect(page).to have_link("Invoice #{@invoice_1.id}")
+      expect(page).to have_link("Invoice #{@invoice_2.id}")
+      expect(page).to have_link("Invoice #{@invoice_3.id}")
+      expect(page).to have_link("Invoice #{@invoice_4.id}")
+      expect(page).to have_link("Invoice #{@invoice_6.id}")
 
       click_link("Invoice #{@invoice_1.id}")
 
