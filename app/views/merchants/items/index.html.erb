@@ -1,0 +1,7 @@
+<h1>My Items</h1>
+
+<% @items.each do |item| %>
+  <div id="item-<%= item.id %>">
+    <%= item.name %>
+  </div>
+<% end %>
