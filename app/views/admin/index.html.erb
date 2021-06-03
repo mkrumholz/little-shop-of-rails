@@ -10,6 +10,6 @@
 <h2>Top 5 Customers:</h2>
 <ol>
   <% @top_customers.each do |customer| %>
-    <li><%= "#{customer[0][1]} #{customer[0][0]}: #{customer[1]} transactions" %></li>
+    <li><%= "#{customer.first_name} #{customer.last_name}: #{customer.tran_count} transactions" %></li>
   <% end %>
 </ol>
