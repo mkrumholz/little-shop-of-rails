@@ -31,7 +31,60 @@ RSpec.describe 'Admin Merchants Index' do
     expect(page).to have_current_path("/admin/merchants/#{@signs.id}")
   end
 
-  it 'shows the merchant status (enabled or disabled)'
-  it 'has a button to enable or disable each merchant'
-  it 'on clicking the button, it updates merchant status and returns to the index page'
+  it 'shows the merchant status (enabled or disabled)' do
+    within("#merchant-#{@signs.id}") do
+      expect(page).to have_content("Enabled")
+      expect(page).to_not have_content("Disabled")
+    end
+    within("#merchant-#{@tees.id}") do
+      expect(page).to have_content("Enabled")
+      expect(page).to_not have_content("Disabled")
+    end
+    within("#merchant-#{@amphs.id}") do
+      expect(page).to have_content("Disabled")
+      expect(page).to_not have_content("Enabled")
+    end
+  end
+
+  it 'has a button to enable or disable each merchant' do
+    within("#merchant-#{@signs.id}") do
+      expect(page).to have_button("Disable")
+      expect(page).to_not have_button("Enable")
+    end
+    within("#merchant-#{@tees.id}") do
+      expect(page).to have_button("Disable")
+      expect(page).to_not have_button("Enable")
+    end
+    within("#merchant-#{@amphs.id}") do
+      expect(page).to have_button("Enable")
+      expect(page).to_not have_button("Disable")
+    end
+  end
+
+  it 'on clicking the button, it updates merchant status and returns to the index page' do
+    within("#merchant-#{@signs.id}") do
+      click_button "Disable"
+      expect(page).to have_current_path('/admin/merchants')
+      expect(page).to have_content("Disabled")
+      expect(page).to_not have_content("Enabled")
+      expect(page).to have_button("Enable")
+      expect(page).to_not have_button("Disable")
+    end
+    within("#merchant-#{@tees.id}") do
+      click_button "Disable"
+      expect(page).to have_current_path('/admin/merchants')
+      expect(page).to have_content("Disabled")
+      expect(page).to_not have_content("Enabled")
+      expect(page).to have_button("Enable")
+      expect(page).to_not have_button("Disable")
+    end
+    within("#merchant-#{@amphs.id}") do
+      click_button "Enable"
+      expect(page).to have_current_path('/admin/merchants')
+      expect(page).to have_content("Enabled")
+      expect(page).to_not have_content("Disabled")
+      expect(page).to have_button("Disable")
+      expect(page).to_not have_button("Enable")
+    end
+  end
 end
