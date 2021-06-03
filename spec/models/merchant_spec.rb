@@ -12,8 +12,10 @@ RSpec.describe Merchant do
       tees = Merchant.create!(name: "T-shirts by Terry", status: true)
       amphs = Merchant.create!(name: "All About Amphibians", status: false)
 
-      expect(tees.render_status).to eq("Enabled")
-      expect(amphs.render_status).to eq("Disabled")
+      expect(tees.render_status[:status]).to eq("Enabled")
+      expect(tees.render_status[:opposite]).to eq("Disabled")
+      expect(amphs.render_status[:status]).to eq("Disabled")
+      expect(amphs.render_status[:opposite]).to eq("Enabled")
     end
   end
 end

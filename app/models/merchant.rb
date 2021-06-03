@@ -4,9 +4,9 @@ class Merchant < ApplicationRecord
 
   def render_status
     if self.status
-      "Enabled"
+      {status: "Enabled", opposite: "Disabled"}
     else
-      "Disabled"
+      {status: "Disabled", opposite: "Enabled"}
     end
   end
 
