@@ -1,9 +1,21 @@
 <h2><%= @merchant.name %></h2>
 
-<h3>My Items</h3>
+<section id="enabled">
+  <h3>Enabled Items</h3>
 
-<% @items.each do |item| %>
-  <div id="item-<%= item.id %>">
-    <p><a href="/merchants/<%= @merchant.id %>/items/<%= item.id %>" ><%= item.name %></a></p>
-  </div>
-<% end %>
+  <% @items.enabled_only.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <p><a href="/merchants/<%= @merchant.id %>/items/<%= item.id %>" ><%= item.name %></a></p>
+    </div>
+  <% end %>
+</section>
+
+<section id="disabled">
+  <h3 id="disabled">Disabled Items</h3>
+
+  <% @items.disabled_only.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <p><a href="/merchants/<%= @merchant.id %>/items/<%= item.id %>" ><%= item.name %></a></p>
+    </div>
+  <% end %>
+</section>

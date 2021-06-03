@@ -6,7 +6,7 @@ RSpec.describe 'The merchant items index' do
     @item_1 = @merchant.items.create!(name: 'Audrey II', description: 'Large, man-eating plant', unit_price: '100000000', enabled: true)
     @item_2 = @merchant.items.create!(name: 'Bouquet of roses', description: '12 red roses', unit_price: '1900', enabled: true)
     @item_3 = @merchant.items.create!(name: 'Orchid', description: 'Purple, 3 inches', unit_price: '2700', enabled: false)
-    @item_4 = @merchant.items.create!(name: 'Echivaria', description: 'Peacock varietal', unit_price: '3100', enabled: true)
+    @item_4 = @merchant.items.create!(name: 'Echevaria', description: 'Peacock varietal', unit_price: '3100', enabled: true)
   end
 
   it 'lists all of the items' do
@@ -15,7 +15,7 @@ RSpec.describe 'The merchant items index' do
     expect(page).to have_content 'Audrey II'
     expect(page).to have_content 'Bouquet of roses'
     expect(page).to have_content 'Orchid'
-    expect(page).to have_content 'Echivaria'
+    expect(page).to have_content 'Echevaria'
   end
 
   it 'links to each item show page' do
@@ -31,7 +31,7 @@ RSpec.describe 'The merchant items index' do
   it 'groups items by status' do
     visit "/merchants/#{@merchant.id}/items"
 
-    within "div#enabled_items" do
+    within "section#enabled" do
       expect(page).to have_content 'Enabled Items'
       expect(page).to have_content 'Audrey II'
       expect(page).to have_content 'Bouquet of roses'
@@ -41,7 +41,7 @@ RSpec.describe 'The merchant items index' do
       expect(page).to_not have_content 'Orchid'
     end
 
-    within "div#disabled_items" do
+    within "section#disabled" do
       expect(page).to have_content 'Disabled Items'
       expect(page).to have_content 'Orchid'
       expect(page).to have_button 'Enable'
