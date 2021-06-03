@@ -8,4 +8,12 @@ class Item < ApplicationRecord
     price = (BigDecimal(unit_price)/100).to_f
     sprintf("$%#.2f", price)
   end
+
+  def self.enabled_only
+    where(enabled: true)
+  end
+
+  def self.disabled_only
+    where(enabled: false)
+  end
 end
