@@ -5,3 +5,10 @@
   <li><%= link_to "Merchants Index", '/admin/merchants' %></li>
   <li><%= link_to "Invoices Index", '/admin/invoices' %></li>
 </ul>
+
+<h2>Top 5 Customers:</h2>
+<ol>
+  <% @top_customers.each do |customer| %>
+    <li><%= "#{customer[0][1]} #{customer[0][0]}: #{customer[1]} transactions" %></li>
+  <% end %>
+</ol>
