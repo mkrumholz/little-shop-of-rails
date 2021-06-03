@@ -30,4 +30,7 @@ RSpec.describe 'Admin Merchants Index' do
 
     expect(page).to have_current_path("/admin/merchants/#{@signs.id}")
   end
+
+  it 'has a button to enable or disable each merchant'
+  it 'on clicking the button, it updates merchant status'
 end

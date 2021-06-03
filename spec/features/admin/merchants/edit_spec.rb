@@ -16,7 +16,8 @@ RSpec.describe 'Admin Merchant Edit' do
     click_button 'Update Merchant'
 
     expect(page).to have_current_path("/admin/merchants/#{@signs.id}?update=true")
-    within("h1") do
+
+    within("#merchant-#{@signs.id}") do
       expect(page).to have_content("Salmander Signage")
       expect(page).to_not have_content("Sal's Signs")
     end
