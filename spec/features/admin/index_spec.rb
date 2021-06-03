@@ -81,8 +81,54 @@ RSpec.describe 'index.html.erb' do
     end
   end
   describe 'Incomplete Invoices' do
+    before :each do
+      @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
+      @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
+      @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
+      @customer_3 = Customer.create!(first_name: 'Shim', last_name: 'Stalone')
+      @customer_4 = Customer.create!(first_name: 'Bado', last_name: 'Reason')
+      @customer_5 = Customer.create!(first_name: 'Timothy', last_name: 'Richard')
+      @customer_6 = Customer.create!(first_name: 'Alex', last_name: '19th')
+      @invoice_1 = @customer_1.invoices.create!(status: 1)
+      @invoice_2 = @customer_2.invoices.create!(status: 1)
+      @invoice_3 = @customer_3.invoices.create!(status: 1)
+      @invoice_4 = @customer_4.invoices.create!(status: 1)
+      @invoice_5 = @customer_5.invoices.create!(status: 1)
+      @invoice_6 = @customer_6.invoices.create!(status: 1)
+      @item_1 = @merchant_1.items.create!(name: 'Pogs', description: 'Stack of pogs.', unit_price: 500,)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_1)
+      InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_1)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_2)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_3)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_4)
+      InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_5)
+      InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_6)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_6)
+      visit '/admin'
+    end
+      # Then I see a section for "Incomplete Invoices"
+      # In that section I see a list of the ids of all invoices
+      # That have items that have not yet been shipped
+      # And each invoice id links to that invoice's admin show page
     it 'displays a list of all invoices with unshipped items' do
+      expect(page).to have_content("Incomplete Invoices")
+      expect(page).to have_content(@invoice_1.id)
+      expect(page).to have_content(@invoice_2.id)
+      expect(page).to have_content(@invoice_3.id)
+      expect(page).to have_content(@invoice_4.id)
+      expect(page).to have_content(@invoice_6.id)
+      expect(page).to_not have_content(@invoice_5.id)
+    end
+    it 'links the ids to their admin show page' do
+      expect(page).to expect(page).to have_link("Invoice #{@invoice_1.id}")
+      expect(page).to expect(page).to have_link("Invoice #{@invoice_2.id}")
+      expect(page).to expect(page).to have_link("Invoice #{@invoice_3.id}")
+      expect(page).to expect(page).to have_link("Invoice #{@invoice_4.id}")
+      expect(page).to expect(page).to have_link("Invoice #{@invoice_6.id}")
 
+      click_link("Invoice #{@invoice_1.id}")
+
+      expect(page).to have_current_path("/admin/invoices/#{@invoice_1.id}")
     end
   end
 end
