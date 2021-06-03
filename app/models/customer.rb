@@ -4,4 +4,12 @@ class Customer < ApplicationRecord
   def self.top_five_completed_transactions
     joins(invoices: :transactions).where('transactions.result = 1').group([:last_name, :first_name]).order('count_status desc', :last_name).limit(5).count('status').to_a
   end
+
+  def self.top_5_customers
+    joins(invoices: :transactions)
+    .select("customers.first_name, customers.last_name, transactions.result")
+    .where("transactions.result = ?", 1)
+    .group("customers.id, transactions.result")
+    .order("transactions.result desc").limit(5)
+  end
 end
