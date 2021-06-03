@@ -10,7 +10,7 @@ RSpec.describe 'Dashboard' do
 
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
 
-      visit "/merchants/#{merchant.id}/dashboards"
+      visit "/merchants/#{merchant.id}/dashboard"
 
       expect(page).to have_content(merchant.name)
     end
@@ -24,7 +24,7 @@ RSpec.describe 'Dashboard' do
 
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
 
-      visit "/merchants/#{merchant.id}/dashboards"
+      visit "/merchants/#{merchant.id}/dashboard"
 
       expect(page).to have_link("My Items")
       expect(page).to have_link("My Invoices")
@@ -47,8 +47,8 @@ RSpec.describe 'Dashboard' do
       # conducted with my merchant
 
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
-      #item create 
-      visit "/merchants/#{merchant.id}/dashboards"
+      #item create
+      visit "/merchants/#{merchant.id}/dashboard"
 
 
     end

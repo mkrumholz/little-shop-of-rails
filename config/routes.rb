@@ -7,6 +7,6 @@ Rails.application.routes.draw do
   end
 
   resources :merchants, only: [:show] do
-    resources :dashboards, only: [:index]
+    get '/dashboard', to: 'dashboard#show'
   end
 end
