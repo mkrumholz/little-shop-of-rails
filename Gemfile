@@ -42,7 +42,8 @@ group :development, :test do
   gem 'rspec-rails', '~> 4.0.1'
   gem 'shoulda-matchers'
   gem 'capybara'
-  gem 'simplecov'
+  gem 'orderly'
+  gem 'simplecov', require: false
 end
 
 group :development do
