@@ -1,1 +1,8 @@
-<h3>Admin Merchants Dashboard</h3>
+<h1>Admin Merchant Index</h1>
+
+<h3>All Merchants</h3>
+<ul id="merchant-list">
+  <% @merchants.each do |merchant| %>
+    <li><%= link_to merchant.name, admin_merchant_path(merchant.id) %></li>
+  <% end %>
+</ul>

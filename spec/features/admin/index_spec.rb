@@ -27,4 +27,11 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_current_path('/admin/invoices')
     end
   end
+  describe 'Top 5 Customers' do
+    it 'shows the 5 customers with the most successful transactions' do
+      visit '/admin'
+
+      expect(page).to have_content()
+    end
+  end
 end
