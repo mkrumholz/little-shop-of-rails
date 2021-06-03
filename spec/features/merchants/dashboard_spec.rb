@@ -15,7 +15,7 @@ RSpec.describe 'Dashboard' do
       expect(page).to have_content(merchant.name)
     end
 
-    it 'can see the name of the merchants' do
+    it 'can see links to the merchant items & invoice indexes' do
       # Merchant Dashboard Links
       # As a merchant,
       # When I visit my merchant dashboard
@@ -35,6 +35,22 @@ RSpec.describe 'Dashboard' do
       # click_link("My Invoices")
       #
       # expect(page).to have_current_path("/merchants/#{merchant.id}/invoices")
+    end
+
+    it 'can see the name of the top 5 customers' do
+      # Merchant Dashboard Statistics - Favorite Customers
+      # As a merchant,
+      # When I visit my merchant dashboard
+      # Then I see the names of the top 5 customers
+      # who have conducted the largest number of successful transactions with my merchant
+      # And next to each customer name I see the number of successful transactions they have
+      # conducted with my merchant
+
+      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      #item create 
+      visit "/merchants/#{merchant.id}/dashboards"
+
+
     end
   end
 end
