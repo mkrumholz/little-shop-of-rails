@@ -9,6 +9,7 @@ RSpec.describe 'index.html.erb' do
         expect(page).to have_content('Admin Dashboard')
       end
     end
+    
     it 'has links to the admin merchants index' do
       visit '/admin'
       save_and_open_page
@@ -18,6 +19,7 @@ RSpec.describe 'index.html.erb' do
 
       expect(page).to have_current_path('/admin/merchants')
     end
+    
     it 'has links to the admin invoices index' do
       visit '/admin'
 

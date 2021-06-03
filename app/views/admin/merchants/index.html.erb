@@ -1,1 +1,8 @@
-<h3>Admin Merchants Dashboard</h3>
+<h3>Admin Merchant Index</h3>
+
+<h5>All Merchants</h5>
+<ul>
+  <% @merchants.each do |merchant| %>
+    <li><%= merchant.name %></li>
+  <% end %>
+</ul>
