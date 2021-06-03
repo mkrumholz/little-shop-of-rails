@@ -1,7 +1,11 @@
-<h1>My Items</h1>
+<h1>Little Esty Shop</h1>
+
+<h2>@merchant.name</h2>
+
+<h3>My Items</h3>
 
 <% @items.each do |item| %>
   <div id="item-<%= item.id %>">
-    <%= item.name %>
+    <p><a href="/merchants/<%= @merchant.id %>/items/<%= item.id %>" ><%= item.name %></a></p>
   </div>
 <% end %>
