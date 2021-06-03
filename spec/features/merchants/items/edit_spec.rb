@@ -11,14 +11,34 @@ RSpec.describe 'The merchant item show page' do
 
     expect(page).to have_content @item_1.name
     
-    fill_in :name, with: 'The Perfect Crime'
+    fill_in 'item[name]', with: 'The Perfect Crime'
     click_on 'Update item'
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
     expect(page).to have_content 'The Perfect Crime'
   end
 
-  it 'can update the item description' 
+  it 'can update the item description' do
+    visit "/merchants/#{@merchant.id}/items/#{@item_1.id}/edit"
 
-  it 'can update the item unit_price'
+    expect(page).to have_content @item_1.name
+    
+    fill_in 'item[description]', with: "The world\'s best plant"
+    click_on 'Update item'
+
+    expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
+    expect(page).to have_content "The world\'s best plant"
+  end 
+
+  it 'can update the item unit_price' do
+    visit "/merchants/#{@merchant.id}/items/#{@item_1.id}/edit"
+
+    expect(page).to have_content @item_1.name
+    
+    fill_in 'item[unit_price]', with: 7200000
+    click_on 'Update item'
+
+    expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
+    expect(page).to have_content '$72000.00'
+  end
 end
