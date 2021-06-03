@@ -15,10 +15,15 @@ RSpec.describe 'Admin Merchants Index' do
     expect(page).to have_content(@amphs.name)
   end
 
-  it 'links to the admin merchant show page in each merchant name' do
-    save_and_open_page
+  it 'has a link to the admin merchant show page in each merchant name' do
     expect(page).to have_link("#{@signs.name}", :href=>"/admin/merchants/#{@signs.id}")
     expect(page).to have_link("#{@tees.name}", :href=>"/admin/merchants/#{@tees.id}")
     expect(page).to have_link("#{@amphs.name}", :href=>"/admin/merchants/#{@amphs.id}")
+  end
+
+  it 'link directs to show page' do
+    click_link("#{@signs.name}")
+
+    expect(page).to have_current_path("/admin/merchants/#{@signs.id}")
   end
 end
