@@ -3,4 +3,8 @@ Rails.application.routes.draw do
   resources :merchants, only: [:show] do
     resources :items, only: [:index, :show]
   end
+
+  namespace :admin do
+    resources :merchants, except: [:delete, :put]
+  end
 end
