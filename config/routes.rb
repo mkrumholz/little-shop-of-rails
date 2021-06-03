@@ -5,7 +5,9 @@ Rails.application.routes.draw do
     resources :items, only: [:index, :show]
   end
 
-  resources :admin, only: [:index] do
-    resources :merchants, only: [:index]
+  resources :admin, only: [:index]
+
+  namespace :admin do
+   resources :merchants, except: [:delete, :put]
   end
 end
