@@ -44,6 +44,7 @@ group :development, :test do
   gem 'capybara'
   gem 'orderly'
   gem 'simplecov', require: false
+  gem 'launchy'
 end
 
 group :development do
