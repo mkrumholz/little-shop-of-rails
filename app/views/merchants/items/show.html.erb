@@ -4,6 +4,6 @@
 
 <p>Description: <%= @item.description %></p>
 
-<p>Current price: <%= number_to_currency(@item.price_in_dollars) %></p>
+<p>Current price: <%= number_to_currency(@item.price_to_dollars) %></p>
 
 <%= link_to 'Edit item details', edit_merchant_item_path(@merchant.id, @item.id), method: :get, local: true %>

@@ -6,7 +6,7 @@ class Item < ApplicationRecord
   validates_presence_of :name, :description, :unit_price
   validates_inclusion_of :enabled, in: [true, false]
 
-  def price_in_dollars
+  def price_to_dollars
     (BigDecimal(unit_price)/100).to_f
   end
 

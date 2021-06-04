@@ -17,7 +17,6 @@ class Merchants::ItemsController < ApplicationController
     @item = Item.find(params[:id])
     if params[:item][:enabled].present? && @item.update(item_params)
       redirect_to merchant_items_path(@merchant.id)
-      # should I have a sad path above even though there's no user input?
     elsif @item.update(item_params)
       redirect_to merchant_item_path(@merchant.id, @item.id)
       flash[:alert] = "Victory! 🥳 This item has been successfully updated."

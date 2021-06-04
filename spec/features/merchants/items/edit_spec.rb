@@ -36,11 +36,11 @@ RSpec.describe 'The merchant item show page' do
 
     expect(page).to have_content @item_1.name
     
-    fill_in 'item[unit_price]', with: 7200000
+    fill_in 'item[unit_price]', with: 72000.01
     click_on 'Update item'
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
-    expect(page).to have_content '$72,000.00'
+    expect(page).to have_content '$72,000.01'
   end
 
   it 'shows an error message if item is not successfully updated' do

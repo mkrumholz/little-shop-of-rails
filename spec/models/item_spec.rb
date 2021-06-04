@@ -46,9 +46,9 @@ RSpec.describe Item do
       @item_1 = @merchant.items.create!(name: 'Audrey II', description: 'Large, man-eating plant', unit_price: '100000000')
     end
 
-    describe '#price_in_dollars' do
+    describe '#price_to_dollars' do
       it 'displays the price of the item in dollars' do
-        expect(@item_1.price_in_dollars).to eq 1000000.0
+        expect(@item_1.price_to_dollars).to eq 1000000.0
       end
     end
   end
