@@ -10,7 +10,7 @@ namespace :csv_load do
         :updated_at => row[4]
         })
     end
-  endß
+  end
 
   task invoice_items: :environment do
     CSV.foreach('./db/data/invoice_items.csv', headers: true) do |row|
