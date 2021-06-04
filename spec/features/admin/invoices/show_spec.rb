@@ -18,5 +18,10 @@ RSpec.describe 'admin/invoices/show.html.erb' do
       expect(page).to have_content(@invoice_1.status)
       expect(page).to have_content('Monday, January 01, 2001')
     end
+    it 'displays invoices customer name' do
+      expect(page).to have_content(@customer_1.first_name)
+      expect(page).to have_content(@customer_1.last_name)
+
+    end
   end
 end
