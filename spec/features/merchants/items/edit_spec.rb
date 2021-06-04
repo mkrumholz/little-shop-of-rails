@@ -16,6 +16,7 @@ RSpec.describe 'The merchant item show page' do
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
     expect(page).to have_content 'The Perfect Crime'
+    expect(page).to have_content 'Victory! 🥳 This item has been successfully updated.'
   end
 
   it 'can update the item description' do
@@ -49,6 +50,6 @@ RSpec.describe 'The merchant item show page' do
     click_on 'Update item'
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}/edit"
-    expect(page).to have_content 'Some error message'
+    expect(page).to have_content 'Error: Name can\'t be blank'
   end
 end
