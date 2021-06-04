@@ -3,9 +3,14 @@ require 'csv'
 namespace :csv_load do
   task customers: :environment do
     CSV.foreach('./db/data/customers.csv', headers: true) do |row|
-      Customer.create!(row.to_hash)
+      Customer.create!({
+        :first_name => row[1],
+        :last_name => row[2],
+        :created_at => row[3],
+        :updated_at => row[4]
+        })
     end
-  end
+  endß
 
   task invoice_items: :environment do
     CSV.foreach('./db/data/invoice_items.csv', headers: true) do |row|
@@ -48,7 +53,14 @@ namespace :csv_load do
 
   task items: :environment do
     CSV.foreach('./db/data/items.csv', headers: true) do |row|
-      Item.create!(row.to_hash)
+      Item.create!({
+        :name => row[1],
+        :description => row[2],
+        :unit_price => row[3],
+        :merchant_id => row[4],
+        :created_at => row[5],
+        :updated_at => row[6]
+        })
     end
   end
 
