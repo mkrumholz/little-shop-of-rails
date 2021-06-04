@@ -6,6 +6,9 @@ class Invoice < ApplicationRecord
   has_many :transactions
 
   def self.unshipped_items
-    joins(:invoice_items).where('invoice_items.status != 2').select('invoices.*').group('invoices.id').distinct
+    joins(:invoice_items)
+    .where('invoice_items.status != 2')
+    .select('invoices.*')
+    .group('invoices.id')
   end
 end
