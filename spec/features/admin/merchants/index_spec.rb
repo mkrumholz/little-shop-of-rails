@@ -81,4 +81,8 @@ RSpec.describe 'Admin Merchants Index' do
       expect(page).to have_content(@amphs.name)
     end
   end
+
+  it 'shows a link to create a new merchant that redirects to a create form' do
+    expect(page).to have_link("New Merchant", :href => "/admin/merchants/new")
+  end
 end
