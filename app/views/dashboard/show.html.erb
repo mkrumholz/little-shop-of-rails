@@ -2,3 +2,11 @@
 
 <%= link_to "My Items", "/merchants/#{@merchant_id}/items" %>
 <%= link_to "My Invoices", "/merchants/#{@merchant_id}/invoices" %>
+
+<h3>Favorite Customers</h3>
+<% @customers.top_5_customers.each do |customer| %>
+  <p> <%= customer.first_name %> <%= customer.last_name %> </p>
+  <% customer.invoices.each do |invoice| %>
+    <%= invoice.transactions.count %>
+  <% end %>
+<% end %>
