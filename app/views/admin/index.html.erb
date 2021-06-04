@@ -8,15 +8,25 @@
 
 
 <h2>Top 5 Customers:</h2>
-<ol>
+<table>
+  <th>Customer name:</th>
+  <th>Successful transactions:</th>
   <% @top_customers.each do |customer| %>
-    <li><%= "#{customer.first_name} #{customer.last_name}: #{customer.tran_count} transactions" %></li>
+    <tr>
+      <td><%= "#{customer.first_name} #{customer.last_name}" %></td>
+      <td><%= "#{customer.tran_count} transactions" %></td>
+    </tr>
   <% end %>
-</ol><br>
+</table>
 
 <h2>Incomplete Invoices</h2>
-<ul>
+<table>
+  <th>Invoice id:</th>
+  <th>Date created:</th>
   <% @incomplete_invoices.each do |invoice| %>
-    <li><%= link_to( "Invoice #{invoice.id}", "/admin/invoices/#{invoice.id}" ) %> <%= "Created on: #{invoice.created_at.strftime('%A, %B %d, %Y')}"%></li>
+    <tr>
+      <td><%= link_to( "Invoice #{invoice.id}", admin_invoice_path(invoice.id) ) %></td>
+      <td><%= "Created on: #{invoice.created_at.strftime('%A, %B %d, %Y')}"%></td>
+    </tr>
   <% end %>
-</ul>
+</table>
