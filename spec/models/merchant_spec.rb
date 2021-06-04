@@ -7,15 +7,42 @@ RSpec.describe Merchant do
 
   end
 
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+  end
+
+  describe 'callbacks' do
+      it 'after_initialization it sets status to false if nil' do
+        test = Merchant.create!(name: "test")
+        expect(test.status).to eq(false)
+      end
+  end
+
+  before :each do
+    @signs = Merchant.create!(name: "Sal's Signs", status: true)
+    @tees = Merchant.create!(name: "T-shirts by Terry", status: true)
+    @amphs = Merchant.create!(name: "All About Amphibians", status: false)
+  end
+
   describe 'instance methods' do
     it '#render_status returns Enabled or Disabled based on boolean status' do
-      tees = Merchant.create!(name: "T-shirts by Terry", status: true)
-      amphs = Merchant.create!(name: "All About Amphibians", status: false)
+      expect(@tees.render_status[:status]).to eq("Enabled")
+      expect(@tees.render_status[:action]).to eq("Disable")
+      expect(@amphs.render_status[:status]).to eq("Disabled")
+      expect(@amphs.render_status[:action]).to eq("Enable")
+    end
+  end
 
-      expect(tees.render_status[:status]).to eq("Enabled")
-      expect(tees.render_status[:action]).to eq("Disable")
-      expect(amphs.render_status[:status]).to eq("Disabled")
-      expect(amphs.render_status[:action]).to eq("Enable")
+  describe 'class methods' do
+    it '.enabled merchants returns merchantes with status = true' do
+      expect(Merchant.enabled.count).to eq(2)
+      expect(Merchant.enabled.first).to eq(@signs)
+      expect(Merchant.enabled.last).to eq(@tees)
+    end
+
+    it '.disabled merchants returns merchantes with status = false' do
+      expect(Merchant.disabled.count).to eq(1)
+      expect(Merchant.disabled.first).to eq(@amphs)
     end
   end
 end

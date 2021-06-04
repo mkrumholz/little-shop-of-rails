@@ -31,21 +31,6 @@ RSpec.describe 'Admin Merchants Index' do
     expect(page).to have_current_path("/admin/merchants/#{@signs.id}")
   end
 
-  it 'shows the merchant status (enabled or disabled)' do
-    within("#merchant-#{@signs.id}") do
-      expect(page).to have_content("Enabled")
-      expect(page).to_not have_content("Disabled")
-    end
-    within("#merchant-#{@tees.id}") do
-      expect(page).to have_content("Enabled")
-      expect(page).to_not have_content("Disabled")
-    end
-    within("#merchant-#{@amphs.id}") do
-      expect(page).to have_content("Disabled")
-      expect(page).to_not have_content("Enabled")
-    end
-  end
-
   it 'has a button to enable or disable each merchant' do
     within("#merchant-#{@signs.id}") do
       expect(page).to have_button("Disable")
@@ -65,26 +50,35 @@ RSpec.describe 'Admin Merchants Index' do
     within("#merchant-#{@signs.id}") do
       click_button "Disable"
       expect(page).to have_current_path('/admin/merchants')
-      expect(page).to have_content("Disabled")
-      expect(page).to_not have_content("Enabled")
       expect(page).to have_button("Enable")
       expect(page).to_not have_button("Disable")
     end
     within("#merchant-#{@tees.id}") do
       click_button "Disable"
       expect(page).to have_current_path('/admin/merchants')
-      expect(page).to have_content("Disabled")
-      expect(page).to_not have_content("Enabled")
       expect(page).to have_button("Enable")
       expect(page).to_not have_button("Disable")
     end
     within("#merchant-#{@amphs.id}") do
       click_button "Enable"
       expect(page).to have_current_path('/admin/merchants')
-      expect(page).to have_content("Enabled")
-      expect(page).to_not have_content("Disabled")
       expect(page).to have_button("Disable")
       expect(page).to_not have_button("Enable")
+    end
+  end
+
+  it 'shows merchants in sections based on status' do
+    within("#enabled") do
+      expect(page).to have_content("Enabled Merchants")
+      expect(page).to have_content(@signs.name)
+      expect(page).to have_content(@tees.name)
+      expect(page).to_not have_content(@amphs.name)
+    end
+    within("#disabled") do
+      expect(page).to have_content("Disabled Merchants")
+      expect(page).to_not have_content(@signs.name)
+      expect(page).to_not have_content(@tees.name)
+      expect(page).to have_content(@amphs.name)
     end
   end
 end
