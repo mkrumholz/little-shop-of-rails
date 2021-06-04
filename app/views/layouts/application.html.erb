@@ -12,7 +12,7 @@
   <body>
     <h1>Little Esty Shop</h1>
     <% flash.each do |type, msg| %>
-      <div>
+      <div class=<%=type%>>
         <%= msg %>
       </div>
     <% end %>

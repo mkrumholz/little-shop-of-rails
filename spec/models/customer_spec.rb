@@ -39,14 +39,12 @@ RSpec.describe Customer do
     end
     describe '#top_five_completed_transactions' do
       it 'returns the 5 customers with the most completed transactions' do
-        actual = [
-        [["Reason", "Bado"], 5],
-        [["19th", "Alex"], 4],
-        [["Richard", "Timothy"], 3],
-        [["Johnson", "Madi"], 2],
-        [["Stalone", "Shim"], 1]
-        ]
-        expect(Customer.top_five_completed_transactions).to eq(actual)
+        actual = Customer.top_five_completed_transactions
+
+        expect(actual.first.first_name).to eq('Bado')
+        expect(actual.first.tran_count).to eq(5)
+        expect(actual.last.first_name).to eq('Shim')
+        expect(actual.last.tran_count).to eq(1)
       end
     end
   end

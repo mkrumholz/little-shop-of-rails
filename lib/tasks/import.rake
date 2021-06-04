@@ -3,7 +3,12 @@ require 'csv'
 namespace :csv_load do
   task customers: :environment do
     CSV.foreach('./db/data/customers.csv', headers: true) do |row|
-      Customer.create!(row.to_hash)
+      Customer.create!({
+        :first_name => row[1],
+        :last_name => row[2],
+        :created_at => row[3],
+        :updated_at => row[4]
+        })
     end
   end
 
@@ -17,7 +22,6 @@ namespace :csv_load do
         status = 2
       end
       InvoiceItem.create!({
-        :id => row[0],
         :item_id => row[1],
         :invoice_id => row[2],
         :quantity => row[3],
@@ -39,7 +43,6 @@ namespace :csv_load do
         status = 2
       end
       Invoice.create!({
-        :id => row[0],
         :customer_id => row[1],
         :status => status,
         :created_at => row[3],
@@ -50,13 +53,25 @@ namespace :csv_load do
 
   task items: :environment do
     CSV.foreach('./db/data/items.csv', headers: true) do |row|
-      Item.create!(row.to_hash)
+      Item.create!({
+        :name => row[1],
+        :description => row[2],
+        :unit_price => row[3],
+        :merchant_id => row[4],
+        :created_at => row[5],
+        :updated_at => row[6]
+        })
     end
   end
 
   task merchants: :environment do
     CSV.foreach('./db/data/merchants.csv', headers: true) do |row|
-      Merchant.create!(row.to_hash)
+      Merchant.create!({
+        :name => row[1],
+        :status => false,
+        :created_at => row[2],
+        :updated_at => row[3]
+      })
     end
   end
 
@@ -68,7 +83,6 @@ namespace :csv_load do
         result = 1
       end
       Transaction.create!({
-        :id => row[0],
         :invoice_id => row[1],
         :credit_card_number => row[2],
         :credit_card_expiration_date => row[3],

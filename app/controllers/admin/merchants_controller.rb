@@ -23,4 +23,12 @@ class Admin::MerchantsController < ApplicationController
 
     redirect_to "/admin/merchants/#{merchant.id}?update=true"
   end
+
+  def update_status
+    merchant = Merchant.find(params[:id])
+    merchant.update(status: !merchant.status)
+
+    redirect_to "/admin/merchants"
+  end
+
 end
