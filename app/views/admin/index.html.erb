@@ -12,4 +12,11 @@
   <% @top_customers.each do |customer| %>
     <li><%= "#{customer.first_name} #{customer.last_name}: #{customer.tran_count} transactions" %></li>
   <% end %>
-</ol>
+</ol><br>
+
+<h2>Incomplete Invoices</h2>
+<ul>
+  <% @incomplete_invoices.each do |invoice| %>
+    <li><%= link_to( "Invoice #{invoice.id}", "/admin/invoices/#{invoice.id}" ) %></li>
+  <% end %>
+</ul>
