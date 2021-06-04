@@ -10,7 +10,7 @@ Rails.application.routes.draw do
 
   resources :merchants, only: [:show] do
     scope module: :merchants do
-      resources :items, except: [:delete, :create]
+      resources :items
     end
   end
 end
