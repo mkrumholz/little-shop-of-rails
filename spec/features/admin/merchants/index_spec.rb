@@ -68,13 +68,13 @@ RSpec.describe 'Admin Merchants Index' do
   end
 
   it 'shows merchants in sections based on status' do
-    within(".enabled") do
+    within("#enabled") do
       expect(page).to have_content("Enabled Merchants")
       expect(page).to have_content(@signs.name)
       expect(page).to have_content(@tees.name)
       expect(page).to_not have_content(@amphs.name)
     end
-    within(".disabled") do
+    within("#disabled") do
       expect(page).to have_content("Disabled Merchants")
       expect(page).to_not have_content(@signs.name)
       expect(page).to_not have_content(@tees.name)

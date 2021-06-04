@@ -10,4 +10,11 @@ class Merchant < ApplicationRecord
     end
   end
 
+  def self.enabled
+    where(status: true)
+  end
+  
+  def self.disabled
+    where(status: false)
+  end
 end
