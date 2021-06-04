@@ -4,3 +4,12 @@
 <h3><%= "Status: #{@invoice.status}" %></h3>
 <h3><%= "Created on: #{@invoice.created_at.strftime('%A, %B %d, %Y')}"%></h3>
 <h3><%= "Customer: #{@customer.first_name} #{@customer.last_name}" %></h3>
+
+<h2>Items:</h2>
+<ul>
+  <% @items.each do |item| %>
+    <li><%= "Item: #{item.name}" %></li>
+    <li><%= "Quantity: #{item.quantity}" %></li>
+    <li><%= "Sale Price: $#{(item.sale_price.to_f / 100).round(2)}" %></li>
+  <% end %>
+</ul>
