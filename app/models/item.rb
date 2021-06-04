@@ -1,5 +1,6 @@
-
 class Item < ApplicationRecord
+  include Dollarable
+
   has_many :invoice_items, dependent: :destroy
   has_many :invoices, through: :invoice_items
   belongs_to :merchant
@@ -7,7 +8,7 @@ class Item < ApplicationRecord
   validates_inclusion_of :enabled, in: [true, false]
 
   def price_to_dollars
-    (BigDecimal(unit_price)/100).to_f
+    price_in_dollars(unit_price)
   end
 
   def self.enabled_only
