@@ -41,4 +41,14 @@ RSpec.describe 'The merchant item show page' do
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
     expect(page).to have_content '$72000.00'
   end
+
+  it 'shows an error message if item is not successfully updated' do
+    visit "/merchants/#{@merchant.id}/items/#{@item_1.id}/edit"
+
+    fill_in 'item[name]', with: nil
+    click_on 'Update item'
+
+    expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}/edit"
+    expect(page).to have_content 'Some error message'
+  end
 end
