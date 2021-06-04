@@ -21,5 +21,12 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_content(@invoice_5.id)
       expect(page).to have_content(@invoice_6.id)
     end
+    it 'has links to the invoice show pages' do
+      expect(page).to have_link("Invoice #{@invoice_1.id}")
+
+      click_link("Invoice #{@invoice_1.id}")
+
+      expect(page).to have_current_path("/admin/invoices/#{@invoice_1.id}")
+    end
   end
 end
