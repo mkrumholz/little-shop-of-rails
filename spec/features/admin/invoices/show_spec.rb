@@ -37,7 +37,7 @@ RSpec.describe 'admin/invoices/show.html.erb' do
       # The price the Item sold for
       # The Invoice Item status
       save_and_open_page
-    
+
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_2.name)
       expect(page).to have_content(@item_3.name)
