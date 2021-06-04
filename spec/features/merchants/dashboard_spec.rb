@@ -83,17 +83,22 @@ RSpec.describe 'Dashboard' do
       transaction_21 = invoice_6.transactions.create!(credit_card_number: '4111839154984763', credit_card_expiration_date: '11/42', result: 1)
 
       visit "/merchants/#{merchant.id}/dashboard"
-      save_and_open_page
+
       expect(page).to have_content(customer_1.first_name)
       expect(page).to have_content(customer_1.last_name)
+      expect(page).to have_content("6 purchases")
       expect(page).to have_content(customer_2.first_name)
       expect(page).to have_content(customer_2.last_name)
+      expect(page).to have_content("5 purchases")
       expect(page).to have_content(customer_3.first_name)
       expect(page).to have_content(customer_3.last_name)
+      expect(page).to have_content("4 purchases")
       expect(page).to have_content(customer_4.first_name)
       expect(page).to have_content(customer_4.last_name)
+      expect(page).to have_content("3 purchases")
       expect(page).to have_content(customer_5.first_name)
       expect(page).to have_content(customer_5.last_name)
+      expect(page).to have_content("2 purchases")
       expect(page).to_not have_content(customer_6.first_name)
       expect(page).to_not have_content(customer_6.last_name)
     end
