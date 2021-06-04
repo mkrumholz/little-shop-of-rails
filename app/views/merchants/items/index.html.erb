@@ -6,16 +6,18 @@
   <% @items.enabled_only.each do |item| %>
     <div id="item-<%= item.id %>">
       <p><a href="/merchants/<%= @merchant.id %>/items/<%= item.id %>" ><%= item.name %></a></p>
+      <%= button_to 'Disable', merchant_item_path(@merchant.id, item.id), method: :patch, params: {:"item[enabled]" => false}, local: true %>
     </div>
   <% end %>
 </section>
 
 <section id="disabled">
-  <h3 id="disabled">Disabled Items</h3>
+  <h3>Disabled Items</h3>
 
   <% @items.disabled_only.each do |item| %>
     <div id="item-<%= item.id %>">
       <p><a href="/merchants/<%= @merchant.id %>/items/<%= item.id %>" ><%= item.name %></a></p>
+      <%= button_to 'Enable', merchant_item_path(@merchant.id, item.id), method: :patch, params: {:"item[enabled]" => true}, local: true %>
     </div>
   <% end %>
 </section>

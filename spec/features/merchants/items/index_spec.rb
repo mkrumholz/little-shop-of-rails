@@ -50,7 +50,39 @@ RSpec.describe 'The merchant items index' do
     end
   end
 
-  it 'can enable a disabled item'
+  it 'can enable a disabled item' do
+    visit "/merchants/#{@merchant.id}/items"
+    
+    within "div#item-#{@item_2.id}" do
+      click_on 'Disable'
+    end
 
-  it 'can disable an enabled item'
+    expect(current_path).to eq "/merchants/#{@merchant.id}/items"
+
+    within "section#enabled" do
+      expect(page).to_not have_content 'Bouquet of roses'
+    end
+
+    within "section#disabled" do
+      expect(page).to have_content 'Bouquet of roses'
+    end
+  end
+
+  it 'can disable an enabled item' do
+    visit "/merchants/#{@merchant.id}/items"
+    
+    within "div#item-#{@item_3.id}" do
+      click_on 'Enable'
+    end
+
+    expect(current_path).to eq "/merchants/#{@merchant.id}/items"
+
+    within "section#enabled" do
+      expect(page).to have_content 'Orchid'
+    end
+
+    within "section#disabled" do
+      expect(page).to_not have_content 'Orchid'
+    end
+  end
 end
