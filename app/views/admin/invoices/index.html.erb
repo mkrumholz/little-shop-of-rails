@@ -1,10 +1,1 @@
 <h1>Admin Invoices Index</h1>
-
-<table>
-  <th>Invoices</th>
-  <% @invoices.each do |invoice| %>
-    <tr>
-      <td><%= link_to "Invoice #{invoice.id}", admin_invoice_path(invoice.id) %></td>
-    </tr>
-  <% end %>
-</table>
