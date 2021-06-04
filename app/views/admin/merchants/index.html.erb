@@ -7,7 +7,6 @@
   <% @merchants.each do |merchant| %>
     <tr id="merchant-<%=merchant.id%>">
       <td><%= link_to merchant.name, admin_merchant_path(merchant.id) %></td>
-      <td><%= merchant.render_status[:status] %></td>
       <td><%= button_to merchant.render_status[:action], admin_merchants_path, method: :patch, params: {id: merchant.id}%></td>
     </tr>
   <% end %>
