@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Merchant Edit' do
   before :each do
-    @signs = Merchant.create!(name: "Sal's Signs")
+    @signs = Merchant.create!(name: "Sal's Signs", status: true)
 
     visit("/admin/merchants/#{@signs.id}/edit")
   end
@@ -16,7 +16,8 @@ RSpec.describe 'Admin Merchant Edit' do
     click_button 'Update Merchant'
 
     expect(page).to have_current_path("/admin/merchants/#{@signs.id}?update=true")
-    within("h1") do
+
+    within("#merchant-#{@signs.id}") do
       expect(page).to have_content("Salmander Signage")
       expect(page).to_not have_content("Sal's Signs")
     end

@@ -56,7 +56,13 @@ namespace :csv_load do
 
   task merchants: :environment do
     CSV.foreach('./db/data/merchants.csv', headers: true) do |row|
-      Merchant.create!(row.to_hash)
+      Merchant.create!({
+        :id => row[0],
+        :name => row[1],
+        :status => false,
+        :created_at => row[2],
+        :updated_at => row[3]
+      })
     end
   end
 
