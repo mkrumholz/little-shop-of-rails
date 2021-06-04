@@ -7,6 +7,17 @@ RSpec.describe Merchant do
 
   end
 
+  describe 'validations' do
+    it { should validate_presence_of(:name) }
+  end
+
+  describe 'callbacks' do
+      it 'after_initialization it sets status to false if nil' do
+        test = Merchant.create!(name: "test")
+        expect(test.status).to eq(false)
+      end
+  end
+
   before :each do
     @signs = Merchant.create!(name: "Sal's Signs", status: true)
     @tees = Merchant.create!(name: "T-shirts by Terry", status: true)
@@ -28,7 +39,7 @@ RSpec.describe Merchant do
       expect(Merchant.enabled.first).to eq(@signs)
       expect(Merchant.enabled.last).to eq(@tees)
     end
-    
+
     it '.disabled merchants returns merchantes with status = false' do
       expect(Merchant.disabled.count).to eq(1)
       expect(Merchant.disabled.first).to eq(@amphs)
