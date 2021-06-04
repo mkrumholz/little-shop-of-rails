@@ -4,7 +4,6 @@ class Merchant < ApplicationRecord
   after_initialize :init
 
   validates :name, presence: true
-  # validates :status, presence: true
 
   def init
     self.status = false if self.status.nil?
