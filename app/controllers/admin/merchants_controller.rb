@@ -20,7 +20,7 @@ class Admin::MerchantsController < ApplicationController
   def update
     merchant = Merchant.find(params[:id])
 
-    if merchant.update(name: params["merchant"]["name"])
+    if merchant.update(merchant_params)
       redirect_to "/admin/merchants/#{merchant.id}?update=true"
     else
       redirect_to "/admin/merchants/#{merchant.id}/edit"
@@ -33,6 +33,11 @@ class Admin::MerchantsController < ApplicationController
     merchant.update(status: !merchant.status)
 
     redirect_to "/admin/merchants"
+  end
+
+  private
+  def merchant_params
+    params.require(:merchant).permit(:name, :status)
   end
 
 end
