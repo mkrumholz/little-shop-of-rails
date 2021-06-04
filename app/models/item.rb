@@ -6,9 +6,8 @@ class Item < ApplicationRecord
   validates_presence_of :name, :description, :unit_price
   validates_inclusion_of :enabled, in: [true, false]
 
-  def display_price
-    price = (BigDecimal(unit_price)/100).to_f
-    sprintf("$%#.2f", price)
+  def price_in_dollars
+    (BigDecimal(unit_price)/100).to_f
   end
 
   def self.enabled_only
