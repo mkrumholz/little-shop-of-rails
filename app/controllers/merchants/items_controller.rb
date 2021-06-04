@@ -20,13 +20,7 @@ class Merchants::ItemsController < ApplicationController
     if params[:item][:enabled].present? && @item.update(item_params)
       redirect_to merchant_items_path(@merchant.id)
     else
-      if @item.update(item_params.merge(unit_price: price_to_cents(params[:item][:unit_price])))
-        redirect_to merchant_item_path(@merchant.id, @item.id)
-        flash[:alert] = "Victory! 🥳 This item has been successfully updated."
-      else
-        redirect_to edit_merchant_item_path(@merchant.id, @item.id)
-        flash[:alert] = "Error: #{error_message(@item.errors)}"
-      end
+      update_item_details(@merchant, @item, params)
     end 
   end
 
@@ -37,5 +31,15 @@ class Merchants::ItemsController < ApplicationController
   private
     def item_params
       params[:item].permit(:name, :description, :enabled)
+    end
+
+    def update_item_details(merchant, item, params)
+      if item.update(item_params.merge(unit_price: price_to_cents(params[:item][:unit_price])))
+        redirect_to merchant_item_path(merchant.id, item.id)
+        flash[:alert] = "Victory! 🥳 This item has been successfully updated."
+      else
+        redirect_to edit_merchant_item_path(merchant.id, item.id)
+        flash[:alert] = "Error: #{error_message(item.errors)}"
+      end
     end
 end
