@@ -28,3 +28,6 @@
 
 # Ignore coverage for simplecov
 /coverage/*
+
+# Ignore heroku folder
+/rocky-earth-65375
