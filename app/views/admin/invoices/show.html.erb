@@ -16,4 +16,5 @@
       </ul>
     </li>
   <% end %>
-</ol>
+</ol><br>
+<h2><%= "Total Revenue: $#{sprintf("%.2f",(@invoice.total_revenue.to_f / 100))}" %></h2>
