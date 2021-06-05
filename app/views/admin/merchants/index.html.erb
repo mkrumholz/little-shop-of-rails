@@ -29,4 +29,17 @@
   <% end %>
 </table>
 
+<br><br>
+
+<table id="top-5">
+  <th>Top Merchants</th>
+
+  <% @merchants.top_5_total_revenue.each do |merchant| %>
+    <tr>
+      <td><%= link_to merchant.merch_name, admin_merchant_path(merchant.merch_id) %></td>
+      <td><%= number_to_currency(merchant.revenue/100)%> in sales</td>
+    </tr>
+  <% end %>
+</table>
+
 </section>

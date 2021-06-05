@@ -83,13 +83,24 @@ RSpec.describe Merchant do
       expect(Merchant.disabled.last).to eq(@merch_6)
     end
 
-    it '.top_5_total_revenue returns the top 5 merchants by total revenue generated' do
-      output = Merchant.top_5_total_revenue
-      expect(output.first.merch_id).to eq(@merch_5.id)
-      expect(output.second.merch_id).to eq(@merch_3.id)
-      expect(output.third.merch_id).to eq(@merch_1.id)
-      expect(output.fourth.merch_id).to eq(@merch_6.id)
-      expect(output.last.merch_id).to eq(@merch_4.id)
+    describe '.top_5_total_revenue' do
+      it 'returns the top 5 merchants by total revenue generated' do
+        output = Merchant.top_5_total_revenue
+        expect(output.first.merch_id).to eq(@merch_5.id)
+        expect(output.second.merch_id).to eq(@merch_3.id)
+        expect(output.third.merch_id).to eq(@merch_1.id)
+        expect(output.fourth.merch_id).to eq(@merch_6.id)
+        expect(output.last.merch_id).to eq(@merch_4.id)
+      end
+
+      it 'calculates total revenue as sum of all invoice items unit prices * quantity on invoices with at least 1 successful transaction' do
+        output = Merchant.top_5_total_revenue
+        expect(output.first.revenue).to eq(2000)
+        expect(output.second.revenue).to eq(1500)
+        expect(output.third.revenue).to eq(1000)
+        expect(output.fourth.revenue).to eq(500)
+        expect(output.last.revenue).to eq(200)
+      end
     end
   end
 end
