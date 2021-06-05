@@ -11,6 +11,7 @@ Rails.application.routes.draw do
 
   resources :merchants, only: [:show] do
     get '/dashboard', to: 'dashboard#show'
+    resources :invoices, only: [:show]
     scope module: :merchants do
       resources :items
     end

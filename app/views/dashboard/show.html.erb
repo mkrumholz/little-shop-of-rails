@@ -5,5 +5,14 @@
 
 <h3>Favorite Customers</h3>
 <% @top_customers.each do |customer| %>
-  <p> <%= customer.first_name %> <%= customer.last_name %>: <%= customer.transaction_count %> purchases </p>
+  <p> <%= customer.first_name %> <%= customer.last_name %>:
+    <%= customer.transaction_count %> purchases </p>
 <% end %>
+
+<section>
+<h3>Items Ready To Ship</h3>
+<% @items_to_ship.each do |item| %>
+  <p> <%= item.name %>- <%= link_to "Invoice ##{item.invoice_id}", "/merchants/#{@merchant_id}/invoices/#{item.invoice_id}" %>
+    <%= item.invoice_creation.strftime('%A, %B %d, %Y') %> </p>
+<% end %>
+</section>
