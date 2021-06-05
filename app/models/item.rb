@@ -5,6 +5,7 @@ class Item < ApplicationRecord
   has_many :invoices, through: :invoice_items
   belongs_to :merchant
   validates_presence_of :name, :description, :unit_price
+  validates_inclusion_of :enabled, in: [true, false]
 
   def price_to_dollars
     price_in_dollars(unit_price)
