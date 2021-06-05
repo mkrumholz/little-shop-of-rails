@@ -23,7 +23,7 @@ RSpec.describe Item do
       @item_4 = @merchant.items.create!(name: 'Echevaria', description: 'Peacock varietal', unit_price: '3100', enabled: true)
       @item_5 = @merchant.items.create!(name: 'Silver Ring', description: 'Jewelery', unit_price: '2700', enabled: false)
       @invoice_1 = @item_1.invoices.create!(status: 1, created_at: "2012-03-06 14:54:15 UTC")
-      @invoice_4 = @item_4.invoices.create!(status: 1, created_at: "2012-03-09 14:54:15 UTC")
+      @invoice_4 = @item_4.invoices.create!(status: 1, created_at: "2012-03-05 14:54:15 UTC")
       @invoice_2 = @item_2.invoices.create!(status: 1, created_at: "2012-03-07 00:54:24 UTC")
       @invoice_3 = @item_3.invoices.create!(status: 1, created_at: "2012-03-08 14:54:15 UTC")
       @invoice_5 = @item_5.invoices.create!(status: 1, created_at: "2012-03-08 14:54:15 UTC")
@@ -51,10 +51,11 @@ RSpec.describe Item do
     end
 
     describe '.ready_to_ship' do
-      it 'returns only the items where invoice_item status = packaged' do
+      it 'returns only the items where invoice_item status = packaged & sorted by oldest to newest' do
         expect(Item.ready_to_ship.length).to eq 4
         expect(Item.ready_to_ship).to include @item_1, @item_2, @item_3, @item_4
         expect(Item.ready_to_ship).to_not include @item_5
+        expect(Item.ready_to_ship).to eq([@item_4, @item_1, @item_2, @item_3])
       end
     end
   end
