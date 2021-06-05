@@ -19,14 +19,14 @@ RSpec.describe 'The merchant items index' do
     @invoice_4 = @customer.invoices.create!(status: 1) # is successful and paid
     @invoice_5 = @customer.invoices.create!(status: 1) # has no successful transaction
 
-    @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 5000, status: 0)
-    @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 2500, status: 0)
-    @invoice_item_3 = @item_4.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 1000, status: 0)
-    @invoice_item_4 = @item_1.invoice_items.create!(invoice_id: @invoice_2.id, quantity: 2, unit_price: 5000, status: 0)
-    @invoice_item_5 = @item_1.invoice_items.create!(invoice_id: @invoice_3.id, quantity: 2, unit_price: 5000, status: 0)
-    @invoice_item_6 = @item_5.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 500, status: 0)
-    @invoice_item_7 = @item_6.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 200, status: 0)
-    @invoice_item_8 = @item_7.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 50, status: 0)
+    @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 5000, status: 0) # $10.00
+    @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 2500, status: 0) # $50.00
+    @invoice_item_3 = @item_4.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 1000, status: 0) # $20.00
+    @invoice_item_4 = @item_1.invoice_items.create!(invoice_id: @invoice_2.id, quantity: 2, unit_price: 5000, status: 0) # $0.00
+    @invoice_item_5 = @item_1.invoice_items.create!(invoice_id: @invoice_3.id, quantity: 2, unit_price: 5000, status: 0) # $0.00
+    @invoice_item_6 = @item_5.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 500, status: 0) # $10.00
+    @invoice_item_7 = @item_6.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 200, status: 0) # $4.00
+    @invoice_item_8 = @item_7.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 50, status: 0) # $1.00
 
     @invoice_1.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
     @invoice_2.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
@@ -142,11 +142,21 @@ RSpec.describe 'The merchant items index' do
     visit "/merchants/#{@merchant.id}/items"
 
     within "section#popular" do 
-      expect(page).to have_content 'Total revenue: 10000'
-      expect(page).to have_content 'Total revenue: 5000'
-      expect(page).to have_content 'Total revenue: 2000'
-      expect(page).to have_content 'Total revenue: 400'
-      expect(page).to have_content 'Total revenue: 100'
+      within "li#item-#{@item_1.id}" do
+        expect(page).to have_content 'Total revenue: $100.00'
+      end
+      within "li#item-#{@item_2.id}" do
+        expect(page).to have_content 'Total revenue: $50.00'
+      end
+      within "li#item-#{@item_4.id}" do
+        expect(page).to have_content 'Total revenue: $20.00'
+      end
+      within "li#item-#{@item_5.id}" do
+        expect(page).to have_content 'Total revenue: $10.00'
+      end
+      within "li#item-#{@item_6.id}" do
+        expect(page).to have_content 'Total revenue: $4.00'
+      end
     end
   end
 end
