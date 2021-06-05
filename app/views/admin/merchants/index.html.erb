@@ -38,6 +38,7 @@
     <tr>
       <td><%= link_to merchant.name, admin_merchant_path(merchant.id) %></td>
       <td><%= number_to_currency(merchant.revenue/100)%> in sales</td>
+      <td>Top selling date for <%= merchant.name %> was <%= merchant.top_selling_date.to_formatted_s(:mm_dd_yy) %></td>
     </tr>
   <% end %>
 </table>
