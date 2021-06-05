@@ -8,6 +8,11 @@ RSpec.describe Invoice do
     it { should have_many(:transactions) }
 
   end
+
+  describe 'enums' do
+    it { should define_enum_for(:status)}
+  end
+
   describe 'class methods' do
     before :each do
       @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")

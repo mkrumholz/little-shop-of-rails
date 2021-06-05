@@ -7,4 +7,8 @@ RSpec.describe InvoiceItem do
     it { should belong_to(:item) }
 
   end
+
+  describe 'enums' do
+    it { should define_enum_for(:status)}
+  end
 end
