@@ -13,11 +13,11 @@ RSpec.describe 'The merchant items index' do
     @item_6 = @merchant.items.create!(name: 'Fifth item', description: '5th best', unit_price: '2400', enabled: true)
     @item_7 = @merchant.items.create!(name: 'Sixth item', description: '6th best', unit_price: '50', enabled: true)
 
-    @invoice_1 = @customer.invoices.create!(status: 1) # is successful and paid
-    @invoice_2 = @customer.invoices.create!(status: 0) # is cancelled
-    @invoice_3 = @customer.invoices.create!(status: 2) # is still in progress, no good transactions
-    @invoice_4 = @customer.invoices.create!(status: 1) # is successful and paid
-    @invoice_5 = @customer.invoices.create!(status: 1) # has no successful transaction
+    @invoice_1 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-03-01")) # is successful and paid
+    @invoice_2 = @customer.invoices.create!(status: 0, updated_at: Date.parse("2021-03-01")) # is cancelled
+    @invoice_3 = @customer.invoices.create!(status: 2, updated_at: Date.parse("2021-03-01")) # is still in progress, no good transactions
+    @invoice_4 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-08")) # is successful and paid
+    @invoice_5 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-01")) # has no successful transaction
 
     @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 5000, status: 0) # $10.00
     @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 2500, status: 0) # $50.00
@@ -169,4 +169,32 @@ RSpec.describe 'The merchant items index' do
       end
     end
   end
+
+  it 'lists the top selling (invoice) date for each item' do
+    visit "/merchants/#{@merchant.id}/items"
+
+    within "section#popular" do 
+      within "li#item-#{@item_1.id}" do
+        expect(page).to have_content 'Best revenue day: 2021-03-01'
+      end
+      within "li#item-#{@item_2.id}" do
+        expect(page).to have_content 'Best revenue day: 2021-03-01'
+      end
+      within "li#item-#{@item_4.id}" do
+        expect(page).to have_content 'Best revenue day: 2021-03-01'
+      end
+      within "li#item-#{@item_5.id}" do
+        expect(page).to have_content 'Best revenue day: 2021-02-08'
+      end
+      within "li#item-#{@item_6.id}" do
+        expect(page).to have_content 'Best revenue day: 2021-02-08'
+      end
+    end
+  end
 end
+
+# When I visit the items index page
+# Then next to each of the 5 most popular items I see the date with the most sales for each item.
+# And I see a label “Top selling date for was "
+
+# Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
