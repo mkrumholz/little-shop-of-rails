@@ -44,8 +44,10 @@ RSpec.describe Invoice do
   describe 'instance methods' do
     describe '.item_sale_price' do
       it 'returns all items from an invoice and the amount they sold for and number sold' do
-        expect(@invoice_1.item_sale_price.first.sale_price).to eq(550)
-        expect(@invoice_1.item_sale_price.first.quantity).to eq(15)
+        actual = @invoice_1.item_sale_price.first
+
+        expect(actual.sale_price).to eq(550)
+        expect(actual.sale_quantity).to eq(15)
       end
     end
   end

@@ -127,13 +127,6 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_current_path("/admin/invoices/#{@invoice_1.id}")
     end
 
-      # As an admin,
-      # When I visit the admin dashboard
-      # In the section for "Incomplete Invoices",
-      # Next to each invoice id I see the date that the invoice was created
-      # And I see the date formatted like "Monday, July 18, 2019"
-      # And I see that the list is ordered from oldest to newest
-
     it 'displays the date each invoice was created' do
       expect(page).to have_content('Tuesday, January 25, 2011')
       expect(page).to have_content('Monday, January 25, 2016')

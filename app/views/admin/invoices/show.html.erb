@@ -6,10 +6,14 @@
 <h3><%= "Customer: #{@customer.first_name} #{@customer.last_name}" %></h3>
 
 <h2>Items:</h2>
-<ul>
+<ol>
   <% @items.each do |item| %>
-    <li><%= "Item: #{item.name}" %></li>
-    <li><%= "Quantity: #{item.quantity}" %></li>
-    <li><%= "Sale Price: $#{(item.sale_price.}" %></li>
+    <li><%= "Item: #{item.name}" %>
+      <ul>
+        <li><%= "Quantity: #{item.sale_quantity}" %></li>
+        <% price = item.sale_price %>
+        <li><%= "Sale Price: $#{sprintf("%.2f",(price.to_f / 100))}" %></li>
+      </ul>
+    </li>
   <% end %>
-</ul>
+</ol>
