@@ -10,7 +10,7 @@ RSpec.describe Invoice do
   end
 
   describe 'enums' do
-    it { should define_enum_for(:status)}
+    it { should define_enum_for(:status).with_values([:in_progress, :completed, :cancelled])}
   end
 
   describe 'class methods' do
