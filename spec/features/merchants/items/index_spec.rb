@@ -128,6 +128,16 @@ RSpec.describe 'The merchant items index' do
       expect(page).to_not have_content @item_7.name
     end 
   end
+
+  it 'links to each merchant item show page from popular items' do
+    visit "/merchants/#{@merchant.id}/items"
+
+    within "section#popular" do 
+      expect(page).to have link 'Audrey II'
+    end
+  end
+
+  it 'displays the total revenue generated for each popular item'
 end
 
 # Merchant Items Index: 5 most popular items
