@@ -17,6 +17,7 @@ require 'capybara/rspec'
 require 'simplecov'
 SimpleCov.start do
   add_filter "spec/rails_helper.rb"
+  add_filter "modules/dollarable.rb"
 end
 RSpec.configure do |config|
   # rspec-expectations config goes here. You can use an alternate
