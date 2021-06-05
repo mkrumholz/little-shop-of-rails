@@ -32,6 +32,7 @@
       <li id="item-<%= item.id %>">
         <p><%= link_to "#{item.name}", merchant_item_path(@merchant.id, item.id) %></p>
         <p>Total revenue: <%= number_to_currency(item.revenue / 100 ) %></p>
+        <p>Best revenue day: <%= item.best_revenue_date %></p>
       </li>
     <% end %>
   </ol>
