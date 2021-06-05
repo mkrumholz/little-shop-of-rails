@@ -23,6 +23,17 @@ RSpec.describe 'Admin Merchant Edit' do
     end
   end
 
+  it 'shows an error if I try to submit an empty name field' do
+    fill_in 'Name', with: ''
+    click_button 'Update Merchant'
+
+    expect(page).to have_current_path("/admin/merchants/#{@signs.id}/edit")
+
+    within(".alert") do
+      expect(page).to have_content("Error: Name can't be blank")
+    end
+  end
+
   it 'shows a flash message confirming information update' do
     fill_in 'Name', with: 'Salmander Signage'
     click_button 'Update Merchant'
