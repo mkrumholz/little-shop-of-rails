@@ -2,9 +2,7 @@ require 'rails_helper'
 
 RSpec.describe Merchant do
   describe 'relationships' do
-
     it { should have_many(:items).dependent(:destroy) }
-
   end
 
   describe 'validations' do
@@ -12,10 +10,10 @@ RSpec.describe Merchant do
   end
 
   describe 'callbacks' do
-      it 'after_initialization it sets status to false if nil' do
-        test = Merchant.create!(name: "test")
-        expect(test.status).to eq(false)
-      end
+    it 'after_initialization it sets status to false if nil' do
+      test = Merchant.create!(name: "test")
+      expect(test.status).to eq(false)
+    end
   end
 
   before :each do
@@ -86,11 +84,12 @@ RSpec.describe Merchant do
     end
 
     it '.top_5_total_revenue returns the top 5 merchants by total revenue generated' do
-      expect(Merchant.top_5_total_revenue.first.id).to eq(@merch_5.id)
-      expect(Merchant.top_5_total_revenue.second.id).to eq(@merch_3.id)
-      expect(Merchant.top_5_total_revenue.third.id).to eq(@merch_1.id)
-      expect(Merchant.top_5_total_revenue.fourth.id).to eq(@merch_6.id)
-      expect(Merchant.top_5_total_revenue.last.id).to eq(@merch_4.id)
+      output = Merchant.top_5_total_revenue
+      expect(output.first.merch_id).to eq(@merch_5.id)
+      expect(output.second.merch_id).to eq(@merch_3.id)
+      expect(output.third.merch_id).to eq(@merch_1.id)
+      expect(output.fourth.merch_id).to eq(@merch_6.id)
+      expect(output.last.merch_id).to eq(@merch_4.id)
     end
   end
 end
