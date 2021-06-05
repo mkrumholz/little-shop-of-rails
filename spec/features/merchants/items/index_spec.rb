@@ -46,7 +46,9 @@ RSpec.describe 'The merchant items index' do
     visit "/merchants/#{@merchant.id}/items"
     visit "/merchants/#{@merchant.id}/items"
     
-    click_on 'Audrey II' 
+    within "section#enabled" do
+      click_on 'Audrey II' 
+    end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
     expect(page).to have_content 'Audrey II'
@@ -77,8 +79,10 @@ RSpec.describe 'The merchant items index' do
   it 'can enable a disabled item' do
     visit "/merchants/#{@merchant.id}/items"
     
-    within "div#item-#{@item_2.id}" do
-      click_on 'Disable'
+    within "section#enabled" do
+      within "div#item-#{@item_2.id}" do
+        click_on 'Disable'
+      end
     end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items"
@@ -95,8 +99,10 @@ RSpec.describe 'The merchant items index' do
   it 'can disable an enabled item' do
     visit "/merchants/#{@merchant.id}/items"
     
-    within "div#item-#{@item_3.id}" do
-      click_on 'Enable'
+    within "section#disabled" do
+      within "div#item-#{@item_3.id}" do
+        click_on 'Enable'
+      end
     end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items"
