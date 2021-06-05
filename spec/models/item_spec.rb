@@ -65,7 +65,13 @@ RSpec.describe Item do
 
     describe '.top_5_by_revenue' do
       it 'returns the top 5 items by revenue generated' do
-        expect(Item.top_5_by_revenue).to eq [@item_1, @item_2, @item_4, @item_6, @item_7]
+        expect(Item.top_5_by_revenue).to include @item_1
+        expect(Item.top_5_by_revenue).to include @item_2
+        expect(Item.top_5_by_revenue).to include @item_4
+        expect(Item.top_5_by_revenue).to include @item_5
+        expect(Item.top_5_by_revenue).to include @item_6
+        expect(Item.top_5_by_revenue).to_not include @item_3
+        expect(Item.top_5_by_revenue).to_not include @item_7
       end
     end
   end
