@@ -85,4 +85,12 @@ RSpec.describe 'The merchant items index' do
       expect(page).to_not have_content 'Orchid'
     end
   end
+
+  it 'has a link to create a new item' do
+    visit "/merchants/#{@merchant.id}/items"
+
+    click_link 'New item'
+
+    expect(current_path).to eq "/merchants/#{@merchant.id}/items/new"
+  end
 end
