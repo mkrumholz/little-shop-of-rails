@@ -171,22 +171,33 @@ RSpec.describe 'Dashboard' do
 
       visit "/merchants/#{merchant.id}/dashboard"
 
-      expect(page).to have_content(item_1.name)
-      expect(page).to have_content(invoice_1.id)
-      expect(page).to have_link("Invoice ##{invoice_1.id}")
-      expect(item_1.name).to appear_before(item_2.name)
-      expect(page).to have_content(item_2.name)
-      expect(page).to have_content(invoice_2.id)
-      expect(page).to have_link("Invoice ##{invoice_2.id}")
-      expect(page).to have_content(item_3.name)
-      expect(page).to have_content(invoice_3.id)
-      expect(page).to have_link("Invoice ##{invoice_3.id}")
-      expect(page).to have_content(item_4.name)
-      expect(page).to have_content(invoice_4.id)
-      expect(page).to have_link("Invoice ##{invoice_4.id}")
-      expect(page).to have_content(item_5.name)
-      expect(page).to have_content(invoice_5.id)
-      expect(page).to have_link("Invoice ##{invoice_5.id}")
+
+      within("#invoice-#{invoice_1.id}") do
+        expect(page).to have_content(item_1.name)
+        expect(page).to have_content(invoice_1.id)
+        expect(page).to have_link("Invoice ##{invoice_1.id}")
+      end
+        expect(item_1.name).to appear_before(item_2.name)
+      within("#invoice-#{invoice_2.id}") do
+        expect(page).to have_content(item_2.name)
+        expect(page).to have_content(invoice_2.id)
+        expect(page).to have_link("Invoice ##{invoice_2.id}")
+      end
+      within("#invoice-#{invoice_3.id}") do
+        expect(page).to have_content(item_3.name)
+        expect(page).to have_content(invoice_3.id)
+        expect(page).to have_link("Invoice ##{invoice_3.id}")
+      end
+      within("#invoice-#{invoice_4.id}") do
+        expect(page).to have_content(item_4.name)
+        expect(page).to have_content(invoice_4.id)
+        expect(page).to have_link("Invoice ##{invoice_4.id}")
+      end
+      within("#invoice-#{invoice_5.id}") do
+        expect(page).to have_content(item_5.name)
+        expect(page).to have_content(invoice_5.id)
+        expect(page).to have_link("Invoice ##{invoice_5.id}")
+      end
       expect(page).to_not have_content(item_6.name)
       expect(page).to_not have_content(invoice_6.id)
       expect(page).to_not have_link("Invoice ##{invoice_6.id}")
@@ -257,14 +268,17 @@ RSpec.describe 'Dashboard' do
       invoice_item_6 = InvoiceItem.create!(item_id: item_6.id, invoice_id: invoice_6.id, status: 2)
 
       visit "/merchants/#{merchant.id}/dashboard"
-      
+
       expect(page).to have_content(invoice_1.created_at.strftime('%A, %B %d, %Y'))
-      expect(invoice_4.created_at.strftime('%A, %B %d, %Y')).to appear_before(invoice_1.created_at.strftime('%A, %B %d, %Y'))
       expect(page).to have_content(invoice_2.created_at.strftime('%A, %B %d, %Y'))
       expect(page).to have_content(invoice_3.created_at.strftime('%A, %B %d, %Y'))
       expect(page).to have_content(invoice_4.created_at.strftime('%A, %B %d, %Y'))
       expect(page).to have_content(invoice_5.created_at.strftime('%A, %B %d, %Y'))
       expect(page).to_not have_content(invoice_6.created_at.strftime('%A, %B %d, %Y'))
+      expect(invoice_4.created_at.strftime('%A, %B %d, %Y')).to appear_before(invoice_1.created_at.strftime('%A, %B %d, %Y'))
+      expect(invoice_1.created_at.strftime('%A, %B %d, %Y')).to appear_before(invoice_2.created_at.strftime('%A, %B %d, %Y'))
+      expect(invoice_2.created_at.strftime('%A, %B %d, %Y')).to appear_before(invoice_3.created_at.strftime('%A, %B %d, %Y'))
+      expect(invoice_3.created_at.strftime('%A, %B %d, %Y')).to appear_before(invoice_5.created_at.strftime('%A, %B %d, %Y'))
     end
   end
 end

@@ -9,10 +9,11 @@
     <%= customer.transaction_count %> purchases </p>
 <% end %>
 
-<section>
+
 <h3>Items Ready To Ship</h3>
 <% @items_to_ship.each do |item| %>
+<section id="invoice-<%= item.invoice_id %>">
   <p> <%= item.name %>- <%= link_to "Invoice ##{item.invoice_id}", "/merchants/#{@merchant.id}/invoices/#{item.invoice_id}" %>
     <%= item.invoice_creation.strftime('%A, %B %d, %Y') %> </p>
+  </section>
 <% end %>
-</section>
