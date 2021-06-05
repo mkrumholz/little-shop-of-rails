@@ -39,7 +39,7 @@ RSpec.describe Merchant do
 
     @customer = Customer.create!(first_name: "Sam", last_name: "Shmo")
 
-    @invoice_1 = @customer.invoices.create!(status: 1)
+    @invoice_1 = @customer.invoices.create!(status: 1, created_at: "1/1/2020")
     @invoice_2 = @customer.invoices.create!(status: 1)
 
     @transaction_1 = @invoice_1.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
@@ -68,6 +68,16 @@ RSpec.describe Merchant do
       expect(@merch_3.render_status[:status]).to eq("Disabled")
       expect(@merch_3.render_status[:action]).to eq("Enable")
     end
+
+    it '#top_selling_date returns the dates with most revenue for merchants' do
+      merchants = Merchant.top_5_total_revenue
+
+      expect(merchants.first.top_selling_date).to eq(@invoice_1.created_at)
+      expect(merchants.second.top_selling_date).to eq(@invoice_1.created_at)
+      expect(merchants.third.top_selling_date).to eq(@invoice_1.created_at)
+      expect(merchants.fourth.top_selling_date).to eq(@invoice_1.created_at)
+      expect(merchants.last.top_selling_date).to eq(@invoice_1.created_at)
+    end
   end
 
   describe 'class methods' do
@@ -86,11 +96,11 @@ RSpec.describe Merchant do
     describe '.top_5_total_revenue' do
       it 'returns the top 5 merchants by total revenue generated' do
         output = Merchant.top_5_total_revenue
-        expect(output.first.merch_id).to eq(@merch_5.id)
-        expect(output.second.merch_id).to eq(@merch_3.id)
-        expect(output.third.merch_id).to eq(@merch_1.id)
-        expect(output.fourth.merch_id).to eq(@merch_6.id)
-        expect(output.last.merch_id).to eq(@merch_4.id)
+        expect(output.first.id).to eq(@merch_5.id)
+        expect(output.second.id).to eq(@merch_3.id)
+        expect(output.third.id).to eq(@merch_1.id)
+        expect(output.fourth.id).to eq(@merch_6.id)
+        expect(output.last.id).to eq(@merch_4.id)
       end
 
       it 'calculates total revenue as sum of all invoice items unit prices * quantity on invoices with at least 1 successful transaction' do

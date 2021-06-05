@@ -28,7 +28,7 @@ RSpec.describe 'Admin Merchants Index' do
 
     @customer = Customer.create!(first_name: "Sam", last_name: "Shmo")
 
-    @invoice_1 = @customer.invoices.create!(status: 1)
+    @invoice_1 = @customer.invoices.create!(status: 1, created_at: "1/1/2020")
     @invoice_2 = @customer.invoices.create!(status: 1)
 
     @transaction_1 = @invoice_1.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
@@ -140,7 +140,6 @@ RSpec.describe 'Admin Merchants Index' do
   end
 
   it 'top 5 merchants by revenue shows the top 5 merchants by total revenue, total revenue, and links to show page' do
-
     within("#top-5") do
       expect(page).to have_content(@merch_5.name)
       expect(page).to have_link(@merch_5.name, :href => "/admin/merchants/#{@merch_5.id}")
@@ -159,6 +158,15 @@ RSpec.describe 'Admin Merchants Index' do
       expect(page).to have_content("$5.00")
       expect(page).to have_content("$2.00")
     end
+  end
 
+  it 'shows the top selling date for each of the 5 merchants based on the invoice date' do
+    within("#top-5") do
+      expect(page).to have_content("Top selling date for #{@merch_5.name} was 1/1/20")
+      expect(page).to have_content("Top selling date for #{@merch_3.name} was 1/1/20")
+      expect(page).to have_content("Top selling date for #{@merch_1.name} was 1/1/20")
+      expect(page).to have_content("Top selling date for #{@merch_6.name} was 1/1/20")
+      expect(page).to have_content("Top selling date for #{@merch_4.name} was 1/1/20")
+    end
   end
 end

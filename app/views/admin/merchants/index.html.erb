@@ -36,7 +36,7 @@
 
   <% @merchants.top_5_total_revenue.each do |merchant| %>
     <tr>
-      <td><%= link_to merchant.merch_name, admin_merchant_path(merchant.merch_id) %></td>
+      <td><%= link_to merchant.name, admin_merchant_path(merchant.id) %></td>
       <td><%= number_to_currency(merchant.revenue/100)%> in sales</td>
     </tr>
   <% end %>

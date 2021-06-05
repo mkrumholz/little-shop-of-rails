@@ -17,6 +17,18 @@ class Merchant < ApplicationRecord
     end
   end
 
+  def top_selling_date
+    output = items.select('invoices.created_at AS top_selling_date,
+                 SUM(invoice_items.unit_price * invoice_items.quantity) AS top_revenue')
+         .joins(invoice_items: {invoice: :transactions})
+         .where(transactions: {result: 1})
+         .group('invoices.created_at')
+         .order('top_revenue DESC')
+         .limit(1)
+
+   output.first.top_selling_date
+  end
+
   def self.enabled
     where(status: true)
   end
@@ -26,9 +38,7 @@ class Merchant < ApplicationRecord
   end
 
   def self.top_5_total_revenue
-    select('merchants.status,
-            merchants.id as merch_id,
-            merchants.name as merch_name,
+    select('merchants.*,
             invoices.id as invoice_id,
             sum(invoice_items.unit_price * invoice_items.quantity) AS revenue')
     .joins(items: {invoice_items: {invoice: :transactions}})
@@ -39,8 +49,8 @@ class Merchant < ApplicationRecord
 
     #SQL
     # find_by_sql("SELECT merchants.status,
-    #                     merchants.id as merch_id,
-    #                     merchants.name as merch_name,
+    #                     merchants.id as id,
+    #                     merchants.name as name,
     #                     invoices.id as invoice_id,
     #                     sum(invoice_items.unit_price * invoice_items.quantity) AS revenue
     #             FROM
@@ -59,4 +69,5 @@ class Merchant < ApplicationRecord
     #             LIMIT 5
     #             ")
   end
+
 end
