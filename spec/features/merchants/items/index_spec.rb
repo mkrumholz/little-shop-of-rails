@@ -117,6 +117,14 @@ RSpec.describe 'The merchant items index' do
     end
   end
 
+  it 'has a link to create a new item' do
+    visit "/merchants/#{@merchant.id}/items"
+
+    click_link 'New item'
+
+    expect(current_path).to eq "/merchants/#{@merchant.id}/items/new"
+  end
+
   it 'lists the top 5 best-selling items by revenue generated' do
     visit "/merchants/#{@merchant.id}/items"
 
@@ -134,8 +142,10 @@ RSpec.describe 'The merchant items index' do
     visit "/merchants/#{@merchant.id}/items"
 
     within "section#popular" do 
-      expect(page).to have_link 'Audrey II'
+      click_link 'Audrey II'
     end
+
+    expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
   end
 
   it 'displays the total revenue generated for each popular item' do

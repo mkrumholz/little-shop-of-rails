@@ -22,6 +22,20 @@ class Merchants::ItemsController < ApplicationController
     end 
   end
 
+  def new
+    @item = Item.new
+  end
+
+  def create
+    item = @merchant.items.create(item_params.merge(unit_price: price_to_cents(params[:item][:unit_price])))
+    if item.save
+      redirect_to merchant_items_path(@merchant.id)
+    else
+      redirect_to new_merchant_item_path(@merchant.id)
+      flash[:alert] = "Error: #{error_message(item.errors)}"
+    end
+  end
+
   def set_merchant
     @merchant = Merchant.find(params[:merchant_id])
   end
