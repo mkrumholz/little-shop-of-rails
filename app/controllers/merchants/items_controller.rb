@@ -15,7 +15,7 @@ class Merchants::ItemsController < ApplicationController
   end
 
   def update 
-    if params[:item][:enabled].present? && @item.update(item_params)
+    if params[:item][:enabled].present? && @item.update(enabled: params[:item][:enabled])
       redirect_to merchant_items_path(@merchant.id)
     else
       update_item_details(@merchant, @item, params)
