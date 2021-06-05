@@ -38,4 +38,7 @@ RSpec.describe 'admin/invoices/show.html.erb' do
       expect(page).to have_content('$0.16')
     end
   end
+  describe 'total revenue' do
+    expect(page).to have_content('Total Revenue: $56')
+  end
 end
