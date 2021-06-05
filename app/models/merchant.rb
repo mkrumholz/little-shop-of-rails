@@ -23,7 +23,7 @@ class Merchant < ApplicationRecord
          .joins(invoice_items: {invoice: :transactions})
          .where(transactions: {result: 1})
          .group('invoices.created_at')
-         .order('top_revenue DESC')
+         .order('invoices.created_at DESC, top_revenue DESC')
          .limit(1)
 
    output.first.top_selling_date
