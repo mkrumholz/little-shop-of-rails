@@ -20,12 +20,14 @@ class Item < ApplicationRecord
   end
 
   def self.top_5_by_revenue 
-    joins(:invoice_items, :invoices)
+    joins(:invoice_items)
+    .joins('right join invoices on invoices.id=invoice_items.invoice_id')
+    .joins('right join transactions on transactions.invoice_id=invoices.id')
     .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
-    .joins('inner join transactions on transactions.invoice_id=invoices.id')
     .where(transactions: {result: 1})
+    .where(invoices: {status: 1})
     .group(:id)
-    .order('revenue desc')
+    .order(revenue: :desc)
     .limit(5)
   end
 end
