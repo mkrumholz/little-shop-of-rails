@@ -29,6 +29,7 @@ RSpec.describe 'The merchant items index' do
     @invoice_item_8 = @item_7.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 50, status: 0)
 
     @invoice_1.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
+    @invoice_2.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
     @invoice_4.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
     @invoice_5.transactions.create!(result: 0, credit_card_number: '534', credit_card_expiration_date: 'null')
   end
@@ -133,11 +134,21 @@ RSpec.describe 'The merchant items index' do
     visit "/merchants/#{@merchant.id}/items"
 
     within "section#popular" do 
-      expect(page).to have link 'Audrey II'
+      expect(page).to have_link 'Audrey II'
     end
   end
 
-  it 'displays the total revenue generated for each popular item'
+  it 'displays the total revenue generated for each popular item' do
+    visit "/merchants/#{@merchant.id}/items"
+
+    within "section#popular" do 
+      expect(page).to have_content 'Total revenue: 10000'
+      expect(page).to have_content 'Total revenue: 5000'
+      expect(page).to have_content 'Total revenue: 2000'
+      expect(page).to have_content 'Total revenue: 400'
+      expect(page).to have_content 'Total revenue: 100'
+    end
+  end
 end
 
 # Merchant Items Index: 5 most popular items
