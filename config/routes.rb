@@ -5,13 +5,14 @@ Rails.application.routes.draw do
 
   namespace :admin do
    resources :merchants, except: [:delete, :put]
-   resources :invoices, only: [:index]
+   resources :invoices, only: [:index, :show]
+   patch '/merchants', to: 'merchants#update_status'
   end
 
   resources :merchants, only: [:show] do
     get '/dashboard', to: 'dashboard#show'
     scope module: :merchants do
-      resources :items, except: [:delete, :create]
+      resources :items
     end
   end
 end

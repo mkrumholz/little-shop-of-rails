@@ -9,17 +9,14 @@ RSpec.describe 'index.html.erb' do
         expect(page).to have_content('Admin Dashboard')
       end
     end
-
     it 'has links to the admin merchants index' do
       visit '/admin'
-
 
       expect(page).to have_link('Merchants Index')
       click_link('Merchants Index')
 
       expect(page).to have_current_path('/admin/merchants')
     end
-
     it 'has links to the admin invoices index' do
       visit '/admin'
 
@@ -28,7 +25,6 @@ RSpec.describe 'index.html.erb' do
 
       expect(page).to have_current_path('/admin/invoices')
     end
-
   end
   describe 'Top 5 Customers' do
     before :each do
@@ -82,6 +78,74 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_content('3 transactions')
       expect(page).to have_content('2 transactions')
       expect(page).to have_content('1 transactions')
+    end
+  end
+  describe 'Incomplete Invoices' do
+    before :each do
+      @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
+      @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
+      @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
+      @customer_3 = Customer.create!(first_name: 'Shim', last_name: 'Stalone')
+      @customer_4 = Customer.create!(first_name: 'Bado', last_name: 'Reason')
+      @customer_5 = Customer.create!(first_name: 'Timothy', last_name: 'Richard')
+      @customer_6 = Customer.create!(first_name: 'Alex', last_name: '19th')
+      @invoice_1 = @customer_1.invoices.create!(status: 1, created_at: '2021-01-25')
+      @invoice_2 = @customer_2.invoices.create!(status: 1, created_at: '2020-01-25')
+      @invoice_3 = @customer_3.invoices.create!(status: 1, created_at: '2016-01-25')
+      @invoice_4 = @customer_4.invoices.create!(status: 1, created_at: '2001-01-25')
+      @invoice_5 = @customer_5.invoices.create!(status: 1, created_at: '2004-01-25')
+      @invoice_6 = @customer_6.invoices.create!(status: 1, created_at: '2011-01-25')
+      @item_1 = @merchant_1.items.create!(name: 'Pogs', description: 'Stack of pogs.', unit_price: 500,)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_1)
+      InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_1)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_2)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_3)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_4)
+      InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_5)
+      InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_6)
+      InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_6)
+      visit '/admin'
+    end
+    it 'displays a list of all invoices with unshipped items' do
+      expect(page).to have_content("Incomplete Invoices")
+      expect(page).to have_content(@invoice_1.id)
+      expect(page).to have_content(@invoice_2.id)
+      expect(page).to have_content(@invoice_3.id)
+      expect(page).to have_content(@invoice_4.id)
+      expect(page).to have_content(@invoice_6.id)
+      expect(page).to_not have_content(@invoice_5.id)
+    end
+    it 'links the ids to their admin show page' do
+      expect(page).to have_link("Invoice #{@invoice_1.id}")
+      expect(page).to have_link("Invoice #{@invoice_2.id}")
+      expect(page).to have_link("Invoice #{@invoice_3.id}")
+      expect(page).to have_link("Invoice #{@invoice_4.id}")
+      expect(page).to have_link("Invoice #{@invoice_6.id}")
+
+      click_link("Invoice #{@invoice_1.id}")
+
+      expect(page).to have_current_path("/admin/invoices/#{@invoice_1.id}")
+    end
+
+      # As an admin,
+      # When I visit the admin dashboard
+      # In the section for "Incomplete Invoices",
+      # Next to each invoice id I see the date that the invoice was created
+      # And I see the date formatted like "Monday, July 18, 2019"
+      # And I see that the list is ordered from oldest to newest
+
+    it 'displays the date each invoice was created' do
+      expect(page).to have_content('Tuesday, January 25, 2011')
+      expect(page).to have_content('Monday, January 25, 2016')
+      expect(page).to have_content('Thursday, January 25, 2001')
+      expect(page).to have_content('Monday, January 25, 2021')
+      expect(page).to have_content('Saturday, January 25, 2020')
+    end
+    it 'displays the invoices in order created from oldest to newest' do
+      expect("#{@invoice_4.id}").to appear_before("#{@invoice_6.id}")
+      expect("#{@invoice_6.id}").to appear_before("#{@invoice_3.id}")
+      expect("#{@invoice_3.id}").to appear_before("#{@invoice_2.id}")
+      expect("#{@invoice_2.id}").to appear_before("#{@invoice_1.id}")
     end
   end
 end
