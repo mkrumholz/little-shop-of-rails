@@ -6,8 +6,8 @@
 <section id="merchant-list">
 
 <table id="enabled">
-  <th>Enabled Merchants</th>
-  <th></th>
+  <h3>Enabled Merchants</h3>
+
   <% @merchants.enabled.each do |merchant| %>
     <tr id="merchant-<%=merchant.id%>">
       <td><%= link_to merchant.name, admin_merchant_path(merchant.id) %></td>
@@ -19,8 +19,8 @@
 <br><br>
 
 <table id="disabled">
-  <th>Disabled Merchants</th>
-  <th></th>
+  <h3>Disabled Merchants</h3>
+
   <% @merchants.disabled.each do |merchant| %>
     <tr id="merchant-<%=merchant.id%>">
       <td><%= link_to merchant.name, admin_merchant_path(merchant.id) %></td>
@@ -32,13 +32,13 @@
 <br><br>
 
 <table id="top-5">
-  <th>Top Merchants</th>
+  <h3>Top Merchants</h3>
 
   <% @merchants.top_5_total_revenue.each do |merchant| %>
     <tr>
       <td><%= link_to merchant.name, admin_merchant_path(merchant.id) %></td>
       <td><%= number_to_currency(merchant.revenue/100)%> in sales</td>
-      <td>Top selling date for <%= merchant.name %> was <%= merchant.top_selling_date.to_formatted_s(:mm_dd_yy) %></td>
+      <td>Top selling date for <%= merchant.name %> was <%= merchant.top_selling_date.strftime("%m/%d/%y") %></td>
     </tr>
   <% end %>
 </table>
