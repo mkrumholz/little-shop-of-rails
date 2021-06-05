@@ -21,3 +21,13 @@
     </div>
   <% end %>
 </section>
+
+<section id="popular">
+  <h3>Top 5 Items</h3>
+
+  <% @items.top_5_by_revenue.each do |item| %>
+    <div id="item-<%= item.id %>">
+      <p><%= link_to "#{item.name}", merchant_item_path(@merchant.id, item.id) %></p>
+    </div>
+  <% end %>
+</section>
