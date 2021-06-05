@@ -6,6 +6,11 @@ class Item < ApplicationRecord
   belongs_to :merchant
   validates_presence_of :name, :description, :unit_price
   validates_inclusion_of :enabled, in: [true, false]
+  # after_initialize :init
+
+  # def init
+  #   enabled = false if enabled.nil?
+  # end
 
   def price_to_dollars
     price_in_dollars(unit_price)
