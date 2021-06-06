@@ -1,6 +1,6 @@
 <h3>New Merchant</h3>
 
-<%= form_with model: [:admin, Merchant.new], local: true do |f| %>
+<%= form_with model: [:admin, @merchant], local: true do |f| %>
   <%= f.label :name, "Merchant Name: " %>
   <%= f.text_field :name  %>
   <br><br>
