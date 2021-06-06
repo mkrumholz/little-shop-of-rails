@@ -14,6 +14,10 @@ RSpec.describe Invoice do
     it { should validate_presence_of(:status) }
   end
 
+  describe 'enums' do
+    it { should define_enum_for(:status).with_values([:in_progress, :completed, :cancelled])}
+  end
+
   before :each do
     @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
     @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
@@ -38,6 +42,7 @@ RSpec.describe Invoice do
     InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_6)
     InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_6)
   end
+
   describe 'class methods' do
     describe '#unshipped_items' do
       it 'returns a collection of invoices that have unshipped items' do
