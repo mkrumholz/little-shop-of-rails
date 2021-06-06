@@ -87,10 +87,10 @@ RSpec.describe Item do
       end
     end
 
-    describe '#best_revenue_date' do
-      it 'returns the date on which the most revenue was earned for the item' do
-        expect(@item_1.best_revenue_date).to eq Date.parse('2021-03-01')
-      end
-    end
+    # describe '#best_revenue_date' do
+    #   it 'returns the date on which the most revenue was earned for the item' do
+    #     expect(@item_1.best_revenue_date).to eq Date.parse('2021-03-01')
+    #   end
+    # end
   end
 end

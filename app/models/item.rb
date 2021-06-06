@@ -30,4 +30,8 @@ class Item < ApplicationRecord
     .order(revenue: :desc)
     .limit(5)
   end
+
+  def best_revenue_date
+    Invoice.highest_revenue_date(id)
+  end
 end

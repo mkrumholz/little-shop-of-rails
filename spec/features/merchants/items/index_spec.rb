@@ -175,19 +175,19 @@ RSpec.describe 'The merchant items index' do
 
     within "section#popular" do 
       within "li#item-#{@item_1.id}" do
-        expect(page).to have_content 'Best revenue day: 2021-03-01'
+        expect(page).to have_content 'Best revenue day: Monday, March 01, 2021'
       end
       within "li#item-#{@item_2.id}" do
-        expect(page).to have_content 'Best revenue day: 2021-03-01'
+        expect(page).to have_content 'Best revenue day: Monday, March 01, 2021'
       end
       within "li#item-#{@item_4.id}" do
-        expect(page).to have_content 'Best revenue day: 2021-03-01'
+        expect(page).to have_content 'Best revenue day: Monday, March 01, 2021'
       end
       within "li#item-#{@item_5.id}" do
-        expect(page).to have_content 'Best revenue day: 2021-02-08'
+        expect(page).to have_content 'Best revenue day: Monday, February 08, 2021'
       end
       within "li#item-#{@item_6.id}" do
-        expect(page).to have_content 'Best revenue day: 2021-02-08'
+        expect(page).to have_content 'Best revenue day: Monday, February 08, 2021'
       end
     end
   end
