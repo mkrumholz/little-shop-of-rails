@@ -22,7 +22,7 @@ class Item < ApplicationRecord
   def self.ready_to_ship
     joins(invoices: :invoice_items)
     .select("items.*, invoices.id AS invoice_id, invoices.created_at AS invoice_creation")
-    .where("invoice_items.status = 1")
+    .where(invoice_items: {status: 1})
     .group("items.id, invoices.id")
     .order("invoice_creation asc")
   end
