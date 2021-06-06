@@ -4,3 +4,17 @@
 <h3><%= "Status: #{@invoice.status}" %></h3>
 <h3><%= "Created on: #{@invoice.created_at.strftime('%A, %B %d, %Y')}"%></h3>
 <h3><%= "Customer: #{@customer.first_name} #{@customer.last_name}" %></h3>
+
+<h2>Items:</h2>
+<ol>
+  <% @items.each do |item| %>
+    <li><%= "Item: #{item.name}" %>
+      <ul>
+        <li><%= "Quantity: #{item.sale_quantity}" %></li>
+        <% price = item.sale_price.to_f %>
+        <li><%= "Sale Price: #{currency_conversion(price/100)}" %></li>
+      </ul>
+    </li>
+  <% end %>
+</ol><br>
+<h2><%= "Total Revenue: $#{sprintf("%.2f",(@invoice.total_revenue.to_f / 100))}" %></h2>
