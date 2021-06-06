@@ -12,7 +12,7 @@ RSpec.describe 'The merchant item show page' do
     expect(page).to have_content 'Little Shop of Horrors'
     expect(page).to have_content 'Audrey II'
     expect(page).to have_content 'Large, man-eating plant'
-    expect(page).to have_content '$1000000.00'
+    expect(page).to have_content '$1,000,000.00'
   end
 
   it 'has a link to update an item' do
