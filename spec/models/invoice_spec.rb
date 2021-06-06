@@ -50,5 +50,13 @@ RSpec.describe Invoice do
         expect(actual.sale_quantity).to eq(15)
       end
     end
+
+    describe '.total_revenue' do
+      it 'returns all items from an invoice and the amount they sold for and number sold' do
+        actual = @invoice_1.total_revenue
+
+        expect(actual).to eq(9350)
+      end
+    end
   end
 end

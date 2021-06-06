@@ -11,9 +11,10 @@
     <li><%= "Item: #{item.name}" %>
       <ul>
         <li><%= "Quantity: #{item.sale_quantity}" %></li>
-        <% price = item.sale_price %>
-        <li><%= "Sale Price: $#{sprintf("%.2f",(price.to_f / 100))}" %></li>
+        <% price = item.sale_price.to_f %>
+        <li><%= "Sale Price: #{currency_conversion(price/100)}" %></li>
       </ul>
     </li>
   <% end %>
-</ol>
+</ol><br>
+<h2><%= "Total Revenue: $#{sprintf("%.2f",(@invoice.total_revenue.to_f / 100))}" %></h2>

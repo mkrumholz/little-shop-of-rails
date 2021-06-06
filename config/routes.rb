@@ -12,7 +12,7 @@ Rails.application.routes.draw do
   resources :merchants, only: [:show] do
     get '/dashboard', to: 'dashboard#show'
     scope module: :merchants do
-      resources :items, except: [:delete, :create]
+      resources :items
     end
   end
 end
