@@ -192,9 +192,3 @@ RSpec.describe 'The merchant items index' do
     end
   end
 end
-
-# When I visit the items index page
-# Then next to each of the 5 most popular items I see the date with the most sales for each item.
-# And I see a label “Top selling date for was "
-
-# Note: use the invoice date. If there are multiple days with equal number of sales, return the most recent day.
