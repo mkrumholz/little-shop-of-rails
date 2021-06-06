@@ -26,4 +26,10 @@ class Item < ApplicationRecord
     .group("items.id, invoices.id")
     .order("invoice_creation asc")
   end
+
+  def self.merchant_invoices
+    joins(:invoices)
+    .select("invoices.id")
+    .distinct
+  end
 end

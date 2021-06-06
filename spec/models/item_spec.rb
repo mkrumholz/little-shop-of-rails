@@ -57,6 +57,13 @@ RSpec.describe Item do
         expect(Item.ready_to_ship).to eq([@item_4, @item_1, @item_2, @item_3])
       end
     end
+
+    describe '.merchant_invoices' do
+      it 'returns only the invoices that include one of my merchants items' do
+        expect(Item.merchant_invoices.length).to eq 5
+        expect(Item.merchant_invoices.pluck(:invoice_id)).to include(@invoice_1.id, @invoice_4.id, @invoice_2.id, @invoice_3.id, @invoice_5.id)
+      end
+    end
   end
 
   describe 'instance methods' do
