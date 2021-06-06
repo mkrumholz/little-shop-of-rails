@@ -5,6 +5,10 @@ class Invoice < ApplicationRecord
   has_many :items, through: :invoice_items
   has_many :transactions
 
+  validates :customer_id, presence: true
+  validates :status, {presence: true}
+  validates_numericality_of :status
+
   def self.unshipped_items
     joins(:invoice_items)
     .where('invoice_items.status != 2')

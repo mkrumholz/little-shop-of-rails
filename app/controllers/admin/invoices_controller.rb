@@ -2,6 +2,7 @@ class Admin::InvoicesController < ApplicationController
   include ActionView::Helpers::NumberHelper
 
   def index
+    @invoices = Invoice.all.order(:id)
   end
 
   def show
@@ -10,9 +11,9 @@ class Admin::InvoicesController < ApplicationController
     @items = @invoice.item_sale_price
   end
 
-  def currency_conversion(price_in_cents)
-    number_to_currency(price_in_cents)
-  end
+  def update
+    @invoice.update(enabled: params[:invoice][:status])
 
-  helper_method :currency_conversion
+    redirect_to admin_invoice_path(@invoice.id)
+  end
 end

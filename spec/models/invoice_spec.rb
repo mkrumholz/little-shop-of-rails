@@ -8,6 +8,12 @@ RSpec.describe Invoice do
     it { should have_many(:transactions) }
 
   end
+
+  describe 'validations' do
+    it { should validate_presence_of(:customer_id) }
+    it { should validate_presence_of(:status) }
+  end
+
   before :each do
     @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
     @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
