@@ -31,10 +31,10 @@ RSpec.describe Item do
     @invoice_4 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-08")) # is successful and paid
     @invoice_5 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-01")) # has no successful transaction
 
-    @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 5000, status: 0)
-    @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 2500, status: 0)
-    @invoice_item_3 = @item_4.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 1000, status: 0)
-    @invoice_item_4 = @item_1.invoice_items.create!(invoice_id: @invoice_2.id, quantity: 2, unit_price: 5000, status: 0)
+    @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 5000, status: 1)
+    @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 2500, status: 1)
+    @invoice_item_3 = @item_4.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 1000, status: 1)
+    @invoice_item_4 = @item_1.invoice_items.create!(invoice_id: @invoice_2.id, quantity: 2, unit_price: 5000, status: 1)
     @invoice_item_5 = @item_1.invoice_items.create!(invoice_id: @invoice_3.id, quantity: 2, unit_price: 5000, status: 0)
     @invoice_item_6 = @item_5.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 500, status: 0)
     @invoice_item_7 = @item_6.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 200, status: 0)
@@ -74,6 +74,15 @@ RSpec.describe Item do
         expect(Item.top_5_by_revenue).to_not include @item_7
       end
     end 
+
+    describe '.ready_to_ship' do
+      it 'returns only the items where invoice_item status = packaged & sorted by oldest to newest' do
+        expect(Item.ready_to_ship.length).to eq 4
+        expect(Item.ready_to_ship).to include @item_1, @item_2, @item_4
+        expect(Item.ready_to_ship).to_not include @item_5
+        expect(Item.ready_to_ship).to eq([@item_1, @item_2, @item_4, @item_1])
+      end
+    end
   end
 
   describe 'instance methods' do
