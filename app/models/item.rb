@@ -28,8 +28,14 @@ class Item < ApplicationRecord
     .limit(5)
   end
 
-  def best_revenue_date
-    Invoice.highest_revenue_date(id)
+  def highest_revenue_date
+    invoices.joins(:transactions)
+    .select(invoices: :updated_at)
+    .where(transactions: {result: 1}, invoices: {status: 1})
+    .order(Arel.sql('sum(invoice_items.quantity * invoice_items.unit_price) desc, invoices.updated_at desc'))
+    .group(:updated_at)
+    .pluck(:updated_at)
+    .first.to_date
   end
 
   def self.ready_to_ship
