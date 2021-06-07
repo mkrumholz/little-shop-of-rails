@@ -20,8 +20,7 @@ class Item < ApplicationRecord
   end
 
   def self.top_5_by_revenue 
-    joins(:invoice_items)
-    .joins(invoice_items: {invoice: :transactions})
+    joins(invoices: :transactions)
     .where(transactions: {result: 1}, invoices: {status: 1})
     .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
     .group(:id)
