@@ -40,25 +40,48 @@ RSpec.describe Merchant do
     @customer = Customer.create!(first_name: "Sam", last_name: "Shmo")
 
     @invoice_1 = @customer.invoices.create!(status: 1, created_at: "1/1/2020")
-    @invoice_2 = @customer.invoices.create!(status: 1)
+    @invoice_2 = @customer.invoices.create!(status: 1, created_at: "6/1/2018")
+    @invoice_3 = @customer.invoices.create!(status: 1, created_at: "12/15/2019")
+    @invoice_4 = @customer.invoices.create!(status: 1, created_at: "1/15/2020")
+
 
     @transaction_1 = @invoice_1.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
+    @transaction_5 = @invoice_3.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
+    @transaction_6 = @invoice_4.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
     @transaction_2 = @invoice_1.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 0)
     @transaction_3 = @invoice_2.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 0)
     @transaction_4 = @invoice_2.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 0)
 
-    @invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 10, unit_price: 100, status: 2)
-    @invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_2.id, quantity: 10, unit_price: 100, status: 2)
-    @invoice_item_3 = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, quantity: 2, unit_price: 10, status: 2)
-    @invoice_item_4 = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_2.id, quantity: 2, unit_price: 10, status: 2)
-    @invoice_item_5 = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_1.id, quantity: 15, unit_price: 100, status: 2)
-    @invoice_item_6 = InvoiceItem.create!(item_id: @item_6.id, invoice_id: @invoice_2.id, quantity: 15, unit_price: 100, status: 2)
-    @invoice_item_7 = InvoiceItem.create!(item_id: @item_7.id, invoice_id: @invoice_1.id, quantity: 2, unit_price: 100, status: 2)
-    @invoice_item_8 = InvoiceItem.create!(item_id: @item_8.id, invoice_id: @invoice_2.id, quantity: 2, unit_price: 100, status: 2)
-    @invoice_item_9 = InvoiceItem.create!(item_id: @item_9.id, invoice_id: @invoice_1.id, quantity: 20, unit_price: 100, status: 2)
-    @invoice_item_10 = InvoiceItem.create!(item_id: @item_10.id, invoice_id: @invoice_2.id, quantity: 20, unit_price: 100, status: 2)
-    @invoice_item_11 = InvoiceItem.create!(item_id: @item_11.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 100, status: 2)
-    @invoice_item_12 = InvoiceItem.create!(item_id: @item_12.id, invoice_id: @invoice_2.id, quantity: 5, unit_price: 100, status: 2)
+    # @merch_1 total revenue = 3000, top selling date: @invoice_4.created_at = 1/15/20
+    @invoice_item_1a = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 10, unit_price: 100, status: 2)
+    @invoice_item_1c = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_3.id, quantity: 10, unit_price: 100, status: 2)
+    @invoice_item_1b = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_4.id, quantity: 10, unit_price: 100, status: 2)
+    @invoice_item_1d = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_2.id, quantity: 10, unit_price: 10, status: 2)
+    # @merch_2 total revenue = 42, top selling date: @invoice_1.created_at = 1/1/20
+    @invoice_item_2a = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_1.id, quantity: 2, unit_price: 10, status: 2)
+    @invoice_item_2c = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_3.id, quantity: 2, unit_price: 10, status: 2)
+    @invoice_item_2d = InvoiceItem.create!(item_id: @item_3.id, invoice_id: @invoice_4.id, quantity: 2, unit_price: 1, status: 2)
+    @invoice_item_2b = InvoiceItem.create!(item_id: @item_4.id, invoice_id: @invoice_2.id, quantity: 2, unit_price: 10, status: 2)
+    # @merch_3 total revenue = 4500, top selling date: @invoice_4.created_at = 1/15/20
+    @invoice_item_3a = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_1.id, quantity: 15, unit_price: 100, status: 2)
+    @invoice_item_3c = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_3.id, quantity: 15, unit_price: 100, status: 2)
+    @invoice_item_3b = InvoiceItem.create!(item_id: @item_6.id, invoice_id: @invoice_4.id, quantity: 15, unit_price: 100, status: 2)
+    @invoice_item_3d = InvoiceItem.create!(item_id: @item_5.id, invoice_id: @invoice_2.id, quantity: 15, unit_price: 10, status: 2)
+    # @merch_4 total revenue = 240, top selling date: @invoice_3.created_at = 12/15/19
+    @invoice_item_4a = InvoiceItem.create!(item_id: @item_7.id, invoice_id: @invoice_1.id, quantity: 2, unit_price: 10, status: 2)
+    @invoice_item_4c = InvoiceItem.create!(item_id: @item_7.id, invoice_id: @invoice_3.id, quantity: 2, unit_price: 100, status: 2)
+    @invoice_item_4d = InvoiceItem.create!(item_id: @item_7.id, invoice_id: @invoice_4.id, quantity: 2, unit_price: 10, status: 2)
+    @invoice_item_4b = InvoiceItem.create!(item_id: @item_8.id, invoice_id: @invoice_2.id, quantity: 2, unit_price: 100, status: 2)
+    # @merch_5 total revenue = 4200, top selling date: @invoice_1.created_at = 1/1/20
+    @invoice_item_5a = InvoiceItem.create!(item_id: @item_9.id, invoice_id: @invoice_1.id, quantity: 20, unit_price: 100, status: 2)
+    @invoice_item_5c = InvoiceItem.create!(item_id: @item_9.id, invoice_id: @invoice_3.id, quantity: 20, unit_price: 100, status: 2)
+    @invoice_item_5d = InvoiceItem.create!(item_id: @item_9.id, invoice_id: @invoice_4.id, quantity: 20, unit_price: 10, status: 2)
+    @invoice_item_5b = InvoiceItem.create!(item_id: @item_10.id, invoice_id: @invoice_2.id, quantity: 20, unit_price: 100, status: 2)
+    # @merch_6 total revenue = 1050, top selling date: @invoice_1.created_at = 1/1/20
+    @invoice_item_6a = InvoiceItem.create!(item_id: @item_11.id, invoice_id: @invoice_1.id, quantity: 5, unit_price: 100, status: 2)
+    @invoice_item_6c = InvoiceItem.create!(item_id: @item_11.id, invoice_id: @invoice_3.id, quantity: 5, unit_price: 100, status: 2)
+    @invoice_item_6d = InvoiceItem.create!(item_id: @item_11.id, invoice_id: @invoice_4.id, quantity: 5, unit_price: 10, status: 2)
+    @invoice_item_6b = InvoiceItem.create!(item_id: @item_12.id, invoice_id: @invoice_2.id, quantity: 5, unit_price: 100, status: 2)
   end
 
   describe 'instance methods' do
@@ -69,14 +92,17 @@ RSpec.describe Merchant do
       expect(@merch_3.render_status[:action]).to eq("Enable")
     end
 
-    it '#top_selling_date returns the dates with most revenue for merchants' do
-      merchants = Merchant.top_5_total_revenue
+    describe '#top_selling_date' do
 
-      expect(merchants.first.top_selling_date).to eq(@invoice_1.created_at)
-      expect(merchants.second.top_selling_date).to eq(@invoice_1.created_at)
-      expect(merchants.third.top_selling_date).to eq(@invoice_1.created_at)
-      expect(merchants.fourth.top_selling_date).to eq(@invoice_1.created_at)
-      expect(merchants.last.top_selling_date).to eq(@invoice_1.created_at)
+      it 'returns the dates with most revenue for merchants' do
+        merchants = Merchant.top_5_total_revenue
+
+        expect(merchants.first.top_selling_date).to eq(@invoice_4.created_at)
+        expect(merchants.second.top_selling_date).to eq(@invoice_1.created_at)
+        expect(merchants.third.top_selling_date).to eq(@invoice_4.created_at)
+        expect(merchants.fourth.top_selling_date).to eq(@invoice_1.created_at)
+        expect(merchants.last.top_selling_date).to eq(@invoice_3.created_at)
+      end
     end
   end
 
@@ -96,8 +122,9 @@ RSpec.describe Merchant do
     describe '.top_5_total_revenue' do
       it 'returns the top 5 merchants by total revenue generated' do
         output = Merchant.top_5_total_revenue
-        expect(output.first.id).to eq(@merch_5.id)
-        expect(output.second.id).to eq(@merch_3.id)
+        binding.pry
+        expect(output.first.id).to eq(@merch_3.id)
+        expect(output.second.id).to eq(@merch_5.id)
         expect(output.third.id).to eq(@merch_1.id)
         expect(output.fourth.id).to eq(@merch_6.id)
         expect(output.last.id).to eq(@merch_4.id)
@@ -105,11 +132,11 @@ RSpec.describe Merchant do
 
       it 'calculates total revenue as sum of all invoice items unit prices * quantity on invoices with at least 1 successful transaction' do
         output = Merchant.top_5_total_revenue
-        expect(output.first.revenue).to eq(2000)
-        expect(output.second.revenue).to eq(1500)
-        expect(output.third.revenue).to eq(1000)
-        expect(output.fourth.revenue).to eq(500)
-        expect(output.last.revenue).to eq(200)
+        expect(output.first.revenue).to eq(4500)
+        expect(output.second.revenue).to eq(4200)
+        expect(output.third.revenue).to eq(3000)
+        expect(output.fourth.revenue).to eq(1050)
+        expect(output.last.revenue).to eq(240)
       end
     end
   end
