@@ -12,7 +12,7 @@ RSpec.describe Item do
     it { should validate_presence_of :description }
     it { should validate_presence_of :unit_price }
   end
-  
+
   before :each do
     @merchant = Merchant.create!(name: "Little Shop of Horrors")
     @customer = Customer.create!(first_name: 'Audrey', last_name: 'I')
@@ -73,7 +73,7 @@ RSpec.describe Item do
         expect(Item.top_5_by_revenue).to_not include @item_3
         expect(Item.top_5_by_revenue).to_not include @item_7
       end
-    end 
+    end
 
     describe '.ready_to_ship' do
       it 'returns only the items where invoice_item status = packaged & sorted by oldest to newest' do
@@ -86,8 +86,8 @@ RSpec.describe Item do
 
     describe '.merchant_invoices' do
       it 'returns only the invoices that include one of my merchants items' do
-        expect(Item.merchant_invoices.length).to eq 5
-        expect(Item.merchant_invoices.pluck(:invoice_id)).to include(@invoice_1.id, @invoice_4.id, @invoice_2.id, @invoice_3.id, @invoice_5.id)
+        expect(Item.merchant_invoices.length).to eq 4
+        expect(Item.merchant_invoices.pluck(:invoice_id)).to include(@invoice_1.id, @invoice_4.id, @invoice_2.id, @invoice_3.id)
       end
     end
   end
