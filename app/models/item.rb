@@ -19,11 +19,31 @@ class Item < ApplicationRecord
     where(enabled: false)
   end
 
+  def self.top_5_by_revenue 
+    joins(:invoice_items)
+    .joins(invoice_items: {invoice: :transactions})
+    .where(transactions: {result: 1}, invoices: {status: 1})
+    .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
+    .group(:id)
+    .order(revenue: :desc)
+    .limit(5)
+  end
+
+  def best_revenue_date
+    Invoice.highest_revenue_date(id)
+  end
+
   def self.ready_to_ship
     joins(invoices: :invoice_items)
     .select("items.*, invoices.id AS invoice_id, invoices.created_at AS invoice_creation")
     .where(invoice_items: {status: 1})
     .group("items.id, invoices.id")
     .order("invoice_creation asc")
+  end
+
+  def self.merchant_invoices
+    joins(:invoices)
+    .select("invoices.id")
+    .distinct
   end
 end
