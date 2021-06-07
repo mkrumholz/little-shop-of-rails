@@ -26,8 +26,8 @@ RSpec.describe Item do
     @item_7 = @merchant.items.create!(name: 'Sixth item', description: '6th best', unit_price: '50', enabled: true)
 
     @invoice_1 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-03-01")) # is successful and paid
-    @invoice_2 = @customer.invoices.create!(status: 0, updated_at: Date.parse("2021-03-01")) # is cancelled
-    @invoice_3 = @customer.invoices.create!(status: 2, updated_at: Date.parse("2021-03-01")) # is still in progress, no good transactions
+    @invoice_2 = @customer.invoices.create!(status: 0, updated_at: Date.parse("2021-03-05")) # is cancelled
+    @invoice_3 = @customer.invoices.create!(status: 2, updated_at: Date.parse("2021-03-05")) # is still in progress, no good transactions
     @invoice_4 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-08")) # is successful and paid
     @invoice_5 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-01")) # has no successful transaction
 

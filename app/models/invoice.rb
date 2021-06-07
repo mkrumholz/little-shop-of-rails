@@ -14,7 +14,7 @@ class Invoice < ApplicationRecord
   end
 
   def self.highest_revenue_date(item_id)
-    joins(:invoice_items)
+    invoices = joins(:invoice_items)
     .joins('right join transactions on transactions.invoice_id=invoices.id')
     .select(invoices: :updated_at)
     .where(invoice_items: {item_id: item_id}, transactions: {result: 1}, invoices: {status: 1})
