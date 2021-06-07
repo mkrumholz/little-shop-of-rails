@@ -2,6 +2,7 @@
 
 <p> <%= "Status: #{@invoice.status}" %> </p>
 <p> <%= "Created On: #{@invoice.created_at.strftime('%A, %B %d, %Y')}" %> </p>
+<p><%= "Total revenue: #{ number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id) / 100) }" %></p>
 
 <h4> Customer: </h4>
 <p> <%= @customer.first_name %> <%= @customer.last_name %> </p>
@@ -14,12 +15,12 @@
     <th> Unit Price </th>
     <th> Status </th>
     <% @invoice_items.each do |invoice_item|  %>
-    <tr>
-      <td> <%= invoice_item.item_name %> </td>
-      <td> <%= invoice_item.quantity %> </td>
-      <td> <%= invoice_item.unit_price %> </td>
-      <td> <%= invoice_item.status %>  </td>
-    </tr>
+      <tr>
+        <td> <%= invoice_item.item_name %> </td>
+        <td> <%= invoice_item.quantity %> </td>
+        <td> <%= invoice_item.unit_price %> </td>
+        <td> <%= invoice_item.status %>  </td>
+      </tr>
     <% end %>
   </table>
 </section>

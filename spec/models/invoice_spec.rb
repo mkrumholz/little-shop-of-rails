@@ -66,7 +66,7 @@ RSpec.describe Invoice do
   
         @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 5000, status: 0)
         @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 2500, status: 0)
-        @invoice_item_3 = @item_4.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 1000, status: 0)
+        @invoice_item_3 = @item_4.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 1000, status: 0) 
         @invoice_item_4 = @item_1.invoice_items.create!(invoice_id: @invoice_2.id, quantity: 2, unit_price: 5000, status: 0)
         @invoice_item_5 = @item_1.invoice_items.create!(invoice_id: @invoice_3.id, quantity: 2, unit_price: 5000, status: 0)
         @invoice_item_6 = @item_5.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 500, status: 0)
@@ -99,6 +99,38 @@ RSpec.describe Invoice do
         actual = @invoice_1.total_revenue
 
         expect(actual).to eq(9350)
+      end
+    end
+
+    describe '.total_revenue_for_merchant' do
+      it 'returns the total revenue expected for the invoice only for items belonging to given merchant' do
+        merchant = Merchant.create!(name: "Little Shop of Horrors")
+        merchant_2 = Merchant.create!(name: 'James Bond')
+
+        customer = Customer.create!(first_name: 'Audrey', last_name: 'I')
+        invoice_1 = customer.invoices.create!(status: 1, updated_at: '2021-03-01')
+
+        # my items on invoice
+        item_1 = merchant.items.create!(name: 'Audrey II', description: 'Large, man-eating plant', unit_price: '100000000', enabled: true)
+        item_2 = merchant.items.create!(name: 'Bouquet of roses', description: '12 red roses', unit_price: '1900', enabled: true)
+        item_4 = merchant.items.create!(name: 'Echevaria', description: 'Peacock varietal', unit_price: '3100', enabled: true)
+
+        # other merchant items on invoice
+        item_8 = merchant_2.items.create!(name: 'Silver Bracelet', description: 'Accessories', unit_price: 3000)
+        item_9 = merchant_2.items.create!(name: 'Bronze Ring', description: 'Jewelery', unit_price: 2000)
+
+        # $320 for my revenue
+        invoice_item_1 = item_1.invoice_items.create!(invoice_id: invoice_1.id, quantity: 2, unit_price: 10000, status: 0) # $200
+        invoice_item_2 = item_2.invoice_items.create!(invoice_id: invoice_1.id, quantity: 2, unit_price: 5000, status: 0) # $100
+        invoice_item_3 = item_4.invoice_items.create!(invoice_id: invoice_1.id, quantity: 2, unit_price: 1000, status: 0) # $20
+
+        # $100 in other merchant's revenue
+        invoice_item_9a = InvoiceItem.create!(quantity: 2, unit_price: 3000,item_id: item_8.id, invoice_id: invoice_1.id, status: 1) # Other merchant rev
+        invoice_item_9b = InvoiceItem.create!(quantity: 2, unit_price: 2000,item_id: item_9.id, invoice_id: invoice_1.id, status: 2) # Other merchant rev
+
+        actual = invoice_1.total_revenue_for_merchant(merchant.id)
+
+        expect(actual).to eq(32000)
       end
     end
   end
