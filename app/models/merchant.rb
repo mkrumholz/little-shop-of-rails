@@ -29,6 +29,10 @@ class Merchant < ApplicationRecord
    output.first.top_selling_date
   end
 
+  def items_of_merchant
+    items.merchant_invoices
+  end
+
   def self.enabled
     where(status: true)
   end

@@ -47,5 +47,19 @@ RSpec.describe Customer do
         expect(actual.last.tran_count).to eq(1)
       end
     end
+
+    describe 'top_5_customers' do
+      it 'shows the top 5 customers' do
+
+        actual = [@customer_4, @customer_6, @customer_5, @customer_1, @customer_3]
+
+        expect(Customer.top_5_customers).to eq(actual)
+        expect(Customer.top_5_customers.first.transaction_count).to eq(5)
+        expect(Customer.top_5_customers.second.transaction_count).to eq(4)
+        expect(Customer.top_5_customers.third.transaction_count).to eq(3)
+        expect(Customer.top_5_customers.fourth.transaction_count).to eq(2)
+        expect(Customer.top_5_customers.fifth.transaction_count).to eq(1)
+      end
+    end
   end
 end

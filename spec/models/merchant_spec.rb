@@ -113,4 +113,11 @@ RSpec.describe Merchant do
       end
     end
   end
+
+  describe 'instance methods' do
+    it 'returns items & invoices for that merchant' do
+      # binding.pry
+      expect(@merch_1.items_of_merchant.pluck(@invoice_1.id)).to include(@invoice_1.id)
+    end
+  end
 end

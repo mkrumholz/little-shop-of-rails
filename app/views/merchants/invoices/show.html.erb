@@ -1,0 +1,25 @@
+<h3> <%= "Invoice ##{@invoice.id}" %> </h3>
+
+<p> <%= "Status: #{@invoice.status}" %> </p>
+<p> <%= "Created On: #{@invoice.created_at.strftime('%A, %B %d, %Y')}" %> </p>
+
+<h4> Customer: </h4>
+<p> <%= @customer.first_name %> <%= @customer.last_name %> </p>
+
+<h4> Items on this Invoice: </h4>
+<section>
+  <table>
+    <th> Item Name </th>
+    <th> Quantity </th>
+    <th> Unit Price </th>
+    <th> Status </th>
+    <% @invoice_items.each do |invoice_item|  %>
+    <tr>
+      <td> <%= invoice_item.item_name %> </td>
+      <td> <%= invoice_item.quantity %> </td>
+      <td> <%= invoice_item.unit_price %> </td>
+      <td> <%= invoice_item.status %>  </td>
+    </tr>
+    <% end %>
+  </table>
+</section>
