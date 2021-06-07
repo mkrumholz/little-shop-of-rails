@@ -14,8 +14,7 @@ class Invoice < ApplicationRecord
   end
 
   def self.highest_revenue_date(item_id)
-    invoices = joins(:invoice_items)
-    .joins('right join transactions on transactions.invoice_id=invoices.id')
+    joins(:invoice_items, :transactions)
     .select(invoices: :updated_at)
     .where(invoice_items: {item_id: item_id}, transactions: {result: 1}, invoices: {status: 1})
     .order(Arel.sql('sum(invoice_items.quantity * invoice_items.unit_price) desc, invoices.updated_at desc'))
@@ -25,11 +24,14 @@ class Invoice < ApplicationRecord
   end
 
   def item_sale_price
-    self.items.joins(:invoice_items).select('items.*, invoice_items.unit_price as sale_price, invoice_items.quantity as sale_quantity')
+    items
+    .joins(:invoice_items)
+    .select('items.*, invoice_items.unit_price as sale_price, invoice_items.quantity as sale_quantity')
   end
 
   def total_revenue
-    self.invoice_items.sum('invoice_items.unit_price * invoice_items.quantity')
+    invoice_items
+    .sum('invoice_items.unit_price * invoice_items.quantity')
   end
 
   def total_revenue_for_merchant(merchant_id)
