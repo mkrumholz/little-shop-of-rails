@@ -39,11 +39,10 @@ RSpec.describe Merchant do
 
     @customer = Customer.create!(first_name: "Sam", last_name: "Shmo")
 
-    @invoice_1 = @customer.invoices.create!(status: 1, created_at: "1/1/2020")
-    @invoice_2 = @customer.invoices.create!(status: 1, created_at: "6/1/2018")
-    @invoice_3 = @customer.invoices.create!(status: 1, created_at: "12/15/2019")
-    @invoice_4 = @customer.invoices.create!(status: 1, created_at: "1/15/2020")
-
+    @invoice_1 = @customer.invoices.create!(status: 1, created_at: Time.utc(2020, 01, 01, 20, 30, 45))
+    @invoice_2 = @customer.invoices.create!(status: 1, created_at: Time.utc(2018, 06, 01, 20, 30, 45))
+    @invoice_3 = @customer.invoices.create!(status: 1, created_at: Time.utc(2019, 12, 15, 20, 30, 45))
+    @invoice_4 = @customer.invoices.create!(status: 1, created_at: Time.utc(2020, 01, 15, 20, 30, 45))
 
     @transaction_1 = @invoice_1.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
     @transaction_5 = @invoice_3.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
@@ -122,7 +121,6 @@ RSpec.describe Merchant do
     describe '.top_5_total_revenue' do
       it 'returns the top 5 merchants by total revenue generated' do
         output = Merchant.top_5_total_revenue
-        binding.pry
         expect(output.first.id).to eq(@merch_3.id)
         expect(output.second.id).to eq(@merch_5.id)
         expect(output.third.id).to eq(@merch_1.id)
@@ -143,7 +141,6 @@ RSpec.describe Merchant do
 
   describe 'instance methods' do
     it 'returns items & invoices for that merchant' do
-      # binding.pry
       expect(@merch_1.items_of_merchant.pluck(@invoice_1.id)).to include(@invoice_1.id)
     end
   end

@@ -18,15 +18,15 @@ class Merchant < ApplicationRecord
   end
 
   def top_selling_date
-    output = items.select('invoices.created_at AS top_selling_date,
-                 SUM(invoice_items.unit_price * invoice_items.quantity) AS top_revenue')
+    output = items.select('invoices.created_at AS top_sale_date,
+                 SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue')
          .joins(invoice_items: {invoice: :transactions})
          .where(transactions: {result: 1})
          .group('invoices.created_at')
-         .order('invoices.created_at DESC, top_revenue DESC')
+         .order('revenue DESC, invoices.created_at DESC')
          .limit(1)
 
-   output.first.top_selling_date
+   output.first.top_sale_date
   end
 
   def items_of_merchant
