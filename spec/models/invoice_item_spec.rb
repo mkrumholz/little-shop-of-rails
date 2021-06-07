@@ -38,15 +38,16 @@ RSpec.describe InvoiceItem do
         invoice_item_2 = InvoiceItem.create!(quantity: 2, unit_price: 5000, item_id: item_2.id, invoice_id: invoice_1.id, status: 1)
         invoice_item_3 = InvoiceItem.create!(quantity: 2, unit_price: 1000,item_id: item_3.id, invoice_id: invoice_1.id, status: 1)
         invoice_item_4 = InvoiceItem.create!(quantity: 2, unit_price: 200,item_id: item_4.id, invoice_id: invoice_4.id, status: 1)
-        invoice_item_5 = InvoiceItem.create!(quantity: 2, unit_price: 3000,item_id: item_5.id, invoice_id: invoice_5.id, status: 1)
+        invoice_item_5 = InvoiceItem.create!(quantity: 2, unit_price: 3000,item_id: item_5.id, invoice_id: invoice_1.id, status: 1)
         invoice_item_6 = InvoiceItem.create!(quantity: 2, unit_price: 2000,item_id: item_6.id, invoice_id: invoice_6.id, status: 2)
 
-        expect(InvoiceItem.invoice_items_show(invoice_1.id).first.item_name).to eq("Gold Ring")
-        expect(InvoiceItem.invoice_items_show(invoice_1.id).first.unit_price).to eq(10000)
-        expect(InvoiceItem.invoice_items_show(invoice_1.id).first.status).to eq("packaged")
-        expect(InvoiceItem.invoice_items_show(invoice_1.id).second.item_name).to eq("Silver Ring")
-        expect(InvoiceItem.invoice_items_show(invoice_1.id).second.unit_price).to eq(5000)
-        expect(InvoiceItem.invoice_items_show(invoice_1.id).second.status).to eq("packaged")
+        expect(InvoiceItem.invoice_items_show(invoice_1.id, merchant.id).first.item_name).to eq("Gold Ring")
+        expect(InvoiceItem.invoice_items_show(invoice_1.id, merchant.id).first.unit_price).to eq(10000)
+        expect(InvoiceItem.invoice_items_show(invoice_1.id, merchant.id).first.status).to eq("packaged")
+        expect(InvoiceItem.invoice_items_show(invoice_1.id, merchant.id).second.item_name).to eq("Silver Ring")
+        expect(InvoiceItem.invoice_items_show(invoice_1.id, merchant.id).second.unit_price).to eq(5000)
+        expect(InvoiceItem.invoice_items_show(invoice_1.id, merchant.id).second.status).to eq("packaged")
+        expect(InvoiceItem.invoice_items_show(invoice_1.id, merchant.id)).to_not include(item_5)
       end
     end
   end
