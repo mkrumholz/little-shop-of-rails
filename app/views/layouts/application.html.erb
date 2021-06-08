@@ -18,5 +18,11 @@
     <% end %>
 
     <%= yield %>
+    <footer>
+      <p>Repo: <%= GithubRepo.name %></p>
+      <% GithubContributors.contributors_info.each do |contributor| %>
+        <p><%= "Contributor: #{contributor[1][:name]}, Commits: #{contributor[1][:contributions]}" %></p>
+      <% end %>
+    </footer>
   </body>
 </html>
