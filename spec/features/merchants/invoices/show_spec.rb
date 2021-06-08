@@ -36,7 +36,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
       visit "/merchants/#{merchant.id}/invoices/#{invoice_1.id}"
 
       expect(page).to have_content(invoice_1.id)
-      expect(page).to have_content(invoice_1.status)
+      expect(page).to have_select('invoice_item[status]', selected: "Packaged")
       expect(page).to have_content(invoice_1.created_at.strftime('%A, %B %d, %Y'))
       expect(page).to have_content(customer_1.first_name)
       expect(page).to have_content(customer_1.last_name)
@@ -83,7 +83,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(invoice_item_1.quantity)
       expect(page).to have_content(invoice_item_1.unit_price)
-      expect(page).to have_content(invoice_item_1.status)
+      expect(page).to have_select('invoice_item[status]', selected: "Packaged")
       expect(page).to_not have_content(item_5.name)
     end
 
