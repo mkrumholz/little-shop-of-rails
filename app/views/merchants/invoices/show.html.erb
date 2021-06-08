@@ -1,3 +1,5 @@
+<%= render partial: './partials/merchant_nav' %>
+
 <h3> <%= "Invoice ##{@invoice.id}" %> </h3>
 
 <p> <%= "Status: #{@invoice.status}" %> </p>
@@ -19,7 +21,9 @@
         <td> <%= invoice_item.item_name %> </td>
         <td> <%= invoice_item.quantity %> </td>
         <td> <%= invoice_item.unit_price %> </td>
-        <td> <%= invoice_item.status %>  </td>
+        <td> <%= form_with model: invoice_item, url: merchant_invoice_item_path(@merchant.id, invoice_item.id)
+        
+        invoice_item.status %>  </td>
       </tr>
     <% end %>
   </table>
