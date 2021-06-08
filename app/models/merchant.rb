@@ -18,15 +18,15 @@ class Merchant < ApplicationRecord
   end
 
   def top_selling_date
-    output = items.select('invoices.created_at AS top_selling_date,
-                 SUM(invoice_items.unit_price * invoice_items.quantity) AS top_revenue')
+    output = items.select('invoices.created_at AS top_sale_date,
+                 SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue')
          .joins(invoice_items: {invoice: :transactions})
          .where(transactions: {result: 1})
          .group('invoices.created_at')
-         .order('invoices.created_at DESC, top_revenue DESC')
+         .order('revenue DESC, invoices.created_at DESC')
          .limit(1)
 
-   output.first.top_selling_date
+   output.first.top_sale_date
   end
 
   def items_of_merchant
@@ -43,11 +43,10 @@ class Merchant < ApplicationRecord
 
   def self.top_5_total_revenue
     select('merchants.*,
-            invoices.id as invoice_id,
             sum(invoice_items.unit_price * invoice_items.quantity) AS revenue')
     .joins(items: {invoice_items: {invoice: :transactions}})
     .where(transactions: {result: 1})
-    .group('merchants.id, invoices.id')
+    .group('merchants.id')
     .order(revenue: :desc)
     .limit(5)
 
@@ -66,8 +65,7 @@ class Merchant < ApplicationRecord
     #             WHERE
     #             	transactions.result = 1
     #             GROUP BY
-    #             	merchants.id,
-    #               invoices.id
+    #             	merchants.id
     #             ORDER BY
     #             	revenue DESC
     #             LIMIT 5
