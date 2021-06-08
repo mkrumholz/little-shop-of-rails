@@ -143,7 +143,11 @@ RSpec.describe 'Merchant Invoices Show Page' do
 
         select 'Shipped', from: 'invoice_item[status]'
         click_button 'Update'
+      end
 
+      expect(current_path).to eq "/merchants/#{merchant.id}/invoices/#{invoice_1.id}"
+
+      within "tr#ii-#{invoice_item_1.id}" do
         expect(page).to have_select('invoice_item[status]', selected: "Shipped")
       end
     end
