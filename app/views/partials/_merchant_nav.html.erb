@@ -1,7 +1,7 @@
 <nav>
   <h2><%= @merchant.name %></h2>
   <ul>
-    <li><%= link_to 'Dashboard', merchant_path(@merchant.id) %></li>
+    <li><%= link_to 'Dashboard', merchant_dashboard_path(@merchant.id) %></li>
     <li><%= link_to 'My Items', merchant_items_path(@merchant.id) %></li>
     <li><%= link_to 'My Invoices', merchant_invoices_path(@merchant.id) %></li>
   </ul>
