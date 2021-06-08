@@ -1,3 +1,5 @@
+<%= render partial: './partials/admin_nav' %>
+
 <h1 id="merchant-<%=@merchant.id%>"><%= @merchant.name %></h1>
 
 <%= button_to "Update Merchant", edit_admin_merchant_path(@merchant.id), method: :get %>
