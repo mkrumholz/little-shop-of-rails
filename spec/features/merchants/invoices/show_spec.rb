@@ -121,9 +121,42 @@ RSpec.describe 'Merchant Invoices Show Page' do
       
       expect(page).to have_content 'Total revenue: $320.00'
     end
+
+    it 'can update an invoice item status' do
+      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+
+      customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
+      customer_2 = Customer.create!(first_name: 'Du', last_name: 'North')
+
+      item_1 = merchant.items.create!(name: 'Gold Ring', description: 'Jewelery', unit_price: 10000)
+      item_2 = merchant.items.create!(name: 'Silver Ring', description: 'Jewelery', unit_price: 5000)
+
+      invoice_1 = customer_1.invoices.create!(status: 1, created_at: "2012-03-06 14:54:15 UTC")
+      
+      invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 10000, item_id: item_1.id, invoice_id: invoice_1.id, status: 1)
+      invoice_item_2 = InvoiceItem.create!(quantity: 2, unit_price: 5000, item_id: item_2.id, invoice_id: invoice_1.id, status: 1)
+
+      visit "/merchants/#{merchant.id}/invoices/#{invoice_1.id}"
+
+      expect(page).to have_select(:status, selected: 'Packaged')
+
+      select 'Shipped', from: :status
+      click_button 'Update Item Status' 
+
+      expect(page).to have_select(:status, selected: 'Shipped')
+    end
   end
 end
 
+# Merchant Invoice Show Page: Update Item Status
+
 # As a merchant
 # When I visit my merchant invoice show page
-# Then I see the total revenue that will be generated from all of my items on the invoice
+# I see that each invoice item status is a select field
+# And I see that the invoice item's current status is selected
+# When I click this select field,
+# Then I can select a new status for the Item,
+# And next to the select field I see a button to "Update Item Status"
+# When I click this button
+# I am taken back to the merchant invoice show page
+# And I see that my Item's status has now been updated
