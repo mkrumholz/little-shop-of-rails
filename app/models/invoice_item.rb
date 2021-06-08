@@ -8,4 +8,8 @@ class InvoiceItem < ApplicationRecord
     .select("invoice_items.*, items.name AS item_name")
     .where("invoice_items.invoice_id = #{invoice_id} and items.merchant_id = #{merchant_id}")
   end
+
+  def numeric_status
+    InvoiceItem.statuses[status]
+  end
 end
