@@ -1,9 +1,9 @@
 FactoryBot.define do
   factory :item do
-    name
-    description
-    sequence :unit_price do |p|
-      1000 + (1000 * p)
+    sequence(:name) {|n| "Audrey #{n}"}
+    sequence(:description) {|n| "Description #{n}"}
+    sequence :unit_price do |n|
+      1000 + (1000 * n)
     end
     merchant
   end

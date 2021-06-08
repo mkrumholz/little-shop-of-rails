@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'The merchant item show page' do
   before :each do
-    @merchant = Merchant.create!(name: "Little Shop of Horrors")
-    @item_1 = @merchant.items.create!(name: 'Audrey II', description: 'Large, man-eating plant', unit_price: '100000000')
+    @merchant = FactoryBot.create(:merchant_with_items)
+    @item_1 = @merchant.items.first
   end
 
   it 'can update the item name' do
