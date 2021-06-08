@@ -137,13 +137,15 @@ RSpec.describe 'Merchant Invoices Show Page' do
       invoice_item_2 = InvoiceItem.create!(quantity: 2, unit_price: 5000, item_id: item_2.id, invoice_id: invoice_1.id, status: 1)
 
       visit "/merchants/#{merchant.id}/invoices/#{invoice_1.id}"
+      
+      within "tr#ii-#{invoice_item_1.id}" do
+        expect(page).to have_select('invoice_item[status]', selected: "Packaged")
 
-      expect(page).to have_select(:status, selected: 'Packaged')
+        select 'Shipped', from: 'invoice_item[status]'
+        click_button 'Update'
 
-      select 'Shipped', from: :status
-      click_button 'Update Item Status' 
-
-      expect(page).to have_select(:status, selected: 'Shipped')
+        expect(page).to have_select('invoice_item[status]', selected: "Shipped")
+      end
     end
   end
 end
