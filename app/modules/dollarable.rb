@@ -1,4 +1,4 @@
-module Dollarable 
+module Dollarable
   def price_in_dollars(price_in_cents)
     (BigDecimal(price_in_cents)/100).to_f
   end
