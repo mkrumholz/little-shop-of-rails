@@ -2,6 +2,20 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant Invoices Show Page' do
   describe 'show page' do
+    before :each do
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
+    end
     it 'can see all of that merchants invoice info' do
       # Merchant Invoice Show Page
       # As a merchant
@@ -79,7 +93,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
       invoice_item_6 = InvoiceItem.create!(quantity: 2, unit_price: 2000,item_id: item_6.id, invoice_id: invoice_1.id, status: 2)
 
       visit "/merchants/#{merchant.id}/invoices/#{invoice_1.id}"
-      
+
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(invoice_item_1.quantity)
       expect(page).to have_content(invoice_item_1.unit_price)

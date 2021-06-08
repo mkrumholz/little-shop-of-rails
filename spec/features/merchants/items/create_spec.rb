@@ -3,10 +3,23 @@ require 'rails_helper'
 RSpec.describe 'Merchant item create page' do
   before :each do
     @merchant = Merchant.create!(name: "Little Shop of Horrors")
+    allow(GithubService).to receive(:contributors_info).and_return([
+      {id: 26797256, name: 'Molly', contributions: 7},
+      {id: 78388882, name: 'Sa', contributions: 80}
+    ])
+    allow(GithubService).to receive(:closed_pulls).and_return([
+      {id: 0101010011, name: 'Molly', merged_at: 7},
+      {id: 01011230011, name: 'Sa',merged_at: 80},
+      {id: 01011230011, name: 'Sa', merged_at: nil}
+    ])
+    allow(GithubService).to receive(:repo_info).and_return({
+        name: 'little-esty-shop'
+    })
+    
+    visit "/merchants/#{@merchant.id}/items/new"
   end
 
   it 'can create a new item as enabled' do
-    visit "/merchants/#{@merchant.id}/items/new"
 
     fill_in 'item[name]', with: 'Audrey II'
     fill_in 'item[description]', with: 'Large, man-eating plant'
@@ -21,7 +34,6 @@ RSpec.describe 'Merchant item create page' do
   end
 
   it 'defaults enabled to false' do
-    visit "/merchants/#{@merchant.id}/items/new"
 
     fill_in 'item[name]', with: 'Audrey II'
     fill_in 'item[description]', with: 'Large, man-eating plant'
@@ -35,7 +47,6 @@ RSpec.describe 'Merchant item create page' do
   end
 
   it 'throws an error if fields are not completed' do
-    visit "/merchants/#{@merchant.id}/items/new"
 
     fill_in 'item[description]', with: 'Large, man-eating plant'
     click_button 'Create Item'

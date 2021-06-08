@@ -27,4 +27,8 @@ RSpec.describe 'footer' do
     expect(page).to have_content('Contributor: Sa')
     expect(page).to have_content('Commits: 80')
   end
+  it 'displays number of merged pulls' do
+
+    expect(page).to have_content('Merged Pull Requests: 2')
+  end
 end

@@ -3,10 +3,18 @@ require 'rails_helper'
 RSpec.describe 'Dashboard' do
   describe 'dashboard' do
     it 'can see the name of the merchants' do
-      # Merchant Dashboard
-      # As a merchant,
-      # When I visit my merchant dashboard (/merchants/merchant_id/dashboard)
-      # Then I see the name of my merchant
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
 
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
 
@@ -16,11 +24,18 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see links to the merchant items & invoice indexes' do
-      # Merchant Dashboard Links
-      # As a merchant,
-      # When I visit my merchant dashboard
-      # Then I see link to my merchant items index (/merchants/merchant_id/items)
-      # And I see a link to my merchant invoices index (/merchants/merchant_id/invoices)
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
 
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
 
@@ -28,23 +43,21 @@ RSpec.describe 'Dashboard' do
 
       expect(page).to have_link("My Items")
       expect(page).to have_link("My Invoices")
-      # click_link("My Items")
-      #
-      # expect(page).to have_current_path("/merchants/#{merchant.id}/items")
-      #
-      # click_link("My Invoices")
-      #
-      # expect(page).to have_current_path("/merchants/#{merchant.id}/invoices")
     end
 
     it 'can see the name of the top 5 customers' do
-      # Merchant Dashboard Statistics - Favorite Customers
-      # As a merchant,
-      # When I visit my merchant dashboard
-      # Then I see the names of the top 5 customers
-      # who have conducted the largest number of successful transactions with my merchant
-      # And next to each customer name I see the number of successful transactions they have
-      # conducted with my merchant
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
 
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
@@ -105,14 +118,18 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see the items ready to ship' do
-      # Merchant Dashboard Items Ready to Ship
-      # As a merchant
-      # When I visit my merchant dashboard
-      # Then I see a section for "Items Ready to Ship"
-      # In that section I see a list of the names of all of my items that
-      # have been ordered and have not yet been shipped,
-      # And next to each Item I see the id of the invoice that ordered my item
-      # And each invoice id is a link to my merchant's invoice show page
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
 
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
@@ -204,13 +221,18 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see the invoices sorted by least recent' do
-      # Merchant Dashboard Invoices sorted by least recent
-      # As a merchant
-      # When I visit my merchant dashboard
-      # In the section for "Items Ready to Ship",
-      # Next to each Item name I see the date that the invoice was created
-      # And I see the date formatted like "Monday, July 18, 2019"
-      # And I see that the list is ordered from oldest to newest
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
 
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
