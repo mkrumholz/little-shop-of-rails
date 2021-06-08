@@ -21,9 +21,6 @@ class Admin::InvoicesController < ApplicationController
 
     if @invoice.update(status: params[:invoice][:status].to_i)
       redirect_to admin_invoice_path(@invoice.id, update: true)
-    # else
-    #   redirect_to admin_invoice_path(@invoice.id)
-    #   flash[:alert] = "Error: #{error_message(@invoice.errors)}"
     end
   end
 end

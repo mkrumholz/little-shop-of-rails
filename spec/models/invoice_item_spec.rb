@@ -50,5 +50,27 @@ RSpec.describe InvoiceItem do
         expect(InvoiceItem.invoice_items_show(invoice_1.id, merchant.id)).to_not include(item_5)
       end
     end
+
+    describe 'instance methods' do
+      describe '#numeric_status' do
+        it 'returns the status of the invoice item as an integer for select menu' do
+          merchant = Merchant.create!(name: 'Schroeder-Jerde')
+          customer = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
+          invoice = customer.invoices.create!(status: 1, created_at: "2012-03-06 14:54:15 UTC")
+
+          item_1 = merchant.items.create!(name: 'Gold Ring', description: 'Jewelery', unit_price: 10000)
+          item_2 = merchant.items.create!(name: 'Silver Ring', description: 'Jewelery', unit_price: 5000)
+          item_3 = merchant.items.create!(name: 'Hoop Earrings', description: 'Jewelery', unit_price: 1000)
+
+          ii_1 = InvoiceItem.create!(quantity: 2, unit_price: 10000, item_id: item_1.id, invoice_id: invoice.id, status: 0)
+          ii_2 = InvoiceItem.create!(quantity: 2, unit_price: 10000, item_id: item_2.id, invoice_id: invoice.id, status: 1)
+          ii_3 = InvoiceItem.create!(quantity: 2, unit_price: 10000, item_id: item_3.id, invoice_id: invoice.id, status: 2)
+
+          expect(ii_1.numeric_status).to eq 0
+          expect(ii_2.numeric_status).to eq 1
+          expect(ii_3.numeric_status).to eq 2
+        end
+      end
+    end
   end
 end

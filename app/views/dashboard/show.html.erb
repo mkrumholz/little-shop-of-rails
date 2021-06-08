@@ -1,7 +1,4 @@
-<h2> <%= @merchant.name %> </h2>
-
-<%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
-<%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
+<%= render partial: './partials/merchant_nav' %>
 
 <h3>Favorite Customers</h3>
 <% @top_customers.each do |customer| %>
