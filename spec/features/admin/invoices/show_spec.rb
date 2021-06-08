@@ -7,7 +7,7 @@ RSpec.describe 'admin/invoices/show.html.erb' do
     @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
     @item_1 = @merchant_1.items.create!(name: 'Pogs', description: 'Stack of pogs.', unit_price: 500,)
     @item_2 = @merchant_1.items.create!(name: 'Frog statue', description: 'Statue of a frog', unit_price: 10000,)
-    @item_3 = @merchant_1.items.create!(name: 'Rabid Woliverine', description: 'No refunds', unit_price: 10,)
+    @item_3 = @merchant_1.items.create!(name: 'Rabid Wolverine', description: 'No refunds', unit_price: 10,)
     InvoiceItem.create!(quantity: 50, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_1)
     InvoiceItem.create!(quantity: 3, unit_price: 11500, status: 1, item: @item_2, invoice: @invoice_1)
     InvoiceItem.create!(quantity: 1, unit_price: 16, status: 2, item: @item_3, invoice: @invoice_1)
@@ -26,7 +26,7 @@ RSpec.describe 'admin/invoices/show.html.erb' do
     end
   end
   describe 'items on invoice' do
-    it 'dislplays all of the items on the invoice' do
+    it 'displays all of the items on the invoice' do
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(@item_2.name)
       expect(page).to have_content(@item_3.name)

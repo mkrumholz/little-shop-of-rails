@@ -1,3 +1,5 @@
+<%= render partial: './partials/admin_nav' %>
+
 <%= form_with model: [:admin, @merchant], local: true do |f| %>
   <%= f.label :name, "Merchant Name: " %>
   <%= f.text_field :name  %>
