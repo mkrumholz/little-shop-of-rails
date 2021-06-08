@@ -7,8 +7,7 @@ RSpec.describe 'Dashboard' do
       # As a merchant,
       # When I visit my merchant dashboard (/merchants/merchant_id/dashboard)
       # Then I see the name of my merchant
-
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
 
       visit "/merchants/#{merchant.id}/dashboard"
 
@@ -21,20 +20,19 @@ RSpec.describe 'Dashboard' do
       # When I visit my merchant dashboard
       # Then I see link to my merchant items index (/merchants/merchant_id/items)
       # And I see a link to my merchant invoices index (/merchants/merchant_id/invoices)
-
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
 
       visit "/merchants/#{merchant.id}/dashboard"
 
       expect(page).to have_link("My Items")
       expect(page).to have_link("My Invoices")
-      # click_link("My Items")
-      #
-      # expect(page).to have_current_path("/merchants/#{merchant.id}/items")
-      #
-      # click_link("My Invoices")
-      #
-      # expect(page).to have_current_path("/merchants/#{merchant.id}/invoices")
+      click_link("My Items")
+      
+      expect(page).to have_current_path("/merchants/#{merchant.id}/items")
+      
+      click_link("My Invoices")
+      
+      expect(page).to have_current_path("/merchants/#{merchant.id}/invoices")
     end
 
     it 'can see the name of the top 5 customers' do
@@ -45,8 +43,7 @@ RSpec.describe 'Dashboard' do
       # who have conducted the largest number of successful transactions with my merchant
       # And next to each customer name I see the number of successful transactions they have
       # conducted with my merchant
-
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
@@ -113,8 +110,7 @@ RSpec.describe 'Dashboard' do
       # have been ordered and have not yet been shipped,
       # And next to each Item I see the id of the invoice that ordered my item
       # And each invoice id is a link to my merchant's invoice show page
-
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
@@ -212,7 +208,7 @@ RSpec.describe 'Dashboard' do
       # And I see the date formatted like "Monday, July 18, 2019"
       # And I see that the list is ordered from oldest to newest
 
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
