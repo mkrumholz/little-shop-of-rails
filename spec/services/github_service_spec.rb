@@ -17,5 +17,13 @@ RSpec.describe GithubService do
         expect(actual[0][:login]).to eq('mkrumholz')
       end
     end
+
+    describe '#closed_pulls' do
+      xit 'returns all closed pulls from the repo' do
+        actual = GithubService.closed_pulls
+        expect(actual[0]).to have_key(:id)
+        expect(actual[0]).to have_key(:merged_at)
+      end
+    end
   end
 end
