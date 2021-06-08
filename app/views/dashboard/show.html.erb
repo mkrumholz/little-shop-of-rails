@@ -1,8 +1,5 @@
 <%= render partial: './partials/merchant_nav' %>
 
-<%= link_to "My Items", "/merchants/#{@merchant.id}/items" %>
-<%= link_to "My Invoices", "/merchants/#{@merchant.id}/invoices" %>
-
 <h3>Favorite Customers</h3>
 <% @top_customers.each do |customer| %>
   <p> <%= customer.first_name %> <%= customer.last_name %>:
