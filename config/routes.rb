@@ -14,6 +14,7 @@ Rails.application.routes.draw do
     scope module: :merchants do
       resources :items
       resources :invoices, only: [:index, :show]
+      resources :invoice_items, only: :update
     end
   end
 end
