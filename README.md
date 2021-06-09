@@ -23,7 +23,8 @@ Heroku: [Little Rails Shop](https://little-rails-shop.herokuapp.com/)
  - Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
 
 ## Schema
-![Schema](https://user-images.githubusercontent.com/78388882/120407604-ba712a80-c30a-11eb-8299-8b499c53ea1f.png)
+![Little Esty Shop Schema](https://user-images.githubusercontent.com/5446926/121439757-c7fa6600-c943-11eb-91d2-42a47a418383.png)
+
 
 ## Built With
 - Ruby 2.7.2
