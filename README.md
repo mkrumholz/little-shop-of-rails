@@ -1,18 +1,19 @@
 # Little Esty Shop
 
 ## About this Project
-"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
-Timeframe: 9 days
+"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices 
+
+Timeframe: 9 days  
 Heroku: [Little Rails Shop](https://little-rails-shop.herokuapp.com/)
 
 ## Contributors
-- Lawrence Whalen
+- Lawrence Whalen  
    [Github](https://github.com/LawrenceWhalen) | [LinkedIn](https://www.linkedin.com/in/lawrence-whalen-15996220a/)
 - Aliya Merali  
-    [Github](https://github.com/aliyamerali) | [LinkedIn](https://www.linkedin.com/in/aliyamerali/)
+   [Github](https://github.com/aliyamerali) | [LinkedIn](https://www.linkedin.com/in/aliyamerali/)
 - Molly Krumholz  
    [Github](https://github.com/mkrumholz) | [LinkedIn](https://www.linkedin.com/in/mkrumholz/)
-- Sidarth Bagawandoss
+- Sidarth Bagawandoss  
    [Github](https://github.com/Sidarth20) | [LinkedIn](https://www.linkedin.com/in/sidarth-bagawandoss-12220644/)
 
 ## Learning Goals
