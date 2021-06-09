@@ -2,7 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant item create page' do
   before :each do
-    @merchant = Merchant.create!(name: "Little Shop of Horrors")
     allow(GithubService).to receive(:contributors_info).and_return([
       {id: 26797256, name: 'Molly', contributions: 7},
       {id: 78388882, name: 'Sa', contributions: 80}
@@ -15,6 +14,8 @@ RSpec.describe 'Merchant item create page' do
     allow(GithubService).to receive(:repo_info).and_return({
         name: 'little-esty-shop'
     })
+
+    @merchant = FactoryBot.create(:merchant)
     
     visit "/merchants/#{@merchant.id}/items/new"
   end

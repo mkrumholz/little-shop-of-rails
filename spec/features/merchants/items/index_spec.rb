@@ -14,10 +14,10 @@ RSpec.describe 'The merchant items index' do
     allow(GithubService).to receive(:repo_info).and_return({
         name: 'little-esty-shop'
     })
-    @merchant = Merchant.create!(name: "Little Shop of Horrors")
-    @customer = Customer.create!(first_name: 'Audrey', last_name: 'I')
+    @merchant = FactoryBot.create(:merchant_with_items)
+    @customer = FactoryBot.create(:customer)
 
-    @item_1 = @merchant.items.create!(name: 'Audrey II', description: 'Large, man-eating plant', unit_price: '100000000', enabled: true)
+    @item_1 = @merchant.items.first
     @item_2 = @merchant.items.create!(name: 'Bouquet of roses', description: '12 red roses', unit_price: '1900', enabled: true)
     @item_3 = @merchant.items.create!(name: 'Orchid', description: 'Purple, 3 inches', unit_price: '2700', enabled: false)
     @item_4 = @merchant.items.create!(name: 'Echevaria', description: 'Peacock varietal', unit_price: '3100', enabled: true)
@@ -49,46 +49,42 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'lists all of the items' do
-
-    expect(page).to have_content 'Audrey II'
-    expect(page).to have_content 'Bouquet of roses'
-    expect(page).to have_content 'Orchid'
-    expect(page).to have_content 'Echevaria'
+    expect(page).to have_content @item_1.name
+    expect(page).to have_content @item_2.name
+    expect(page).to have_content @item_3.name
+    expect(page).to have_content @item_4.name
   end
 
   it 'links to each item show page' do
-
     within "section#enabled" do
-      click_on 'Audrey II'
+      click_on "#{@item_1.name}" 
     end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
-    expect(page).to have_content 'Audrey II'
+    expect(page).to have_content @item_1.name
   end
 
   it 'groups items by status' do
-
     within "section#enabled" do
       expect(page).to have_content 'Enabled Items'
-      expect(page).to have_content 'Audrey II'
-      expect(page).to have_content 'Bouquet of roses'
-      expect(page).to have_content 'Echevaria'
+      expect(page).to have_content @item_1.name
+      expect(page).to have_content @item_2.name
+      expect(page).to have_content @item_4.name
       expect(page).to have_button 'Disable'
       expect(page).to_not have_button 'Enable'
-      expect(page).to_not have_content 'Orchid'
+      expect(page).to_not have_content @item_3.name 
     end
 
     within "section#disabled" do
       expect(page).to have_content 'Disabled Items'
-      expect(page).to have_content 'Orchid'
+      expect(page).to have_content @item_3.name
       expect(page).to have_button 'Enable'
       expect(page).to_not have_button 'Disable'
-      expect(page).to_not have_content 'Audrey II'
+      expect(page).to_not have_content @item_1.name
     end
   end
 
   it 'can enable a disabled item' do
-
     within "section#enabled" do
       within "div#item-#{@item_2.id}" do
         click_on 'Disable'
@@ -98,16 +94,15 @@ RSpec.describe 'The merchant items index' do
     expect(current_path).to eq "/merchants/#{@merchant.id}/items"
 
     within "section#enabled" do
-      expect(page).to_not have_content 'Bouquet of roses'
+      expect(page).to_not have_content @item_2.name
     end
 
     within "section#disabled" do
-      expect(page).to have_content 'Bouquet of roses'
+      expect(page).to have_content @item_2.name
     end
   end
 
   it 'can disable an enabled item' do
-
     within "section#disabled" do
       within "div#item-#{@item_3.id}" do
         click_on 'Enable'
@@ -117,23 +112,21 @@ RSpec.describe 'The merchant items index' do
     expect(current_path).to eq "/merchants/#{@merchant.id}/items"
 
     within "section#enabled" do
-      expect(page).to have_content 'Orchid'
+      expect(page).to have_content @item_3.name
     end
 
     within "section#disabled" do
-      expect(page).to_not have_content 'Orchid'
+      expect(page).to_not have_content @item_3.name
     end
   end
 
   it 'has a link to create a new item' do
-
     click_link 'New item'
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/new"
   end
 
   it 'lists the top 5 best-selling items by revenue generated' do
-
     within "section#popular" do
       expect(@item_1.name).to appear_before @item_2.name
       expect(@item_2.name).to appear_before @item_4.name
@@ -145,16 +138,14 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'links to each merchant item show page from popular items' do
-
-    within "section#popular" do
-      click_link 'Audrey II'
+    within "section#popular" do 
+      click_link "#{@item_1.name}"
     end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
   end
 
   it 'displays the total revenue generated for each popular item' do
-
     within "section#popular" do
       within "li#item-#{@item_1.id}" do
         expect(page).to have_content 'Total revenue: $100.00'

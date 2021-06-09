@@ -15,7 +15,7 @@ RSpec.describe 'admin header nav' do
         name: 'little-esty-shop'
     })
 
-    @merchant = Merchant.create!(name: 'Schroeder-Jerde')
+    @merchant = FactoryBot.create(:merchant)
 
     visit "/merchants/#{@merchant.id}/dashboard"
   end

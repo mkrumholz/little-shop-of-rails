@@ -16,7 +16,7 @@ RSpec.describe 'Dashboard' do
           name: 'little-esty-shop'
       })
 
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
 
       visit "/merchants/#{merchant.id}/dashboard"
 
@@ -37,12 +37,20 @@ RSpec.describe 'Dashboard' do
           name: 'little-esty-shop'
       })
 
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
 
       visit "/merchants/#{merchant.id}/dashboard"
 
       expect(page).to have_link("My Items")
       expect(page).to have_link("My Invoices")
+
+      click_link("My Items")
+      
+      expect(page).to have_current_path("/merchants/#{merchant.id}/items")
+      
+      click_link("My Invoices")
+      
+      expect(page).to have_current_path("/merchants/#{merchant.id}/invoices")
     end
 
     it 'can see the name of the top 5 customers' do
@@ -59,7 +67,7 @@ RSpec.describe 'Dashboard' do
           name: 'little-esty-shop'
       })
 
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
@@ -131,7 +139,7 @@ RSpec.describe 'Dashboard' do
           name: 'little-esty-shop'
       })
 
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
@@ -234,7 +242,7 @@ RSpec.describe 'Dashboard' do
           name: 'little-esty-shop'
       })
 
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
+      merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
