@@ -25,7 +25,7 @@ RSpec.describe 'Admin Invoice Edit' do
     allow(GithubService).to receive(:repo_info).and_return({
         name: 'little-esty-shop'
     })
-    
+
     @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
     @invoice_1 = @customer_1.invoices.create!(status: 1, created_at: '2001-01-01')
 

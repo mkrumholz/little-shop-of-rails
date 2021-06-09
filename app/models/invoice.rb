@@ -34,4 +34,9 @@ class Invoice < ApplicationRecord
     .where(items: {merchant_id: merchant_id})
     .sum('invoice_items.unit_price * invoice_items.quantity')
   end
+
+  def enum_integer
+    enum_convert = Invoice.statuses
+    enum_convert[self.status]
+  end
 end

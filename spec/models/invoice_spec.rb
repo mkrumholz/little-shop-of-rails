@@ -50,7 +50,7 @@ RSpec.describe Invoice do
       end
     end
   end
-  
+
   describe 'instance methods' do
     describe '.item_sale_price' do
       it 'returns all items from an invoice and the amount they sold for and number sold' do
@@ -98,6 +98,15 @@ RSpec.describe Invoice do
         actual = invoice_1.total_revenue_for_merchant(merchant.id)
 
         expect(actual).to eq(32000)
+      end
+    end
+
+    describe '.enum_integer' do
+      it 'returns the integer associated with that status' do
+
+        expect(@invoice_1.status).to eq('completed')
+        expect(@invoice_1.enum_integer).to eq(1)
+
       end
     end
   end
