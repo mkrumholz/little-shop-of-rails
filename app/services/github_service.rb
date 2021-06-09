@@ -4,7 +4,7 @@ class GithubService
     response = Faraday.get "https://api.github.com/repos/LawrenceWhalen/little-esty-shop"
 
     body = response.body
-    JSON.parse(body, symbolize_names: true)
+    test = JSON.parse(body, symbolize_names: true)
   end
 
   def self.contributors_info
