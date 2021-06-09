@@ -5,8 +5,7 @@ class Admin::InvoicesController < ApplicationController
     @invoices = Invoice.all.order(:id)
   end
 
-  def show
-    @enum_convert = Invoice.statuses
+  def show    
     @invoice = Invoice.find(params[:id])
     @customer = Customer.find(@invoice.customer_id)
     @items = @invoice.item_sale_price

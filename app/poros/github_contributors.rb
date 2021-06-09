@@ -7,6 +7,5 @@ class GithubContributors
         hash[contributor[:id]] = {name: contributor[:login], contributions: contributor[:contributions]}
       end
     end
-
   end
 end
