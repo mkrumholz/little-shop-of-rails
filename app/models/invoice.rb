@@ -19,7 +19,6 @@ class Invoice < ApplicationRecord
 
   def item_sale_price
     items
-    .joins(:invoice_items)
     .select('items.*, invoice_items.unit_price as sale_price, invoice_items.quantity as sale_quantity')
   end
 
