@@ -18,5 +18,12 @@
     <% end %>
 
     <%= yield %>
+    <footer>
+      <p>Repo: <%= GithubRepo.name_info %></p>
+      <% GithubContributors.contributors_info.each do |contributor| %>
+        <p><%= "Contributor: #{contributor[1][:name]}, Commits: #{contributor[1][:contributions]}" %></p>
+      <% end %>
+      <p>Merged Pull Requests: <%= GithubPullRequests.merged_pulls %></p>
+    </footer>
   </body>
 </html>

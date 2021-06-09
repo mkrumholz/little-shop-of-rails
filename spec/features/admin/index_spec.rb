@@ -2,6 +2,20 @@ require 'rails_helper'
 
 RSpec.describe 'index.html.erb' do
   describe 'visit' do
+    before :each do
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
+    end
     it 'displays a dashboard' do
       visit '/admin'
 
@@ -28,6 +42,18 @@ RSpec.describe 'index.html.erb' do
   end
   describe 'Top 5 Customers' do
     before :each do
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
       @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
       @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
       @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
@@ -82,6 +108,18 @@ RSpec.describe 'index.html.erb' do
   end
   describe 'Incomplete Invoices' do
     before :each do
+      allow(GithubService).to receive(:contributors_info).and_return([
+        {id: 26797256, name: 'Molly', contributions: 7},
+        {id: 78388882, name: 'Sa', contributions: 80}
+      ])
+      allow(GithubService).to receive(:closed_pulls).and_return([
+        {id: 0101010011, name: 'Molly', merged_at: 7},
+        {id: 01011230011, name: 'Sa',merged_at: 80},
+        {id: 01011230011, name: 'Sa', merged_at: nil}
+      ])
+      allow(GithubService).to receive(:repo_info).and_return({
+          name: 'little-esty-shop'
+      })
       @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
       @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
       @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')

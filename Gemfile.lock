@@ -76,6 +76,19 @@ GEM
     factory_bot_rails (6.2.0)
       factory_bot (~> 6.2.0)
       railties (>= 5.0.0)
+    faraday (1.4.2)
+      faraday-em_http (~> 1.0)
+      faraday-em_synchrony (~> 1.0)
+      faraday-excon (~> 1.1)
+      faraday-net_http (~> 1.0)
+      faraday-net_http_persistent (~> 1.1)
+      multipart-post (>= 1.2, < 3)
+      ruby2_keywords (>= 0.0.4)
+    faraday-em_http (1.0.0)
+    faraday-em_synchrony (1.0.0)
+    faraday-excon (1.1.0)
+    faraday-net_http (1.0.1)
+    faraday-net_http_persistent (1.1.0)
     ffi (1.15.1)
     ffi (1.15.1-java)
     ffi (1.15.1-x64-mingw32)
@@ -104,6 +117,7 @@ GEM
     minitest (5.14.4)
     msgpack (1.4.2)
     msgpack (1.4.2-java)
+    multipart-post (2.1.1)
     nio4r (2.5.7)
     nio4r (2.5.7-java)
     nokogiri (1.11.7)
@@ -186,6 +200,7 @@ GEM
       rspec-mocks (~> 3.10)
       rspec-support (~> 3.10)
     rspec-support (3.10.2)
+    ruby2_keywords (0.0.4)
     ruby_dep (1.5.0)
     sass (3.7.4)
       sass-listen (~> 4.0.0)
@@ -256,7 +271,11 @@ DEPENDENCIES
   bootsnap (>= 1.1.0)
   capybara
   coffee-rails (~> 4.2)
+<<<<<<< HEAD
   factory_bot_rails
+=======
+  faraday
+>>>>>>> main
   jbuilder (~> 2.5)
   launchy
   listen (>= 3.0.5, < 3.2)

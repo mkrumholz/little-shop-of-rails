@@ -2,6 +2,18 @@ require 'rails_helper'
 
 RSpec.describe 'The merchant items index' do
   before :each do
+    allow(GithubService).to receive(:contributors_info).and_return([
+      {id: 26797256, name: 'Molly', contributions: 7},
+      {id: 78388882, name: 'Sa', contributions: 80}
+    ])
+    allow(GithubService).to receive(:closed_pulls).and_return([
+      {id: 0101010011, name: 'Molly', merged_at: 7},
+      {id: 01011230011, name: 'Sa',merged_at: 80},
+      {id: 01011230011, name: 'Sa', merged_at: nil}
+    ])
+    allow(GithubService).to receive(:repo_info).and_return({
+        name: 'little-esty-shop'
+    })
     @merchant = FactoryBot.create(:merchant_with_items)
     @customer = FactoryBot.create(:customer)
 
@@ -32,10 +44,11 @@ RSpec.describe 'The merchant items index' do
     @invoice_2.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
     @invoice_4.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
     @invoice_5.transactions.create!(result: 0, credit_card_number: '534', credit_card_expiration_date: 'null')
+
+    visit "/merchants/#{@merchant.id}/items"
   end
 
   it 'lists all of the items' do
-    visit "/merchants/#{@merchant.id}/items"
 
     expect(page).to have_content @item_1.name
     expect(page).to have_content @item_2.name
@@ -44,11 +57,13 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'links to each item show page' do
-    visit "/merchants/#{@merchant.id}/items"
-    visit "/merchants/#{@merchant.id}/items"
-    
+
     within "section#enabled" do
+<<<<<<< HEAD
       click_on "#{@item_1.name}" 
+=======
+      click_on 'Audrey II'
+>>>>>>> main
     end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
@@ -56,7 +71,6 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'groups items by status' do
-    visit "/merchants/#{@merchant.id}/items"
 
     within "section#enabled" do
       expect(page).to have_content 'Enabled Items'
@@ -78,8 +92,7 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'can enable a disabled item' do
-    visit "/merchants/#{@merchant.id}/items"
-    
+
     within "section#enabled" do
       within "div#item-#{@item_2.id}" do
         click_on 'Disable'
@@ -98,8 +111,7 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'can disable an enabled item' do
-    visit "/merchants/#{@merchant.id}/items"
-    
+
     within "section#disabled" do
       within "div#item-#{@item_3.id}" do
         click_on 'Enable'
@@ -118,7 +130,6 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'has a link to create a new item' do
-    visit "/merchants/#{@merchant.id}/items"
 
     click_link 'New item'
 
@@ -126,32 +137,34 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'lists the top 5 best-selling items by revenue generated' do
-    visit "/merchants/#{@merchant.id}/items"
 
-    within "section#popular" do  
+    within "section#popular" do
       expect(@item_1.name).to appear_before @item_2.name
       expect(@item_2.name).to appear_before @item_4.name
       expect(@item_4.name).to appear_before @item_5.name
       expect(@item_5.name).to appear_before @item_6.name
       expect(page).to_not have_content @item_3.name
       expect(page).to_not have_content @item_7.name
-    end 
+    end
   end
 
   it 'links to each merchant item show page from popular items' do
-    visit "/merchants/#{@merchant.id}/items"
 
+<<<<<<< HEAD
     within "section#popular" do 
       click_link "#{@item_1.name}"
+=======
+    within "section#popular" do
+      click_link 'Audrey II'
+>>>>>>> main
     end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
   end
 
   it 'displays the total revenue generated for each popular item' do
-    visit "/merchants/#{@merchant.id}/items"
 
-    within "section#popular" do 
+    within "section#popular" do
       within "li#item-#{@item_1.id}" do
         expect(page).to have_content 'Total revenue: $100.00'
       end
@@ -171,9 +184,8 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'lists the top selling (invoice) date for each item' do
-    visit "/merchants/#{@merchant.id}/items"
 
-    within "section#popular" do 
+    within "section#popular" do
       within "li#item-#{@item_1.id}" do
         expect(page).to have_content 'Best revenue day: Monday, March 01, 2021'
       end

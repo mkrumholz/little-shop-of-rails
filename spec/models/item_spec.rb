@@ -32,14 +32,14 @@ RSpec.describe Item do
     @invoice_4 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-08")) # is successful and paid
     @invoice_5 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-01")) # has no successful transaction
 
-    @invoice_item_1 = @item_1.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 5000, status: 1)
-    @invoice_item_2 = @item_2.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 2500, status: 1)
-    @invoice_item_3 = @item_4.invoice_items.create!(invoice_id: @invoice_1.id, quantity: 2, unit_price: 1000, status: 1)
-    @invoice_item_4 = @item_1.invoice_items.create!(invoice_id: @invoice_2.id, quantity: 2, unit_price: 5000, status: 1)
-    @invoice_item_5 = @item_1.invoice_items.create!(invoice_id: @invoice_3.id, quantity: 2, unit_price: 5000, status: 0)
-    @invoice_item_6 = @item_5.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 500, status: 0)
-    @invoice_item_7 = @item_6.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 200, status: 0)
-    @invoice_item_8 = @item_7.invoice_items.create!(invoice_id: @invoice_4.id, quantity: 2, unit_price: 50, status: 0)
+    @invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 2, unit_price: 5000, status: 1)
+    @invoice_item_2 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, quantity: 2, unit_price: 2500, status: 1)
+    @invoice_item_3 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_4.id, quantity: 2, unit_price: 1000, status: 1)
+    @invoice_item_4 = InvoiceItem.create!(invoice_id: @invoice_2.id, item_id: @item_1.id, quantity: 2, unit_price: 5000, status: 1)
+    @invoice_item_5 = InvoiceItem.create!(invoice_id: @invoice_3.id, item_id: @item_1.id, quantity: 2, unit_price: 5000, status: 0)
+    @invoice_item_6 = InvoiceItem.create!(invoice_id: @invoice_4.id, item_id: @item_5.id, quantity: 2, unit_price: 500, status: 0)
+    @invoice_item_7 = InvoiceItem.create!(invoice_id: @invoice_4.id, item_id: @item_6.id, quantity: 2, unit_price: 200, status: 0)
+    @invoice_item_8 = InvoiceItem.create!(invoice_id: @invoice_4.id, item_id: @item_7.id, quantity: 2, unit_price: 50, status: 0)
 
     @invoice_1.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
     @invoice_2.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
@@ -79,9 +79,10 @@ RSpec.describe Item do
     describe '.ready_to_ship' do
       it 'returns only the items where invoice_item status = packaged & sorted by oldest to newest' do
         expect(Item.ready_to_ship.length).to eq 4
-        expect(Item.ready_to_ship).to include @item_1, @item_2, @item_4
+        expect(Item.ready_to_ship.first.name).to include(@item_1.name)
+        expect(Item.ready_to_ship.second.name).to include(@item_2.name)
+        expect(Item.ready_to_ship.third.name).to include(@item_4.name)
         expect(Item.ready_to_ship).to_not include @item_5
-        expect(Item.ready_to_ship).to eq([@item_1, @item_2, @item_4, @item_1])
       end
     end
 
