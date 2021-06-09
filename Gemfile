@@ -46,6 +46,7 @@ group :development, :test do
   gem 'orderly'
   gem 'simplecov', require: false
   gem 'launchy'
+  gem 'factory_bot_rails'
 end
 
 group :development do

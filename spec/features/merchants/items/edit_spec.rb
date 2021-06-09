@@ -15,9 +15,9 @@ RSpec.describe 'The merchant item show page' do
         name: 'little-esty-shop'
     })
 
-    @merchant = Merchant.create!(name: "Little Shop of Horrors")
-    @item_1 = @merchant.items.create!(name: 'Audrey II', description: 'Large, man-eating plant', unit_price: '100000000')
-    
+    @merchant = FactoryBot.create(:merchant_with_items)
+    @item_1 = @merchant.items.first
+
     visit "/merchants/#{@merchant.id}/items/#{@item_1.id}/edit"
   end
 
