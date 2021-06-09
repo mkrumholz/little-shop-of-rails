@@ -19,7 +19,7 @@ class Item < ApplicationRecord
     where(enabled: false)
   end
 
-  def self.top_5_by_revenue 
+  def self.top_5_by_revenue
     joins(invoices: :transactions)
     .where(transactions: {result: 1}, invoices: {status: 1})
     .select('items.*, sum(invoice_items.quantity * invoice_items.unit_price) as revenue')
@@ -39,10 +39,10 @@ class Item < ApplicationRecord
   end
 
   def self.ready_to_ship
-    joins(invoices: :invoice_items)
-    .select("items.*, invoices.id AS invoice_id, invoices.created_at AS invoice_creation")
+    joins(:invoices)
+    .select("items.*, invoice_items.*, invoices.id AS invoice_id, invoices.created_at AS invoice_creation")
     .where(invoice_items: {status: 1})
-    .group("items.id, invoices.id")
+    .group("items.id, invoices.id, invoice_items.id")
     .order("invoice_creation asc")
   end
 

@@ -1,34 +1,62 @@
 # Little Esty Shop
 
-## Background and Description
+## About this Project
+"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices 
 
-"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices.
+Timeframe: 9 days  
+Heroku: [Little Rails Shop](https://little-rails-shop.herokuapp.com/)
+
+## Contributors
+- Lawrence Whalen  
+   [Github](https://github.com/LawrenceWhalen) | [LinkedIn](https://www.linkedin.com/in/lawrence-whalen-15996220a/)
+- Aliya Merali  
+   [Github](https://github.com/aliyamerali) | [LinkedIn](https://www.linkedin.com/in/aliyamerali/)
+- Molly Krumholz  
+   [Github](https://github.com/mkrumholz) | [LinkedIn](https://www.linkedin.com/in/mkrumholz/)
+- Sidarth Bagawandoss  
+   [Github](https://github.com/Sidarth20) | [LinkedIn](https://www.linkedin.com/in/sidarth-bagawandoss-12220644/)
 
 ## Learning Goals
-- Practice designing a normalized database schema and defining model relationships
-- Utilize advanced routing techniques including namespacing to organize and group like functionality together.
-- Utilize advanced active record techniques to perform complex database queries
-- Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
+ - Practice designing a normalized database schema and defining model relationships
+ - Utilize advanced routing techniques including namespacing to organize and group like functionality together
+ - Utilize advanced active record techniques to perform complex database queries
+ - Practice consuming a public API while utilizing POROs as a way to apply OOP principles to organize code
 
-## Requirements
-- must use Rails 5.2.x
-- must use PostgreSQL
-- all code must be tested via feature tests and model tests, respectively
-- must use GitHub branching, team code reviews via GitHub comments, and github projects to track progress on user stories
-- must include a thorough README to describe the project
-- must deploy completed code to Heroku
+## Schema
+![Schema](https://user-images.githubusercontent.com/78388882/120407604-ba712a80-c30a-11eb-8299-8b499c53ea1f.png)
 
-## Setup
+## Built With
+- Ruby 2.7.2
+- Rails 5.2.6
+- ActiveRecord
+- SQL
+- RSpec
+- Capybara
+- Factory Bot
+- GitHub API
 
-This project requires Ruby 2.5.3.
+## Important Gems(Libraries):
+* [rspec-rails](https://github.com/rspec/rspec-rails)
+* [capybara](https://github.com/teamcapybara/capybara)
+* [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
+* [faraday](https://github.com/lostisland/faraday)
+* [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
+* [simplecov](https://github.com/simplecov-ruby/simplecov)
+* [orderly](https://github.com/simplecov-ruby/simplecov)
 
-* Fork this repository
-* Clone your fork
-* From the command line, install gems and set up your DB:
-    * `bundle`
-    * `rails db:create`
-* Run the test suite with `bundle exec rspec`.
-* Run your development server with `rails s` to see the app in action.
+## Getting Started
+1. Fork and clone the repo
+2. Install any missing gems from gem file
+3. Install gem packages with `bundle install`
+4. Run `$ rails db:{create,migrate}`
+5. Run `$ rake csv_load:all`
+6. From your terminal run `$ rails s` and navigate to http://localhost:3000/ in your browser to navigate the app
+
+## Testing
+* RSpec and Capybara were used for unit and integration testing and project development adhered to TDD principles.
+* Simplecov was used to track total test coverage.
+* To run our test suite, RSpec, enter `$ bundle exec rspec` in the terminal.
+* To see a coverage report enter `$ open coverage/index.html`
 
 ## Phases
 
@@ -37,10 +65,6 @@ This project requires Ruby 2.5.3.
 1. [Extensions](./doc/extensions.md)
 1. [Evaluation](./doc/evaluation.md)
 
-## Project Checking Questions
-1. Is there a convention around keeping rake tasks in one file vs. breaking them out in theo their own files?
-2. When is the dependent destroy relationship appropriate? How should we make the decision to add that?
-3. Do we need to be testing the rake tasks? Enums?
-4. Should we include validations?
-
-![Schema](https://user-images.githubusercontent.com/78388882/120407604-ba712a80-c30a-11eb-8299-8b499c53ea1f.png)
+## Additonal References
+- [Base Repository](https://github.com/LawrenceWhalen/little-esty-shop) used for Turing's Backend Module 3.
+- [Github Documentation](https://docs.github.com/en/rest) used for Github documentation.
