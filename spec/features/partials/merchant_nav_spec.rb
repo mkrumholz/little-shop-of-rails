@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin header nav' do
   before :each do
-    @merchant = Merchant.create!(name: 'Schroeder-Jerde')
+    @merchant = FactoryBot.create(:merchant)
   end
 
   it 'links to the admin dashboard' do

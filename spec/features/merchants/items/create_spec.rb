@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant item create page' do
   before :each do
-    @merchant = Merchant.create!(name: "Little Shop of Horrors")
+    @merchant = FactoryBot.create(:merchant)
   end
 
   it 'can create a new item as enabled' do

@@ -10,7 +10,6 @@ FactoryBot.define do
 
       after(:create) do |merchant, evaluator|
         create_list(:item, evaluator.items_count, merchant: merchant)
-        # merchant.reload
       end
     end
   end

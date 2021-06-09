@@ -6,5 +6,6 @@ FactoryBot.define do
       1000 + (1000 * n)
     end
     merchant
+    enabled { true }
   end
 end
