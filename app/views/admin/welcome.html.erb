@@ -1,7 +1,8 @@
-<h2><%= link_to( 'Admin Index', admin_index_path, method: :get, local: true) %><br><br><br><br></h2>
+<h2><%= link_to( 'Admin Index', admin_index_path, method: :get, local: true) %><br><br></h2>
 
 <table>
-  <th>Merchants:</th>
+  <th>Merchant ID:</th>
+  <th>Merchant Name:</th>
   <% @merchants.each do |merchant| %>
     <tr><td><%= link_to( "Merchant ##{merchant.id}", merchant_dashboard_path(merchant.id), method: :get, local: true) %></td>
         <td><%= merchant.name %></td></tr>
