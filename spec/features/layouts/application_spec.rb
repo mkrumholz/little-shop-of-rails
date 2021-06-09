@@ -1,6 +1,6 @@
 require 'rails_helper'
 
-RSpec.describe 'Admin Merchant Show' do
+RSpec.describe 'footer' do
   before :each do
     allow(GithubService).to receive(:contributors_info).and_return([
       {id: 26797256, name: 'Molly', contributions: 7},
@@ -14,21 +14,21 @@ RSpec.describe 'Admin Merchant Show' do
     allow(GithubService).to receive(:repo_info).and_return({
         name: 'little-esty-shop'
     })
-    @signs = Merchant.create!(name: "Sal's Signs", status: true)
-
-    visit("/admin/merchants/#{@signs.id}")
+    visit '/admin'
   end
-
-  it 'Shows the name of the merchant' do
-    expect(page).to have_content(@signs.name)
+  it 'displays repo name' do
+    within 'footer' do
+      expect(page).to have_content('little-esty-shop')
+    end
   end
-
-  it 'has a link to update merchant information' do
-    expect(page).to have_button("Update Merchant")
-
-    click_button("Update Merchant")
-
-    expect(page).to have_current_path("/admin/merchants/#{@signs.id}/edit")
+  it 'displays contributor names and commits' do
+    expect(page).to have_content('Contributor: Molly')
+    expect(page).to have_content('Commits: 7')
+    expect(page).to have_content('Contributor: Sa')
+    expect(page).to have_content('Commits: 80')
   end
+  it 'displays number of merged pulls' do
 
+    expect(page).to have_content('Merged Pull Requests: 2')
+  end
 end
