@@ -22,22 +22,14 @@ RSpec.describe GithubContributors do
       end
 
       it 'returns an error hash if api limit exceeded' do
-        allow(GithubService).to receive(:contributors_info).and_return([
+        allow(GithubService).to receive(:contributors_info).and_return(
           {
-           message: 'error',
-           id: 26797256,
-           name: 'Molly',
-           contributions: 7
-           },
-          {
-           id: 5446926,
-           name: 'Sa,',
-           contributions: 80
-          }
-        ])
+          :message=>"API rate limit exceeded for 98.38.149.214. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+          :documentation_url=>"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
+        )
 
-        expect(GithubContributors.contributors_info[0][:name]).to eq("API rate limit exceeded.")
-        expect(GithubContributors.contributors_info[0][:contributions]).to eq('')
+        expect(GithubContributors.contributors_info[0][1][:name]).to eq("API rate limit exceeded.")
+        expect(GithubContributors.contributors_info[0][1][:contributions]).to eq('')
       end
     end
   end
