@@ -28,10 +28,10 @@ RSpec.describe 'Merchant Invoices Show Page' do
       invoice_3 = customer_3.invoices.create!(status: 1, created_at: "2012-03-08 14:54:15 UTC")
       invoice_5 = customer_5.invoices.create!(status: 1, created_at: "2012-03-10 14:54:15 UTC")
       invoice_6 = customer_6.invoices.create!(status: 1, created_at: "2012-03-11 14:54:15 UTC")
-      invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, status: 1)
-      invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_2.id, status: 1)
-      invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice_3.id, status: 1)
-      invoice_item_4 = InvoiceItem.create!(item_id: item_4.id, invoice_id: invoice_4.id, status: 1)
+      invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, status: 1, unit_price: 10000)
+      invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_2.id, status: 1, unit_price: 5000)
+      invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice_3.id, status: 1, unit_price: 1000)
+      invoice_item_4 = InvoiceItem.create!(item_id: item_4.id, invoice_id: invoice_4.id, status: 1, unit_price: 200)
 
       visit "/merchants/#{merchant.id}/invoices/#{invoice_1.id}"
 
@@ -82,7 +82,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
       
       expect(page).to have_content(item_1.name)
       expect(page).to have_content(invoice_item_1.quantity)
-      expect(page).to have_content(invoice_item_1.unit_price)
+      expect(page).to have_content('$100.00')
       expect(page).to have_select('invoice_item[status]', selected: "Packaged")
       expect(page).to_not have_content(item_5.name)
     end
