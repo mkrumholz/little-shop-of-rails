@@ -49,7 +49,6 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'lists all of the items' do
-
     expect(page).to have_content @item_1.name
     expect(page).to have_content @item_2.name
     expect(page).to have_content @item_3.name
@@ -57,13 +56,8 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'links to each item show page' do
-
     within "section#enabled" do
-<<<<<<< HEAD
       click_on "#{@item_1.name}" 
-=======
-      click_on 'Audrey II'
->>>>>>> main
     end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
@@ -71,7 +65,6 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'groups items by status' do
-
     within "section#enabled" do
       expect(page).to have_content 'Enabled Items'
       expect(page).to have_content @item_1.name
@@ -92,7 +85,6 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'can enable a disabled item' do
-
     within "section#enabled" do
       within "div#item-#{@item_2.id}" do
         click_on 'Disable'
@@ -111,7 +103,6 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'can disable an enabled item' do
-
     within "section#disabled" do
       within "div#item-#{@item_3.id}" do
         click_on 'Enable'
@@ -130,14 +121,12 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'has a link to create a new item' do
-
     click_link 'New item'
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/new"
   end
 
   it 'lists the top 5 best-selling items by revenue generated' do
-
     within "section#popular" do
       expect(@item_1.name).to appear_before @item_2.name
       expect(@item_2.name).to appear_before @item_4.name
@@ -149,21 +138,14 @@ RSpec.describe 'The merchant items index' do
   end
 
   it 'links to each merchant item show page from popular items' do
-
-<<<<<<< HEAD
     within "section#popular" do 
       click_link "#{@item_1.name}"
-=======
-    within "section#popular" do
-      click_link 'Audrey II'
->>>>>>> main
     end
 
     expect(current_path).to eq "/merchants/#{@merchant.id}/items/#{@item_1.id}"
   end
 
   it 'displays the total revenue generated for each popular item' do
-
     within "section#popular" do
       within "li#item-#{@item_1.id}" do
         expect(page).to have_content 'Total revenue: $100.00'
