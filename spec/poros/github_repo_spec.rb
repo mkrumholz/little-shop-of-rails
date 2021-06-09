@@ -7,7 +7,7 @@ RSpec.describe GithubRepo do
           name: 'little-esty-shop'
       })
 
-      expect(GithubRepo.name).to eq('little-esty-shop')
+      expect(GithubRepo.name_info).to eq('little-esty-shop')
     end
   end
 end
