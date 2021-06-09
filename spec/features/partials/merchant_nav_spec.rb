@@ -8,7 +8,7 @@ RSpec.describe 'admin header nav' do
     ])
     allow(GithubService).to receive(:closed_pulls).and_return([
       {id: 0101010011, name: 'Molly', merged_at: 7},
-      {id: 01011230011, name: 'Sa',merged_at: 80},
+      {id: 01011230011, name: 'Sa', merged_at: 80},
       {id: 01011230011, name: 'Sa', merged_at: nil}
     ])
     allow(GithubService).to receive(:repo_info).and_return({
