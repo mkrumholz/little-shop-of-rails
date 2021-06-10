@@ -33,7 +33,7 @@ RSpec.describe GithubPullRequests do
           }
         )
 
-        expect(GithubPullRequests.merged_pulls).to eq("API rate limit exceeded.")
+        expect(GithubPullRequests.merged_pulls).to eq("Unavailable: API rate limit exceeded.")
       end
     end
   end
