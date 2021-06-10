@@ -7,7 +7,7 @@ class GithubPullRequests
         !pr[:merged_at].nil?
       end
     else
-      "API rate limit exceeded."
+      "Unavailable: API rate limit exceeded."
     end
   end
 end

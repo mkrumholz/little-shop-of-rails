@@ -5,7 +5,7 @@ class GithubRepo
       if !repo_info.keys.include?(:message)
         repo_info[:name]
       else
-        "API rate limit exceeded."
+        "Unavailable: API rate limit exceeded."
       end
    end
 
