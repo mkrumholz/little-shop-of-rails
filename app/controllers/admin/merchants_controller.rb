@@ -30,8 +30,8 @@ class Admin::MerchantsController < ApplicationController
 
   def update_status
     merchant = Merchant.find(params[:id])
-    merchant.update(status: !merchant.status)
-
+    merchant.toggle_status
+    
     redirect_to "/admin/merchants"
   end
 

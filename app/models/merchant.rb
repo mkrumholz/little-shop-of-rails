@@ -17,6 +17,10 @@ class Merchant < ApplicationRecord
     end
   end
 
+  def toggle_status
+    self.update(status: !self.status)
+  end
+
   def top_selling_date
     output = items.select('invoices.created_at AS top_sale_date,
                  SUM(invoice_items.unit_price * invoice_items.quantity) AS revenue')
