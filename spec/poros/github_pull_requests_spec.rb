@@ -24,6 +24,17 @@ RSpec.describe GithubPullRequests do
 
         expect(GithubPullRequests.merged_pulls).to eq(2)
       end
+
+      it 'returns an error if the api count is exceeded' do
+        allow(GithubService).to receive(:closed_pulls).and_return(
+          {
+            :message=>"API rate limit exceeded for 98.38.149.214. (But here's the good news: Authenticated requests get a higher rate limit. Check out the documentation for more details.)",
+            :documentation_url=>"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"
+          }
+        )
+
+        expect(GithubPullRequests.merged_pulls).to eq("API rate limit exceeded.")
+      end
     end
   end
 end
