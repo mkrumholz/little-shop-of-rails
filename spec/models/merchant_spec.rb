@@ -91,6 +91,16 @@ RSpec.describe Merchant do
       expect(@merch_3.render_status[:action]).to eq("Enable")
     end
 
+    it '#toggle_status flips the status of a merchant' do
+      expect(@merch_1.status).to eq(true)
+      @merch_1.toggle_status
+      expect(@merch_1.status).to eq(false)
+
+      expect(@merch_3.status).to eq(false)
+      @merch_3.toggle_status
+      expect(@merch_3.status).to eq(true)
+    end
+
     describe '#top_selling_date' do
 
       it 'returns the dates with most revenue for merchants' do
