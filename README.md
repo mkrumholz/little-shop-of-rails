@@ -1,17 +1,20 @@
-# Little Esty Shop
+# Little Shop of Rails
 
 ## About this Project
-"Little Esty Shop" is a group project that requires students to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices 
+[Little Shop of Rails](https://little-shop-of-rails.herokuapp.com/) is a solo project that builds off of a 4-person group project, [Little Esty Shop](https://little-rails-shop.herokuapp.com/). The original group project required our team to build a fictitious e-commerce platform where merchants and admins can manage inventory and fulfill customer invoices. In this solo extension, I explore Rails and ActiveRecord further by creating and integrating bulk discounts, which are unique to specific merchants within the app. 
 
-Timeframe: 9 days  
-Heroku: [Little Rails Shop](https://little-rails-shop.herokuapp.com/)
+**Timeframe:** 6 days (solo extension), 9 days (Little Esty Shop)
 
-## Contributors
+**Check out my app on Heroku:** [Little Shop of Rails](https://little-shop-of-rails.herokuapp.com/)
+
+**Check out the original app here:** [Little Esty Shop](https://little-rails-shop.herokuapp.com/)
+
+## Little Esty Shop Contributors
 - Lawrence Whalen  
    [Github](https://github.com/LawrenceWhalen) | [LinkedIn](https://www.linkedin.com/in/lawrence-whalen-15996220a/)
 - Aliya Merali  
    [Github](https://github.com/aliyamerali) | [LinkedIn](https://www.linkedin.com/in/aliyamerali/)
-- Molly Krumholz  
+- Molly Krumholz (Yep, that's me!) 
    [Github](https://github.com/mkrumholz) | [LinkedIn](https://www.linkedin.com/in/mkrumholz/)
 - Sidarth Bagawandoss  
    [Github](https://github.com/Sidarth20) | [LinkedIn](https://www.linkedin.com/in/sidarth-bagawandoss-12220644/)
@@ -24,7 +27,6 @@ Heroku: [Little Rails Shop](https://little-rails-shop.herokuapp.com/)
 
 ## Schema
 ![Little Esty Shop Schema](https://user-images.githubusercontent.com/5446926/121439757-c7fa6600-c943-11eb-91d2-42a47a418383.png)
-
 
 ## Built With
 - Ruby 2.7.2
