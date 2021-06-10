@@ -9,7 +9,7 @@ class GithubContributors
         end
       end
     else
-      [["error", { name:"API rate limit exceeded.", contributions: ''}]]
+      [["error", { name: "Unavailable: API rate limit exceeded.", contributions: "Unavailable: API rate limit exceeded."}]]
     end
   end
 end
