@@ -28,8 +28,8 @@ RSpec.describe GithubContributors do
           :documentation_url=>"https://docs.github.com/rest/overview/resources-in-the-rest-api#rate-limiting"}
         )
 
-        expect(GithubContributors.contributors_info[0][1][:name]).to eq("API rate limit exceeded.")
-        expect(GithubContributors.contributors_info[0][1][:contributions]).to eq('')
+        expect(GithubContributors.contributors_info[0][1][:name]).to eq("Unavailable: API rate limit exceeded.")
+        expect(GithubContributors.contributors_info[0][1][:contributions]).to eq("Unavailable: API rate limit exceeded.")
       end
     end
   end

@@ -15,7 +15,7 @@ RSpec.describe GithubRepo do
           name: 'little-esty-shop'
       })
 
-      expect(GithubRepo.name_info).to eq("API rate limit exceeded.")
+      expect(GithubRepo.name_info).to eq("Unavailable: API rate limit exceeded.")
     end
   end
 end
