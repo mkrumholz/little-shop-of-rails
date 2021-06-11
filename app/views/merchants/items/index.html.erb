@@ -1,4 +1,7 @@
-<%= render partial: './partials/merchant_nav' %>
+<% content_for :merchant do %>
+  <%= render partial: './partials/merchant_nav' %>
+<% end %>
+
 
 <%= link_to 'New item', new_merchant_item_path(@merchant.id) %>
 

@@ -1,29 +1,45 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>LittleEtsyShop</title>
+    <title>LittleShopOfRails</title>
     <%= csrf_meta_tags %>
     <%= csp_meta_tag %>
 
-    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track': 'reload' %>
-    <%= javascript_include_tag 'application', 'data-turbolinks-track': 'reload' %>
+    <%= stylesheet_link_tag    'application', media: 'all', 'data-turbolinks-track' => true%>
+    <%= javascript_include_tag 'application', 'data-turbolinks-track' => true %>
   </head>
 
   <body>
-    <h1>Little Esty Shop</h1>
-    <% flash.each do |type, msg| %>
-      <div class=<%=type%>>
-        <%= msg %>
-      </div>
-    <% end %>
+    <div>
+      <% if content_for?(:admin) %>
+        <%= yield(:admin) %>
+      <% elsif content_for?(:merchant) %>
+        <%= yield(:merchant) %>
+      <% elsif content_for?(:welcome) %>
+        <%= yield(:welcome) %>
+      <% end %>
+    </div>
 
-    <%= yield %>
-    <footer>
+    <div class = "p-4 container-fluid min-vh-100">
+      <% flash.each do |type, msg| %>
+        <div class=<%=type%>>
+          <%= msg %>
+        </div>
+      <% end %>
+    
+      <%= yield %>
+    </div>
+    <footer class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       <p>Repo: <%= GithubRepo.name_info %></p>
       <% GithubContributors.contributors_info.each do |contributor| %>
         <p><%= "Contributor: #{contributor[1][:name]}, Commits: #{contributor[1][:contributions]}" %></p>
       <% end %>
       <p>Merged Pull Requests: <%= GithubPullRequests.merged_pulls %></p>
     </footer>
+
+    <!-- Optional JavaScript -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js" integrity="sha384-UO2eT0CpHqdSJQ6hJty5KVphtPhzWj9WO1clHTMGa3JDZwrnQq4sF86dIHNDz0W1" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js" integrity="sha384-JjSmVgyd0p3pXB1rRibZUAYoIIy6OrQ6VrjIEaFf/nJGzIxFDsf4x0xIM+B07jRM" crossorigin="anonymous"></script>
   </body>
 </html>
