@@ -20,7 +20,7 @@
       <% end %>
     </div>
 
-    <div class = "p-4">
+    <div class = "p-4 container-fluid min-vh-100">
       <% flash.each do |type, msg| %>
         <div class=<%=type%>>
           <%= msg %>
@@ -29,7 +29,7 @@
     
       <%= yield %>
     </div>
-    <footer>
+    <footer class="text-center text-dark p-3" style="background-color: rgba(0, 0, 0, 0.2);">
       <p>Repo: <%= GithubRepo.name_info %></p>
       <% GithubContributors.contributors_info.each do |contributor| %>
         <p><%= "Contributor: #{contributor[1][:name]}, Commits: #{contributor[1][:contributions]}" %></p>
