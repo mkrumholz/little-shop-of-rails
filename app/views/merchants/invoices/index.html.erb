@@ -1,4 +1,6 @@
-<%= render partial: './partials/merchant_nav' %>
+<% content_for :merchant do %>
+      <%= render partial: './partials/admin_nav' %>
+ <% end %>
 
 <h3>My Invoices</h3>
 <% @merchant_invoices.each do |invoice| %>
