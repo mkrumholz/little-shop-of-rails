@@ -1,5 +1,9 @@
 <%= render partial: './partials/merchant_nav' %>
 
+<% content_for :merchant do %>
+  <%= render partial: './partials/merchant_nav' %>
+<% end %>
+
 <h3>Favorite Customers</h3>
 <% @top_customers.each do |customer| %>
   <p> <%= customer.first_name %> <%= customer.last_name %>:
