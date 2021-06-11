@@ -1,15 +1,27 @@
-<%= render partial: './partials/merchant_nav' %>
-
-<h3>New Item</h3>
-
-<%= form_with model: [@merchant, @item], local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name, required: true %>
-  <%= f.label :description, required: true  %>
-  <%= f.text_area :description, required: true  %>
-  <%= f.label :unit_price %>
-  <%= f.number_field :unit_price,  in: 0.0..99999999.0, step: 0.01, value: sprintf("%.2f", 0.0), required: true  %>
-  <%= f.label :enabled, 'Enabled?' %>
-  <%= f.check_box :enabled, {checked: false} %>
-  <%= f.submit %>
+<% content_for :merchant do %>
+  <%= render partial: './partials/merchant_nav' %>
 <% end %>
+
+<h1>New Item</h1>
+
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <%= bootstrap_form_with model: [@merchant, @item], local: true do |f| %>
+      <div class="form-group row">
+        <div class="col-sm-6">
+          <%= f.text_field :name, required: true %>
+        </div>
+        <div class="col-sm-6">
+        <%= f.number_field :unit_price,  in: 0.0..99999999.0, step: 0.01, value: sprintf("%.2f", 0.0), required: true %>
+        </div>
+      </div>
+      <div class="form-group row">
+        <%= f.text_area :description, required: true  %>
+      </div><br/>
+        <%= f.check_box :enabled, {checked: false}, label: 'Enabled?' %><br/>
+        <%= f.submit %>
+      <% end %>
+    </div>
+  </div>
+</div>
