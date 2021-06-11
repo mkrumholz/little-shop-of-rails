@@ -4,12 +4,23 @@
 
 <h3>Edit <%= @item.name %></h3>
 
-<%= form_with model: [@merchant, @item], local: true do |f| %>
-  <%= f.label :name %>
-  <%= f.text_field :name %>
-  <%= f.label :description %>
-  <%= f.text_area :description %>
-  <%= f.label :unit_price %>
-  <%= f.number_field :unit_price,  in: 0.0..99999999.0, step: 0.01, value: sprintf("%.2f",@item.price_to_dollars) %>
-  <%= f.submit 'Update item' %>
-<% end %>
+<div class="container py-5">
+  <div class="row">
+    <div class="col-md-10 mx-auto">
+      <%= bootstrap_form_with model: [@merchant, @item], local: true do |f| %>
+        <div class="form-group row">
+          <div class="col-sm-6">
+            <%= f.text_field :name %>
+          </div>
+          <div class="col-sm-6">
+            <%= f.number_field :unit_price,  in: 0.0..99999999.0, step: 0.01, value: sprintf("%.2f",@item.price_to_dollars) %>
+          </div>
+        </div>
+        <div class="form-group row">
+        <%= f.text_area :description %>
+        </div><br/>
+        <%= f.submit 'Update item' %>
+      <% end %>
+    </div>
+  </div>
+</div>
