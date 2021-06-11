@@ -17,8 +17,8 @@ RSpec.describe 'admin header nav' do
 
     visit '/admin'
   end
-  it 'links to the admin dashboard' do
 
+  it 'links to the admin dashboard' do
     expect(page).to have_link('Dashboard')
     click_link('Dashboard')
 
@@ -26,7 +26,6 @@ RSpec.describe 'admin header nav' do
   end
 
   it 'links to the admin merchants index' do
-
     expect(page).to have_link('Merchants')
     click_link('Merchants')
 
@@ -34,7 +33,6 @@ RSpec.describe 'admin header nav' do
   end
 
   it 'links to the admin invoices index' do
-
     expect(page).to have_link('Invoices')
     click_link('Invoices')
 
