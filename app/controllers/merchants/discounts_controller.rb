@@ -3,4 +3,8 @@ class Merchants::DiscountsController < ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
     @discounts = @merchant.discounts.all
   end
+
+  def show
+    @discount = Discount.find(params[:id])
+  end
 end
