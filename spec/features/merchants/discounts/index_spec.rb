@@ -42,4 +42,10 @@ RSpec.describe 'merchant discount index' do
     
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}"
   end
+
+  it 'has a link to create a new discount' do
+    click_on 'Create new discount'
+
+    expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
+  end
 end
