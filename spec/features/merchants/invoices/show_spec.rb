@@ -16,6 +16,7 @@ RSpec.describe 'Merchant Invoices Show Page' do
           name: 'little-esty-shop'
       })
     end
+    
     it 'can see all of that merchants invoice info' do
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
