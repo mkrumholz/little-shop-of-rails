@@ -23,7 +23,7 @@ RSpec.describe 'Dashboard' do
       expect(page).to have_content(merchant.name)
     end
 
-    it 'can see links to the merchant items & invoice indexes' do
+    it 'can see links to the merchant items, invoice, and discount indexes' do
       allow(GithubService).to receive(:contributors_info).and_return([
         {id: 26797256, name: 'Molly', contributions: 7},
         {id: 78388882, name: 'Sa', contributions: 80}
@@ -41,16 +41,21 @@ RSpec.describe 'Dashboard' do
 
       visit "/merchants/#{merchant.id}/dashboard"
 
-      expect(page).to have_link("My Items")
-      expect(page).to have_link("My Invoices")
+      expect(page).to have_link('My Items')
+      expect(page).to have_link('My Invoices')
+      expect(page).to have_link('My Discounts')
 
-      click_link("My Items")
+      click_link('My Items')
       
       expect(page).to have_current_path("/merchants/#{merchant.id}/items")
       
-      click_link("My Invoices")
+      click_link('My Invoices')
       
       expect(page).to have_current_path("/merchants/#{merchant.id}/invoices")
+
+      click_link('My Discounts')
+
+      expect(page).to have_current_path("/merchants/#{merchant.id}/discounts")
     end
 
     it 'can see the name of the top 5 customers' do
@@ -312,3 +317,13 @@ RSpec.describe 'Dashboard' do
     end
   end
 end
+
+
+# As a merchant
+# When I visit my merchant dashboard
+# Then I see a link to view all my discounts
+# When I click this link
+# Then I am taken to my bulk discounts index page
+# Where I see all of my bulk discounts including their
+# percentage discount and quantity thresholds
+# And each bulk discount listed includes a link to its show page
