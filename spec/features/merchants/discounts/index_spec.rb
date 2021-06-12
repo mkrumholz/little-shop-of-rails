@@ -25,6 +25,8 @@ RSpec.describe 'merchant discount index' do
   end
 
   it 'displays the percentages and quantity_thresholds of each discount' do
+    save_and_open_page
+    
     within "tr#discount-#{@discount_1.id}" do
       expect(page).to have_content '10.00%'
       expect(page).to have_content @discount_1.quantity_threshold
