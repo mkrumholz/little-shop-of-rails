@@ -1,16 +1,12 @@
 class Admin::MerchantsController < ApplicationController
-
   def index
     @merchants = Merchant.all
   end
 
-
   def show
     @merchant = Merchant.find(params[:id])
 
-    if params[:update]
-      flash[:confirm] = "Merchant Successfully Updated"
-    end
+    flash[:confirm] = 'Merchant Successfully Updated' if params[:update]
   end
 
   def edit
@@ -31,8 +27,8 @@ class Admin::MerchantsController < ApplicationController
   def update_status
     merchant = Merchant.find(params[:id])
     merchant.toggle_status
-    
-    redirect_to "/admin/merchants"
+
+    redirect_to '/admin/merchants'
   end
 
   def new
@@ -43,16 +39,16 @@ class Admin::MerchantsController < ApplicationController
     merchant = Merchant.new(merchant_params)
 
     if merchant.save
-      redirect_to "/admin/merchants"
+      redirect_to '/admin/merchants'
     else
-      redirect_to "/admin/merchants/new"
+      redirect_to '/admin/merchants/new'
       flash[:alert] = "Error: #{error_message(merchant.errors)}"
     end
   end
 
   private
+
   def merchant_params
     params.require(:merchant).permit(:name, :status)
   end
-
 end

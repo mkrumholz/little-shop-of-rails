@@ -8,18 +8,16 @@ class Merchants::ItemsController < ApplicationController
     @items = Item.where(merchant_id: @merchant.id)
   end
 
-  def show
-  end
+  def show; end
 
-  def edit
-  end
+  def edit; end
 
-  def update 
+  def update
     if params[:item][:enabled].present? && @item.update(enabled: params[:item][:enabled])
       redirect_to merchant_items_path(@merchant.id)
     else
       update_item_details(@merchant, @item, params)
-    end 
+    end
   end
 
   def new
@@ -45,17 +43,18 @@ class Merchants::ItemsController < ApplicationController
   end
 
   private
-    def item_params
-      params[:item].permit(:name, :description, :enabled)
-    end
 
-    def update_item_details(merchant, item, params)
-      if item.update(item_params.merge(unit_price: price_to_cents(params[:item][:unit_price])))
-        redirect_to merchant_item_path(merchant.id, item.id)
-        flash[:alert] = "Victory! 🥳 This item has been successfully updated."
-      else
-        redirect_to edit_merchant_item_path(merchant.id, item.id)
-        flash[:alert] = "Error: #{error_message(item.errors)}"
-      end
+  def item_params
+    params[:item].permit(:name, :description, :enabled)
+  end
+
+  def update_item_details(merchant, item, params)
+    if item.update(item_params.merge(unit_price: price_to_cents(params[:item][:unit_price])))
+      redirect_to merchant_item_path(merchant.id, item.id)
+      flash[:alert] = 'Victory! 🥳 This item has been successfully updated.'
+    else
+      redirect_to edit_merchant_item_path(merchant.id, item.id)
+      flash[:alert] = "Error: #{error_message(item.errors)}"
     end
+  end
 end
