@@ -1,5 +1,4 @@
 class GithubPullRequests
-
   def self.merged_pulls
     possible_merged = GithubService.closed_pulls
     if possible_merged.is_a? Array
@@ -7,7 +6,7 @@ class GithubPullRequests
         !pr[:merged_at].nil?
       end
     else
-      "Unavailable: API rate limit exceeded."
+      'Unavailable: API rate limit exceeded.'
     end
   end
 end

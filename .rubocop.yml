@@ -1,0 +1,28 @@
+AllCops:
+  NewCops: enable
+  Exclude:
+    - 'utility_scripts/**/*'
+    - 'data/**/*'
+    - '.git/**/*'
+  SuggestExtensions: false
+Style/Documentation:
+  Enabled: false
+Metrics/BlockLength:
+  Max: 150
+Metrics/LineLength:
+  Max: 100
+Style/WordArray:
+  Enabled: false
+Style/SymbolProc:
+  Enabled: false
+Style/FrozenStringLiteralComment:
+  Enabled: false
+Style/HashSyntax:
+  Enabled: false
+Naming/VariableNumber:
+  Enabled: false
+Style/SymbolArray:
+  Enabled: false
+Style/ClassAndModuleChildren:
+  Enabled: false
+  

@@ -16,15 +16,8 @@ RSpec.describe 'Merchant Invoices Show Page' do
           name: 'little-esty-shop'
       })
     end
+    
     it 'can see all of that merchants invoice info' do
-      # Merchant Invoice Show Page
-      # As a merchant
-      # When I visit my merchant's invoice show page(/merchants/merchant_id/invoices/invoice_id)
-      # Then I see information related to that invoice including:
-      # - Invoice id
-      # - Invoice status
-      # - Invoice created_at date in the format "Monday, July 18, 2019"
-      # - Customer first and last name
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
@@ -57,15 +50,6 @@ RSpec.describe 'Merchant Invoices Show Page' do
     end
 
     it 'can see all of that merchants invoice item info' do
-      # Merchant Invoice Show Page: Invoice Item Information
-      # As a merchant
-      # When I visit my merchant invoice show page
-      # Then I see all of my items on the invoice including:
-      # - Item name
-      # - The quantity of the item ordered
-      # - The price the Item sold for
-      # - The Invoice Item status
-      # And I do not see any information related to Items for other merchants
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       merchant_2 = Merchant.create!(name: 'James Bond')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')

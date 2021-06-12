@@ -5,11 +5,7 @@ class InvoiceItem < ApplicationRecord
 
   def self.invoice_items_show(invoice_id, merchant_id)
     joins(:item)
-    .select("invoice_items.*, items.name AS item_name")
-    .where("invoice_items.invoice_id = #{invoice_id} and items.merchant_id = #{merchant_id}")
-  end
-
-  def numeric_status
-    InvoiceItem.statuses[status]
+      .select('invoice_items.*, items.name AS item_name')
+      .where("invoice_items.invoice_id = #{invoice_id} and items.merchant_id = #{merchant_id}")
   end
 end
