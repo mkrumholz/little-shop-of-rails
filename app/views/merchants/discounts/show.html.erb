@@ -1,3 +1,7 @@
+<% content_for :merchant do %>
+  <%= render partial: './partials/merchant_nav' %>
+<% end %>
+
 <h1><%= @discount.name %></h1>
 
 <p>><%= number_to_percentage(@discount.percentage * 100, precision: 2) %></p>
