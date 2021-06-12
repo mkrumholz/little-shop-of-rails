@@ -7,7 +7,6 @@ class Invoice < ApplicationRecord
 
   validates :customer_id, presence: true
   validates :status, { presence: true }
-  validates_numericality_of :status
 
   def self.unshipped_items
     joins(:invoice_items)
@@ -31,10 +30,5 @@ class Invoice < ApplicationRecord
     items
       .where(merchant_id: merchant_id)
       .sum('invoice_items.unit_price * invoice_items.quantity')
-  end
-
-  def enum_integer
-    enum_convert = Invoice.statuses
-    enum_convert[status]
   end
 end

@@ -33,37 +33,25 @@ RSpec.describe 'Admin Invoice Edit' do
   end
 
   it 'has a selector to update a invoice status with existing value pre-populated' do
-    expect(page).to have_selector('#invoice_status', :text => 'completed')
+    expect(page).to have_select('invoice[status]', selected: "Completed")
     expect(page).to have_button('Update')
   end
 
   it 'clicking update redirects to the invoice admin show page, showing updated info' do
-    select('cancelled', from: 'invoice_status')
+    expect(page).to have_select('invoice[status]', selected: "Completed")
+
+    select 'Cancelled', from: 'invoice[status]'
     click_button 'Update'
 
     expect(page).to have_current_path("/admin/invoices/#{@invoice_1.id}?update=true")
 
-    within("h3#status") do
-      expect(page).to have_content("cancelled")
-      expect(page).to_not have_content("completed")
-    end
+     expect(page).to have_select('invoice[status]', selected: "Cancelled")
   end
 
   it 'shows a flash message confirming information update' do
-    select('cancelled', from: 'invoice_status')
+    select 'Cancelled', from: 'invoice[status]'
     click_button 'Update'
 
     expect(page).to have_content("Invoice Successfully Updated")
   end
-
-  # xit 'shows an error if I try to submit an empty name field' do
-  #   fill_in 'Name', with: ''
-  #   click_button 'Update Merchant'
-  #
-  #   expect(page).to have_current_path("/admin/merchants/#{@signs.id}/edit")
-  #
-  #   within(".alert") do
-  #     expect(page).to have_content("Error: Name can't be blank")
-  #   end
-  # end
 end
