@@ -4,8 +4,6 @@ class NagerHoliday
     delete_columbus(next_3)
   end
 
-  private
-
   def self.delete_columbus(holidays)
     holidays.each do |holiday|
       holiday[:localName] = "Indigenous Peoples' Day" if holiday[:localName] == 'Columbus Day'
