@@ -36,4 +36,11 @@ RSpec.describe 'merchant discount edit' do
     expect(page).to have_content '10.00%'
     expect(page).to have_content 5
   end
+
+  it 'throws an error if the discount is not successfully updated' do
+    fill_in 'discount[quantity_threshold]', with: 'eleven'
+    click_button 'Update Discount'
+
+    expect(page).to have_content '🛑 Error: Quantity threshold is not a number'
+  end
 end

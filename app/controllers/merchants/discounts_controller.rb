@@ -1,6 +1,6 @@
 class Merchants::DiscountsController < ApplicationController
   before_action :set_merchant
-  before_action :set_discount, only: [:show, :edit, :update, :destroy]
+  before_action :set_discount, except: [:index, :new, :create]
 
   def index
     @discounts = @merchant.discounts.all
