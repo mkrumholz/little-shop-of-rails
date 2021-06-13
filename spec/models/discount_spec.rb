@@ -7,10 +7,12 @@ RSpec.describe Discount do
 
   describe 'validations' do
     subject { Discount.new(name: '11th item free', percentage: 0.0909, quantity_threshold: 11) }
-    it {should validate_presence_of :name, :percentage, :quantity_threshold}
+    it {should validate_presence_of :name}
+    it {should validate_presence_of :percentage}
+    it {should validate_presence_of :quantity_threshold}
     it {should validate_uniqueness_of(:name)}
-    it {should allow_values('0.1392', '1.0000', '0.0000', '0.0001').for(:percentage)}
-    it {should_not allow_values('0.09090909', '2384.0', '1.1', '24').for(:percentage).with_message('🛑 Error: Percentage is not properly formatted')}
-    it {should validate_numericality_of({:quantity_threshold, only_integer: true}).with_message('🛑 Error: Quantity threshold must be an integer')}
+    it {should validate_numericality_of(:percentage).is_less_than_or_equal_to(1.0)}
+    it {should validate_numericality_of(:percentage).is_greater_than_or_equal_to(0.0)}
+    it {should validate_numericality_of(:quantity_threshold).only_integer}
   end
 end
