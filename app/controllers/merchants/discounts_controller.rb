@@ -10,6 +10,7 @@ class Merchants::DiscountsController < ApplicationController
   end
 
   def new
+    @discount = Discount.new
   end
 
   def set_merchant

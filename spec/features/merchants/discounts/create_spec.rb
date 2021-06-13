@@ -9,10 +9,10 @@ RSpec.describe 'new discount page' do
   end
 
   it 'can create a new discount for the merchant' do
-    fill_in :name, with: '11th item free'
-    fill_in :percentage, with: 9.09
-    fill_in :quantity_threshold, with: 11
-    click_button 'Create'
+    fill_in 'discount[name]', with: '11th item free'
+    fill_in 'discount[percentage]', with: 9.09
+    fill_in 'discount[quantity_threshold]', with: 11
+    click_button 'Create Discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts"
     expect(page).to have_content '11th item free'
@@ -21,27 +21,27 @@ RSpec.describe 'new discount page' do
   end
 
   it 'requires all fields be completed' do
-    click_button 'Create'
+    click_button 'Create Discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
     expect(page).to have_content "🛑 Error: Name can't be blank, Percentage can't be blank, Quantity threshold can't be blank"
   end
 
   it 'only allows 2 decimal places for the percentage' do
-    fill_in :name, with: '11th item free'
-    fill_in :percentage, with: 9.090909
-    fill_in :quantity_threshold, with: 11
-    click_button 'Create'
+    fill_in 'discount[name]', with: '11th item free'
+    fill_in 'discount[percentage]', with: 9.090909
+    fill_in 'discount[quantity_threshold]', with: 11
+    click_button 'Create Discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
-    expect(page).to have_content "🛑 Error: Percentage is not properly formatted"
+    expect(page).to have_content "?"
   end
 
   it 'only allows integers for the quantity_threshold' do
-    fill_in :name, with: '11th item free'
-    fill_in :percentage, with: 9.09
-    fill_in :quantity_threshold, with: 'eleven'
-    click_button 'Create'
+    fill_in 'discount[name]', with: '11th item free'
+    fill_in 'discount[percentage]', with: 9.09
+    fill_in 'discount[quantity_threshold]', with: 'eleven'
+    click_button 'Create Discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
     expect(page).to have_content "🛑 Error: Quantity threshold must be an integer"
