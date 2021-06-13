@@ -1,12 +1,12 @@
 class Merchants::DiscountsController < ApplicationController
   before_action :set_merchant
+  before_action :set_discount, only: [:show, :edit, :update, :destroy]
 
   def index
     @discounts = @merchant.discounts.all
   end
 
   def show
-    @discount = Discount.find(params[:id])
   end
 
   def new
@@ -25,11 +25,9 @@ class Merchants::DiscountsController < ApplicationController
   end
 
   def edit
-    @discount = Discount.find(params[:id])
   end
   
   def update
-    @discount = Discount.find(params[:id])
     percentage = params[:discount][:percentage].to_f / 100
     if @discount.update(discount_params.merge(percentage: percentage))
       redirect_to merchant_discount_path(@merchant.id, @discount.id)
@@ -40,13 +38,16 @@ class Merchants::DiscountsController < ApplicationController
   end
 
   def destroy
-    discount = Discount.find(params[:id])
-    discount.destroy
+    @discount.destroy
     redirect_to merchant_discounts_path(@merchant.id)
   end
 
   def set_merchant
     @merchant = Merchant.find(params[:merchant_id])
+  end
+
+  def set_discount
+    @discount = Discount.find(params[:id])
   end
 
   private
