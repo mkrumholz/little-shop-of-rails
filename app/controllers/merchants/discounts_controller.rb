@@ -27,6 +27,17 @@ class Merchants::DiscountsController < ApplicationController
   def edit
     @discount = Discount.find(params[:id])
   end
+  
+  def update
+    @discount = Discount.find(params[:id])
+    percentage = params[:discount][:percentage].to_f / 100
+    if @discount.update(discount_params.merge(percentage: percentage))
+      redirect_to merchant_discount_path(@merchant.id, @discount.id)
+    else
+      redirect_to edit_merchant_discount_path(@merchant.id, @discount.id)
+      flash[:alert] = "🛑 Error: #{error_message(discount.errors)}"
+    end
+  end
 
   def set_merchant
     @merchant = Merchant.find(params[:merchant_id])

@@ -29,7 +29,7 @@ RSpec.describe 'merchant discount edit' do
   it 'can update just the quantity threshold' do
     expect(page).to_not have_content 5
 
-    fill_in 'discount[percentage]', with: 5
+    fill_in 'discount[quantity_threshold]', with: 5
     click_button 'Update Discount'
 
     expect(page).to have_content @discount_1.name
