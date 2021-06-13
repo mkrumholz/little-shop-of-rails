@@ -1,7 +1,7 @@
 require 'rails_helper'
 
 RSpec.describe GithubService do
-  describe 'class methods' do
+  describe 'class methods', :service do
     describe '#repo_info' do
       it 'queries repo info on GitHub' do
         WebMock.stub_request(:get, /api.github.com/).
@@ -26,7 +26,7 @@ RSpec.describe GithubService do
         uri = URI('https://api.github.com/repos/mkrumholz/little-shop-of-rails/contributors')
 
         response = GithubService.contributors_info
-
+        
         expect(response[:login]).to eq('mkrumholz')
         expect(response[:contributions]).to eq(177)
       end
