@@ -12,6 +12,7 @@
       <td><%= link_to "#{discount.name}", "/merchants/#{@merchant.id}/discounts/#{discount.id}" %></td>
       <td><%= number_to_percentage(discount.percentage * 100, precision: 2) %></td>
       <td><%= discount.quantity_threshold %></td>
+      <td><%= button_to 'Delete', merchant_discount_path(@merchant.id, discount.id), method: :delete, local: true %></td>
     </tr>
   <% end %>
 </table><br/>
