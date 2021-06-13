@@ -4,9 +4,9 @@ RSpec.describe GithubService do
   describe 'class methods', :service do
     describe '#repo_info' do
       it 'queries repo info on GitHub' do
-        WebMock.stub_request(:get, /api.github.com/).
-          with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.4.2'}).
-          to_return(status: 200, body: {name: 'little-shop-of-rails'}.to_json, headers: {})
+        WebMock.stub_request(:get, /api.github.com/)
+               .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Faraday v1.4.2' })
+               .to_return(status: 200, body: { name: 'little-shop-of-rails' }.to_json, headers: {})
 
         uri = URI('https://api.github.com/repos/mkrumholz/little-shop-of-rails')
 
@@ -19,14 +19,14 @@ RSpec.describe GithubService do
 
     describe '#contributors_info' do
       it 'queries contributor info on GitHub' do
-        WebMock.stub_request(:get, /api.github.com/).
-          with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.4.2'}).
-          to_return(status: 200, body: {login: 'mkrumholz', contributions: 177}.to_json, headers: {})
+        WebMock.stub_request(:get, /api.github.com/)
+               .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Faraday v1.4.2' })
+               .to_return(status: 200, body: { login: 'mkrumholz', contributions: 177 }.to_json, headers: {})
 
         uri = URI('https://api.github.com/repos/mkrumholz/little-shop-of-rails/contributors')
 
         response = GithubService.contributors_info
-        
+
         expect(response[:login]).to eq('mkrumholz')
         expect(response[:contributions]).to eq(177)
       end
@@ -34,9 +34,9 @@ RSpec.describe GithubService do
 
     describe '#pull_request_info' do
       it 'queries pull request info on GitHub' do
-        WebMock.stub_request(:get, /api.github.com/).
-          with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.4.2'}).
-          to_return(status: 200, body: {id: 668978499, merged_at: '2021-06-13T02:31:59Z'}.to_json, headers: {})
+        WebMock.stub_request(:get, /api.github.com/)
+               .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Faraday v1.4.2' })
+               .to_return(status: 200, body: { id: 668978499, merged_at: '2021-06-13T02:31:59Z' }.to_json, headers: {})
 
         uri = URI('https://api.github.com/repos/mkrumholz/little-shop-of-rails/pulls?state=closed')
 
