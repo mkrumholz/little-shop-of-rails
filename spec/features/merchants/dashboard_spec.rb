@@ -4,17 +4,17 @@ RSpec.describe 'Dashboard' do
   describe 'dashboard' do
     it 'can see the name of the merchants' do
       allow(GithubService).to receive(:contributors_info).and_return([
-        {id: 26797256, name: 'Molly', contributions: 7},
-        {id: 78388882, name: 'Sa', contributions: 80}
-      ])
+                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
+                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                     ])
       allow(GithubService).to receive(:closed_pulls).and_return([
-        {id: 0101010011, name: 'Molly', merged_at: 7},
-        {id: 01011230011, name: 'Sa',merged_at: 80},
-        {id: 01011230011, name: 'Sa', merged_at: nil}
-      ])
+                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                ])
       allow(GithubService).to receive(:repo_info).and_return({
-          name: 'little-esty-shop'
-      })
+                                                               name: 'little-esty-shop'
+                                                             })
 
       merchant = FactoryBot.create(:merchant)
 
@@ -25,17 +25,17 @@ RSpec.describe 'Dashboard' do
 
     it 'can see links to the merchant items, invoice, and discount indexes' do
       allow(GithubService).to receive(:contributors_info).and_return([
-        {id: 26797256, name: 'Molly', contributions: 7},
-        {id: 78388882, name: 'Sa', contributions: 80}
-      ])
+                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
+                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                     ])
       allow(GithubService).to receive(:closed_pulls).and_return([
-        {id: 0101010011, name: 'Molly', merged_at: 7},
-        {id: 01011230011, name: 'Sa',merged_at: 80},
-        {id: 01011230011, name: 'Sa', merged_at: nil}
-      ])
+                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                ])
       allow(GithubService).to receive(:repo_info).and_return({
-          name: 'little-esty-shop'
-      })
+                                                               name: 'little-esty-shop'
+                                                             })
 
       merchant = FactoryBot.create(:merchant)
 
@@ -46,11 +46,11 @@ RSpec.describe 'Dashboard' do
       expect(page).to have_link('My Discounts')
 
       click_link('My Items')
-      
+
       expect(page).to have_current_path("/merchants/#{merchant.id}/items")
-      
+
       click_link('My Invoices')
-      
+
       expect(page).to have_current_path("/merchants/#{merchant.id}/invoices")
 
       click_link('My Discounts')
@@ -60,17 +60,17 @@ RSpec.describe 'Dashboard' do
 
     it 'can see the name of the top 5 customers' do
       allow(GithubService).to receive(:contributors_info).and_return([
-        {id: 26797256, name: 'Molly', contributions: 7},
-        {id: 78388882, name: 'Sa', contributions: 80}
-      ])
+                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
+                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                     ])
       allow(GithubService).to receive(:closed_pulls).and_return([
-        {id: 0101010011, name: 'Molly', merged_at: 7},
-        {id: 01011230011, name: 'Sa',merged_at: 80},
-        {id: 01011230011, name: 'Sa', merged_at: nil}
-      ])
+                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                ])
       allow(GithubService).to receive(:repo_info).and_return({
-          name: 'little-esty-shop'
-      })
+                                                               name: 'little-esty-shop'
+                                                             })
 
       merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
@@ -113,36 +113,36 @@ RSpec.describe 'Dashboard' do
       expect(page).to have_content(customer_1.first_name)
       expect(page).to have_content(customer_1.last_name)
       expect(customer_1.first_name).to appear_before(customer_2.first_name)
-      expect(page).to have_content("6 purchases")
+      expect(page).to have_content('6 purchases')
       expect(page).to have_content(customer_2.first_name)
       expect(page).to have_content(customer_2.last_name)
-      expect(page).to have_content("5 purchases")
+      expect(page).to have_content('5 purchases')
       expect(page).to have_content(customer_3.first_name)
       expect(page).to have_content(customer_3.last_name)
-      expect(page).to have_content("4 purchases")
+      expect(page).to have_content('4 purchases')
       expect(page).to have_content(customer_4.first_name)
       expect(page).to have_content(customer_4.last_name)
-      expect(page).to have_content("3 purchases")
+      expect(page).to have_content('3 purchases')
       expect(page).to have_content(customer_5.first_name)
       expect(page).to have_content(customer_5.last_name)
-      expect(page).to have_content("2 purchases")
+      expect(page).to have_content('2 purchases')
       expect(page).to_not have_content(customer_6.first_name)
       expect(page).to_not have_content(customer_6.last_name)
     end
 
     it 'can see the items ready to ship' do
       allow(GithubService).to receive(:contributors_info).and_return([
-        {id: 26797256, name: 'Molly', contributions: 7},
-        {id: 78388882, name: 'Sa', contributions: 80}
-      ])
+                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
+                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                     ])
       allow(GithubService).to receive(:closed_pulls).and_return([
-        {id: 0101010011, name: 'Molly', merged_at: 7},
-        {id: 01011230011, name: 'Sa',merged_at: 80},
-        {id: 01011230011, name: 'Sa', merged_at: nil}
-      ])
+                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                ])
       allow(GithubService).to receive(:repo_info).and_return({
-          name: 'little-esty-shop'
-      })
+                                                               name: 'little-esty-shop'
+                                                             })
 
       merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
@@ -186,12 +186,12 @@ RSpec.describe 'Dashboard' do
       item_3 = merchant.items.create!(name: 'Hoop Earrings', description: 'Jewelery', unit_price: 1000)
       item_5 = merchant.items.create!(name: 'Silver Bracelet', description: 'Accessories', unit_price: 3000)
       item_6 = merchant.items.create!(name: 'Bronze Ring', description: 'Jewelery', unit_price: 2000)
-      invoice_1 = customer_2.invoices.create!(status: 1, created_at: "2012-03-06 14:54:15 UTC")
-      invoice_4 = customer_2.invoices.create!(status: 1, created_at: "2012-03-09 14:54:15 UTC")
-      invoice_2 = customer_2.invoices.create!(status: 1, created_at: "2012-03-07 00:54:24 UTC")
-      invoice_3 = customer_2.invoices.create!(status: 1, created_at: "2012-03-08 14:54:15 UTC")
-      invoice_5 = customer_2.invoices.create!(status: 1, created_at: "2012-03-10 14:54:15 UTC")
-      invoice_6 = customer_2.invoices.create!(status: 1, created_at: "2012-03-11 14:54:15 UTC")
+      invoice_1 = customer_2.invoices.create!(status: 1, created_at: '2012-03-06 14:54:15 UTC')
+      invoice_4 = customer_2.invoices.create!(status: 1, created_at: '2012-03-09 14:54:15 UTC')
+      invoice_2 = customer_2.invoices.create!(status: 1, created_at: '2012-03-07 00:54:24 UTC')
+      invoice_3 = customer_2.invoices.create!(status: 1, created_at: '2012-03-08 14:54:15 UTC')
+      invoice_5 = customer_2.invoices.create!(status: 1, created_at: '2012-03-10 14:54:15 UTC')
+      invoice_6 = customer_2.invoices.create!(status: 1, created_at: '2012-03-11 14:54:15 UTC')
       invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, status: 1)
       invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_2.id, status: 1)
       invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice_3.id, status: 1)
@@ -201,13 +201,12 @@ RSpec.describe 'Dashboard' do
 
       visit "/merchants/#{merchant.id}/dashboard"
 
-
       within("#invoice-#{invoice_1.id}") do
         expect(page).to have_content(item_1.name)
         expect(page).to have_content(invoice_1.id)
         expect(page).to have_link("Invoice ##{invoice_1.id}")
       end
-        expect(item_1.name).to appear_before(item_2.name)
+      expect(item_1.name).to appear_before(item_2.name)
       within("#invoice-#{invoice_2.id}") do
         expect(page).to have_content(item_2.name)
         expect(page).to have_content(invoice_2.id)
@@ -235,17 +234,17 @@ RSpec.describe 'Dashboard' do
 
     it 'can see the invoices sorted by least recent' do
       allow(GithubService).to receive(:contributors_info).and_return([
-        {id: 26797256, name: 'Molly', contributions: 7},
-        {id: 78388882, name: 'Sa', contributions: 80}
-      ])
+                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
+                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                     ])
       allow(GithubService).to receive(:closed_pulls).and_return([
-        {id: 0101010011, name: 'Molly', merged_at: 7},
-        {id: 01011230011, name: 'Sa',merged_at: 80},
-        {id: 01011230011, name: 'Sa', merged_at: nil}
-      ])
+                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                ])
       allow(GithubService).to receive(:repo_info).and_return({
-          name: 'little-esty-shop'
-      })
+                                                               name: 'little-esty-shop'
+                                                             })
 
       merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
@@ -289,12 +288,12 @@ RSpec.describe 'Dashboard' do
       item_3 = merchant.items.create!(name: 'Hoop Earrings', description: 'Jewelery', unit_price: 1000)
       item_5 = merchant.items.create!(name: 'Silver Bracelet', description: 'Accessories', unit_price: 3000)
       item_6 = merchant.items.create!(name: 'Bronze Ring', description: 'Jewelery', unit_price: 2000)
-      invoice_1 = customer_2.invoices.create!(status: 1, created_at: "2012-03-06 14:54:15 UTC")
-      invoice_4 = customer_2.invoices.create!(status: 1, created_at: "2012-03-05 14:54:15 UTC")
-      invoice_2 = customer_2.invoices.create!(status: 1, created_at: "2012-03-07 00:54:24 UTC")
-      invoice_3 = customer_2.invoices.create!(status: 1, created_at: "2012-03-08 14:54:15 UTC")
-      invoice_5 = customer_2.invoices.create!(status: 1, created_at: "2012-03-10 14:54:15 UTC")
-      invoice_6 = customer_2.invoices.create!(status: 1, created_at: "2012-03-11 14:54:15 UTC")
+      invoice_1 = customer_2.invoices.create!(status: 1, created_at: '2012-03-06 14:54:15 UTC')
+      invoice_4 = customer_2.invoices.create!(status: 1, created_at: '2012-03-05 14:54:15 UTC')
+      invoice_2 = customer_2.invoices.create!(status: 1, created_at: '2012-03-07 00:54:24 UTC')
+      invoice_3 = customer_2.invoices.create!(status: 1, created_at: '2012-03-08 14:54:15 UTC')
+      invoice_5 = customer_2.invoices.create!(status: 1, created_at: '2012-03-10 14:54:15 UTC')
+      invoice_6 = customer_2.invoices.create!(status: 1, created_at: '2012-03-11 14:54:15 UTC')
       invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, status: 1)
       invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_2.id, status: 1)
       invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice_3.id, status: 1)
@@ -317,7 +316,6 @@ RSpec.describe 'Dashboard' do
     end
   end
 end
-
 
 # As a merchant
 # When I visit my merchant dashboard

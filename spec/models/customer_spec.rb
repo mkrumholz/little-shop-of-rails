@@ -2,10 +2,9 @@ require 'rails_helper'
 
 RSpec.describe Customer do
   describe 'relationships' do
-
     it { should have_many(:invoices).dependent(:destroy) }
-
   end
+
   describe 'class methods' do
     before :each do
       @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
@@ -37,6 +36,7 @@ RSpec.describe Customer do
       @invoice_1.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
       @invoice_3.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
     end
+    
     describe '#top_five_completed_transactions' do
       it 'returns the 5 customers with the most completed transactions' do
         actual = Customer.top_five_completed_transactions
@@ -50,7 +50,6 @@ RSpec.describe Customer do
 
     describe 'top_5_customers' do
       it 'shows the top 5 customers' do
-
         actual = [@customer_4, @customer_6, @customer_5, @customer_1, @customer_3]
 
         expect(Customer.top_5_customers).to eq(actual)

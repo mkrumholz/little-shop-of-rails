@@ -4,17 +4,17 @@ RSpec.describe 'Merchant Invoices Index' do
   describe 'index page' do
     before :each do
       allow(GithubService).to receive(:contributors_info).and_return([
-        {id: 26797256, name: 'Molly', contributions: 7},
-        {id: 78388882, name: 'Sa', contributions: 80}
-      ])
+                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
+                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                     ])
       allow(GithubService).to receive(:closed_pulls).and_return([
-        {id: 0101010011, name: 'Molly', merged_at: 7},
-        {id: 01011230011, name: 'Sa',merged_at: 80},
-        {id: 01011230011, name: 'Sa', merged_at: nil}
-      ])
+                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                ])
       allow(GithubService).to receive(:repo_info).and_return({
-          name: 'little-esty-shop'
-      })
+                                                               name: 'little-esty-shop'
+                                                             })
     end
     it 'can see all of the invoices that include at least one of my merchants items' do
       # Merchant Invoices Index
@@ -32,12 +32,12 @@ RSpec.describe 'Merchant Invoices Index' do
       item_3 = merchant.items.create!(name: 'Hoop Earrings', description: 'Jewelery', unit_price: 1000)
       item_5 = merchant_2.items.create!(name: 'Silver Bracelet', description: 'Accessories', unit_price: 3000)
       item_6 = merchant_2.items.create!(name: 'Bronze Ring', description: 'Jewelery', unit_price: 2000)
-      invoice_1 = customer_2.invoices.create!(status: 1, created_at: "2012-03-06 14:54:15 UTC")
-      invoice_4 = customer_2.invoices.create!(status: 1, created_at: "2012-03-09 14:54:15 UTC")
-      invoice_2 = customer_2.invoices.create!(status: 1, created_at: "2012-03-07 00:54:24 UTC")
-      invoice_3 = customer_2.invoices.create!(status: 1, created_at: "2012-03-08 14:54:15 UTC")
-      invoice_5 = customer_2.invoices.create!(status: 1, created_at: "2012-03-10 14:54:15 UTC")
-      invoice_6 = customer_2.invoices.create!(status: 1, created_at: "2012-03-11 14:54:15 UTC")
+      invoice_1 = customer_2.invoices.create!(status: 1, created_at: '2012-03-06 14:54:15 UTC')
+      invoice_4 = customer_2.invoices.create!(status: 1, created_at: '2012-03-09 14:54:15 UTC')
+      invoice_2 = customer_2.invoices.create!(status: 1, created_at: '2012-03-07 00:54:24 UTC')
+      invoice_3 = customer_2.invoices.create!(status: 1, created_at: '2012-03-08 14:54:15 UTC')
+      invoice_5 = customer_2.invoices.create!(status: 1, created_at: '2012-03-10 14:54:15 UTC')
+      invoice_6 = customer_2.invoices.create!(status: 1, created_at: '2012-03-11 14:54:15 UTC')
       invoice_item_1 = InvoiceItem.create!(item_id: item_1.id, invoice_id: invoice_1.id, status: 1)
       invoice_item_2 = InvoiceItem.create!(item_id: item_2.id, invoice_id: invoice_2.id, status: 1)
       invoice_item_3 = InvoiceItem.create!(item_id: item_3.id, invoice_id: invoice_3.id, status: 1)

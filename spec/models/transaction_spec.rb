@@ -6,6 +6,6 @@ RSpec.describe Transaction do
   end
 
   describe 'enums' do
-    it { should define_enum_for(:result).with_values([:failure, :success])}
+    it { should define_enum_for(:result).with_values([:failure, :success]) }
   end
 end
