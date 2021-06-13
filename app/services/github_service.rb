@@ -13,7 +13,7 @@ class GithubService
     JSON.parse(body, symbolize_names: true)
   end
 
-  def self.closed_pulls
+  def self.pull_request_info
     response = Faraday.get 'https://api.github.com/repos/mkrumholz/little-shop-of-rails/pulls?state=closed'
 
     body = response.body
