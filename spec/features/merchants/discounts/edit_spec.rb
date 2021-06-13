@@ -41,6 +41,7 @@ RSpec.describe 'merchant discount edit' do
     fill_in 'discount[quantity_threshold]', with: 'eleven'
     click_button 'Update Discount'
 
+    expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}/edit"
     expect(page).to have_content '🛑 Error: Quantity threshold is not a number'
   end
 end

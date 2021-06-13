@@ -33,7 +33,7 @@ class Merchants::DiscountsController < ApplicationController
       redirect_to merchant_discount_path(@merchant.id, @discount.id)
     else
       redirect_to edit_merchant_discount_path(@merchant.id, @discount.id)
-      flash[:alert] = "🛑 Error: #{error_message(discount.errors)}"
+      flash[:alert] = "🛑 Error: #{error_message(@discount.errors)}"
     end
   end
 
