@@ -15,12 +15,36 @@
 # See http://rubydoc.info/gems/rspec-core/RSpec/Core/Configuration
 require 'capybara/rspec'
 require 'simplecov'
+require 'webmock/rspec'
+
 SimpleCov.start do
   add_filter 'spec/rails_helper.rb'
   add_filter 'modules/dollarable.rb'
   add_filter 'spec/factories'
 end
 RSpec.configure do |config|
+  config.before(:each) do |test|
+    unless test.metadata[:service]
+      allow(GithubService).to receive(:contributors_info).and_return([
+        { id: 26797256, login: 'Molly', contributions: 7 },
+        { id: 78388882, login: 'Sid', contributions: 80 }
+      ])
+    end
+
+    unless test.metadata[:service]
+      allow(GithubService).to receive(:pull_request_info).and_return([
+        { id: 0o101010011, name: 'Molly', merged_at: '2021-03-07' },
+        { id: 0o1011230011, name: 'Sid', merged_at: '2021-03-08' },
+        { id: 0o1011230011, name: 'Sid', merged_at: nil }
+      ])
+    end
+
+    unless test.metadata[:service]
+      allow(GithubService).to receive(:repo_info).and_return({
+        name: 'little-shop-of-rails'
+      })
+    end
+  end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
@@ -85,7 +109,7 @@ RSpec.configure do |config|
   #   # Print the 10 slowest examples and example groups at the
   #   # end of the spec run, to help surface which specs are running
   #   # particularly slow.
-  #   config.profile_examples = 10
+  # config.profile_examples = 10
   #
   #   # Run specs in random order to surface order dependencies. If you find an
   #   # order dependency and want to debug it, you can fix the order by providing
@@ -99,3 +123,4 @@ RSpec.configure do |config|
   #   # as the one that triggered the failure.
   #   Kernel.srand config.seed
 end
+WebMock.disable_net_connect!(allow_localhost: true)

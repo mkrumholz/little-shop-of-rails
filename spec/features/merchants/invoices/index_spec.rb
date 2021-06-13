@@ -2,27 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant Invoices Index' do
   describe 'index page' do
-    before :each do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:closed_pulls).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
-    end
     it 'can see all of the invoices that include at least one of my merchants items' do
-      # Merchant Invoices Index
-      # As a merchant,
-      # When I visit my merchant's invoices index (/merchants/merchant_id/invoices)
-      # Then I see all of the invoices that include at least one of my merchant's items
-      # And for each invoice I see its id
-      # And each id links to the merchant invoice show page
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       merchant_2 = Merchant.create!(name: 'James Bond')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')

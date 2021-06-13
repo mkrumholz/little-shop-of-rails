@@ -5,17 +5,9 @@ RSpec.describe GithubContributors do
     describe '#contributor_info' do
       it 'returns a hash with key of id and value of contributor info' do
         allow(GithubService).to receive(:contributors_info).and_return([
-                                                                         {
-                                                                           id: 26_797_256,
-                                                                           name: 'Molly',
-                                                                           contributions: 7
-                                                                         },
-                                                                         {
-                                                                           id: 5_446_926,
-                                                                           name: 'Sa,',
-                                                                           contributions: 80
-                                                                         }
-                                                                       ])
+          { id: 26_797_256, login: 'Molly', contributions: 7 },
+          { id: 5_446_926, login: 'Sid', contributions: 80 }
+        ])
 
         expect(GithubContributors.contributors_info.keys.first).to eq(26_797_256)
         expect(GithubContributors.contributors_info.values.first.class).to eq(Hash)

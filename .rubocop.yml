@@ -30,3 +30,7 @@ Style/ClassAndModuleChildren:
   Enabled: false
 Style/NumericLiterals:
   Enabled: false
+Layout/FirstArrayElementIndentation:
+  Enabled: false
+Layout/FirstHashElementIndentation:
+  Enabled: false

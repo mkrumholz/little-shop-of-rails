@@ -36,7 +36,7 @@ RSpec.describe Customer do
       @invoice_1.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
       @invoice_3.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
     end
-    
+
     describe '#top_five_completed_transactions' do
       it 'returns the 5 customers with the most completed transactions' do
         actual = Customer.top_five_completed_transactions

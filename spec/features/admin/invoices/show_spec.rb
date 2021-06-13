@@ -2,18 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'admin/invoices/show.html.erb' do
   before :each do
-    allow(GithubService).to receive(:contributors_info).and_return([
-                                                                     { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                     { id: 78388882, name: 'Sa', contributions: 80 }
-                                                                   ])
-    allow(GithubService).to receive(:closed_pulls).and_return([
-                                                                { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                { id: 0o1011230011, name: 'Sa', merged_at: nil }
-                                                              ])
-    allow(GithubService).to receive(:repo_info).and_return({
-                                                             name: 'little-esty-shop'
-                                                           })
     @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
     @invoice_1 = @customer_1.invoices.create!(status: 1, created_at: '2001-01-01')
     @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
@@ -26,17 +14,20 @@ RSpec.describe 'admin/invoices/show.html.erb' do
 
     visit "/admin/invoices/#{@invoice_1.id}"
   end
+
   describe 'visit' do
     it 'displays invoice data' do
       expect(page).to have_content(@invoice_1.id)
       expect(page).to have_content(@invoice_1.status)
       expect(page).to have_content('Monday, January 01, 2001')
     end
+
     it 'displays invoices customer name' do
       expect(page).to have_content(@customer_1.first_name)
       expect(page).to have_content(@customer_1.last_name)
     end
   end
+
   describe 'items on invoice' do
     it 'displays all of the items on the invoice' do
       expect(page).to have_content(@item_1.name)
@@ -50,6 +41,7 @@ RSpec.describe 'admin/invoices/show.html.erb' do
       expect(page).to have_content('$0.16')
     end
   end
+
   describe 'total revenue' do
     it 'shows the total revenue the invoice will generate' do
       expect(page).to have_content('Total Revenue: $620.16')

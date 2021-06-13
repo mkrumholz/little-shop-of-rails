@@ -1,21 +1,17 @@
 require 'rails_helper'
 
 RSpec.describe 'Dashboard' do
+  before :each do
+    allow(NagerHoliday).to receive(:next_3_holidays).and_return([
+      { date: '2021-07-05', localName: 'Independence Day' },
+      { date: '2021-09-06', localName: 'Labor Day' },
+      { date: '2021-10-11', localName: 'Columbus Day' },
+      { date: '2021-11-11', localName: 'Veterans Day' }
+    ])
+  end
+
   describe 'dashboard' do
     it 'can see the name of the merchants' do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:closed_pulls).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
-
       merchant = FactoryBot.create(:merchant)
 
       visit "/merchants/#{merchant.id}/dashboard"
@@ -24,19 +20,6 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see links to the merchant items, invoice, and discount indexes' do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:closed_pulls).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
-
       merchant = FactoryBot.create(:merchant)
 
       visit "/merchants/#{merchant.id}/dashboard"
@@ -59,19 +42,6 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see the name of the top 5 customers' do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:closed_pulls).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
-
       merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
@@ -131,19 +101,6 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see the items ready to ship' do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:closed_pulls).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
-
       merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
@@ -233,19 +190,6 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see the invoices sorted by least recent' do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:closed_pulls).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
-
       merchant = FactoryBot.create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')

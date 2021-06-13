@@ -2,25 +2,13 @@ require 'rails_helper'
 
 RSpec.describe 'Welcome page' do
   before :each do
-    allow(GithubService).to receive(:contributors_info).and_return([
-                                                                     { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                     { id: 78388882, name: 'Sa', contributions: 80 }
-                                                                   ])
-    allow(GithubService).to receive(:closed_pulls).and_return([
-                                                                { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                { id: 0o1011230011, name: 'Sa', merged_at: nil }
-                                                              ])
-    allow(GithubService).to receive(:repo_info).and_return({
-                                                             name: 'little-esty-shop'
-                                                           })
-
     @merchant_1 = Merchant.create!(name: 'Tims my time', status: false)
     @merchant_2 = Merchant.create!(name: 'Future Fun', status: false)
     @merchant_3 = Merchant.create!(name: 'Dozen a Dime', status: false)
 
     visit '/'
   end
+
   describe 'visit' do
     it 'has a button to the admin index' do
       expect(page).to have_link('Admin Index')
