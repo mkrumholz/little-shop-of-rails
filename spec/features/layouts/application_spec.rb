@@ -6,7 +6,7 @@ RSpec.describe 'footer' do
                                                                      { id: 26797256, login: 'Molly', contributions: 7 },
                                                                      { id: 78388882, login: 'Sa', contributions: 80 }
                                                                    ])
-    allow(GithubService).to receive(:closed_pulls).and_return([
+    allow(GithubService).to receive(:pull_request_info).and_return([
                                                                 { id: '0101010011', name: 'Molly', merged_at: 7 },
                                                                 { id: '01011230011', name: 'Sa', merged_at: 80 },
                                                                 { id: '01011230011', name: 'Sa', merged_at: nil }

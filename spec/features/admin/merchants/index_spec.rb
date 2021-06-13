@@ -6,7 +6,7 @@ RSpec.describe 'Admin Merchants Index' do
                                                                      { id: 26797256, name: 'Molly', contributions: 7 },
                                                                      { id: 78388882, name: 'Sa', contributions: 80 }
                                                                    ])
-    allow(GithubService).to receive(:closed_pulls).and_return([
+    allow(GithubService).to receive(:pull_request_info).and_return([
                                                                 { id: 0o101010011, name: 'Molly', merged_at: 7 },
                                                                 { id: 0o1011230011, name: 'Sa', merged_at: 80 },
                                                                 { id: 0o1011230011, name: 'Sa', merged_at: nil }
