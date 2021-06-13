@@ -7,7 +7,7 @@ RSpec.describe InvoiceItem do
   end
 
   describe 'enums' do
-    it { should define_enum_for(:status).with_values([:pending, :packaged, :shipped])}
+    it { should define_enum_for(:status).with_values([:pending, :packaged, :shipped]) }
   end
 
   describe 'class methods' do

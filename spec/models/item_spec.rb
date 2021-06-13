@@ -15,7 +15,7 @@ RSpec.describe Item do
   end
 
   before :each do
-    @merchant = Merchant.create!(name: "Little Shop of Horrors")
+    @merchant = Merchant.create!(name: 'Little Shop of Horrors')
     @customer = Customer.create!(first_name: 'Audrey', last_name: 'I')
 
     @item_1 = @merchant.items.create!(name: 'Audrey II', description: 'Large, man-eating plant', unit_price: '100000000', enabled: true)
@@ -26,11 +26,11 @@ RSpec.describe Item do
     @item_6 = @merchant.items.create!(name: 'Fifth item', description: '5th best', unit_price: '2400', enabled: true)
     @item_7 = @merchant.items.create!(name: 'Sixth item', description: '6th best', unit_price: '50', enabled: true)
 
-    @invoice_1 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-03-01")) # is successful and paid
-    @invoice_2 = @customer.invoices.create!(status: 0, updated_at: Date.parse("2021-03-05")) # is cancelled
-    @invoice_3 = @customer.invoices.create!(status: 2, updated_at: Date.parse("2021-03-05")) # is still in progress, no good transactions
-    @invoice_4 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-08")) # is successful and paid
-    @invoice_5 = @customer.invoices.create!(status: 1, updated_at: Date.parse("2021-02-01")) # has no successful transaction
+    @invoice_1 = @customer.invoices.create!(status: 1, updated_at: Date.parse('2021-03-01')) # is successful and paid
+    @invoice_2 = @customer.invoices.create!(status: 0, updated_at: Date.parse('2021-03-05')) # is cancelled
+    @invoice_3 = @customer.invoices.create!(status: 2, updated_at: Date.parse('2021-03-05')) # is still in progress, no good transactions
+    @invoice_4 = @customer.invoices.create!(status: 1, updated_at: Date.parse('2021-02-08')) # is successful and paid
+    @invoice_5 = @customer.invoices.create!(status: 1, updated_at: Date.parse('2021-02-01')) # has no successful transaction
 
     @invoice_item_1 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_1.id, quantity: 2, unit_price: 5000, status: 1)
     @invoice_item_2 = InvoiceItem.create!(invoice_id: @invoice_1.id, item_id: @item_2.id, quantity: 2, unit_price: 2500, status: 1)

@@ -13,7 +13,7 @@ RSpec.describe Invoice do
   end
 
   describe 'enums' do
-    it { should define_enum_for(:status).with_values([:in_progress, :completed, :cancelled])}
+    it { should define_enum_for(:status).with_values([:in_progress, :completed, :cancelled]) }
   end
 
   before :each do
@@ -30,7 +30,7 @@ RSpec.describe Invoice do
     @invoice_4 = @customer_4.invoices.create!(status: 1)
     @invoice_5 = @customer_5.invoices.create!(status: 1)
     @invoice_6 = @customer_6.invoices.create!(status: 1)
-    @item_1 = @merchant_1.items.create!(name: 'Pogs', description: 'Stack of pogs.', unit_price: 500,)
+    @item_1 = @merchant_1.items.create!(name: 'Pogs', description: 'Stack of pogs.', unit_price: 500)
     InvoiceItem.create!(quantity: 15, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_1)
     InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_1)
     InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_2)
@@ -71,7 +71,7 @@ RSpec.describe Invoice do
 
     describe '.total_revenue_for_merchant' do
       it 'returns the total revenue expected for the invoice only for items belonging to given merchant' do
-        merchant = Merchant.create!(name: "Little Shop of Horrors")
+        merchant = Merchant.create!(name: 'Little Shop of Horrors')
         merchant_2 = Merchant.create!(name: 'James Bond')
 
         customer = Customer.create!(first_name: 'Audrey', last_name: 'I')
@@ -92,8 +92,8 @@ RSpec.describe Invoice do
         invoice_item_3 = item_4.invoice_items.create!(invoice_id: invoice_1.id, quantity: 2, unit_price: 1000, status: 0) # $20
 
         # $100 in other merchant's revenue
-        invoice_item_9a = InvoiceItem.create!(quantity: 2, unit_price: 3000,item_id: item_8.id, invoice_id: invoice_1.id, status: 1) # Other merchant rev
-        invoice_item_9b = InvoiceItem.create!(quantity: 2, unit_price: 2000,item_id: item_9.id, invoice_id: invoice_1.id, status: 2) # Other merchant rev
+        invoice_item_9a = InvoiceItem.create!(quantity: 2, unit_price: 3000, item_id: item_8.id, invoice_id: invoice_1.id, status: 1) # Other merchant rev
+        invoice_item_9b = InvoiceItem.create!(quantity: 2, unit_price: 2000, item_id: item_9.id, invoice_id: invoice_1.id, status: 2) # Other merchant rev
 
         actual = invoice_1.total_revenue_for_merchant(merchant.id)
 

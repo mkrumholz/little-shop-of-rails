@@ -4,13 +4,16 @@ AllCops:
     - 'utility_scripts/**/*'
     - 'data/**/*'
     - '.git/**/*'
+    - 'db/*'
   SuggestExtensions: false
 Style/Documentation:
   Enabled: false
 Metrics/BlockLength:
   Max: 150
-Metrics/LineLength:
-  Max: 100
+Layout/LineLength:
+  Max: 110
+  Exclude:
+    - 'spec/**/*'
 Style/WordArray:
   Enabled: false
 Style/SymbolProc:
@@ -25,4 +28,5 @@ Style/SymbolArray:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
-  
+Style/NumericLiterals:
+  Enabled: false

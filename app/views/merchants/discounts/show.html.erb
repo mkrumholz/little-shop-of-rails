@@ -1,0 +1,10 @@
+<% content_for :merchant do %>
+  <%= render partial: './partials/merchant_nav' %>
+<% end %>
+
+<h1><%= @discount.name %></h1>
+
+<p>Percentage discounted: <%= number_to_percentage(@discount.percentage * 100, precision: 2) %></p>
+<p>Purchases required for eligibility: <%= @discount.quantity_threshold %>+</p><br/>
+
+<%= button_to 'Edit discount', edit_merchant_discount_path(@merchant.id, @discount.id), method: :get, local: true  %>

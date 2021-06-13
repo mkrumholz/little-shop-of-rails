@@ -3,6 +3,7 @@ require 'rails_helper'
 RSpec.describe Merchant do
   describe 'relationships' do
     it { should have_many(:items).dependent(:destroy) }
+    it { should have_many(:discounts).dependent(:destroy) }
   end
 
   describe 'validations' do
@@ -11,18 +12,18 @@ RSpec.describe Merchant do
 
   describe 'callbacks' do
     it 'after_initialization it sets status to false if nil' do
-      test = Merchant.create!(name: "test")
+      test = Merchant.create!(name: 'test')
       expect(test.status).to eq(false)
     end
   end
 
   before :each do
     @merch_1 = Merchant.create!(name: "Sal's Signs", status: true)
-    @merch_2 = Merchant.create!(name: "T-shirts by Terry", status: true)
-    @merch_3 = Merchant.create!(name: "All About Amphibians", status: false)
+    @merch_2 = Merchant.create!(name: 'T-shirts by Terry', status: true)
+    @merch_3 = Merchant.create!(name: 'All About Amphibians', status: false)
     @merch_4 = Merchant.create!(name: "Will's Widdles", status: true)
-    @merch_5 = Merchant.create!(name: "Rugula by Ron", status: true)
-    @merch_6 = Merchant.create!(name: "Gemeni Gems", status: false)
+    @merch_5 = Merchant.create!(name: 'Rugula by Ron', status: true)
+    @merch_6 = Merchant.create!(name: 'Gemeni Gems', status: false)
 
     @item_1 = @merch_1.items.create!(name: 'thing1', description: 'thing1 is a thing', unit_price: 10)
     @item_2 = @merch_1.items.create!(name: 'thing2', description: 'thing1 is a thing', unit_price: 10)
@@ -37,19 +38,19 @@ RSpec.describe Merchant do
     @item_11 = @merch_6.items.create!(name: 'thing1', description: 'thing1 is a thing', unit_price: 10)
     @item_12 = @merch_6.items.create!(name: 'thing2', description: 'thing2 is a thing', unit_price: 10)
 
-    @customer = Customer.create!(first_name: "Sam", last_name: "Shmo")
+    @customer = Customer.create!(first_name: 'Sam', last_name: 'Shmo')
 
-    @invoice_1 = @customer.invoices.create!(status: 1, created_at: Time.utc(2020, 01, 01, 20, 30, 45))
-    @invoice_2 = @customer.invoices.create!(status: 1, created_at: Time.utc(2018, 06, 01, 20, 30, 45))
+    @invoice_1 = @customer.invoices.create!(status: 1, created_at: Time.utc(2020, 0o1, 0o1, 20, 30, 45))
+    @invoice_2 = @customer.invoices.create!(status: 1, created_at: Time.utc(2018, 0o6, 0o1, 20, 30, 45))
     @invoice_3 = @customer.invoices.create!(status: 1, created_at: Time.utc(2019, 12, 15, 20, 30, 45))
-    @invoice_4 = @customer.invoices.create!(status: 1, created_at: Time.utc(2020, 01, 15, 20, 30, 45))
+    @invoice_4 = @customer.invoices.create!(status: 1, created_at: Time.utc(2020, 0o1, 15, 20, 30, 45))
 
-    @transaction_1 = @invoice_1.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
-    @transaction_5 = @invoice_3.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
-    @transaction_6 = @invoice_4.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 1)
-    @transaction_2 = @invoice_1.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 0)
-    @transaction_3 = @invoice_2.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 0)
-    @transaction_4 = @invoice_2.transactions.create!(credit_card_number: "123123123", credit_card_expiration_date: "", result: 0)
+    @transaction_1 = @invoice_1.transactions.create!(credit_card_number: '123123123', credit_card_expiration_date: '', result: 1)
+    @transaction_5 = @invoice_3.transactions.create!(credit_card_number: '123123123', credit_card_expiration_date: '', result: 1)
+    @transaction_6 = @invoice_4.transactions.create!(credit_card_number: '123123123', credit_card_expiration_date: '', result: 1)
+    @transaction_2 = @invoice_1.transactions.create!(credit_card_number: '123123123', credit_card_expiration_date: '', result: 0)
+    @transaction_3 = @invoice_2.transactions.create!(credit_card_number: '123123123', credit_card_expiration_date: '', result: 0)
+    @transaction_4 = @invoice_2.transactions.create!(credit_card_number: '123123123', credit_card_expiration_date: '', result: 0)
 
     # @merch_1 total revenue = 3000, top selling date: @invoice_4.created_at = 1/15/20
     @invoice_item_1a = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, quantity: 10, unit_price: 100, status: 2)
@@ -85,10 +86,10 @@ RSpec.describe Merchant do
 
   describe 'instance methods' do
     it '#render_status returns Enabled or Disabled based on boolean status' do
-      expect(@merch_2.render_status[:status]).to eq("Enabled")
-      expect(@merch_2.render_status[:action]).to eq("Disable")
-      expect(@merch_3.render_status[:status]).to eq("Disabled")
-      expect(@merch_3.render_status[:action]).to eq("Enable")
+      expect(@merch_2.render_status[:status]).to eq('Enabled')
+      expect(@merch_2.render_status[:action]).to eq('Disable')
+      expect(@merch_3.render_status[:status]).to eq('Disabled')
+      expect(@merch_3.render_status[:action]).to eq('Enable')
     end
 
     it '#toggle_status flips the status of a merchant' do
@@ -102,7 +103,6 @@ RSpec.describe Merchant do
     end
 
     describe '#top_selling_date' do
-
       it 'returns the dates with most revenue for merchants' do
         merchants = Merchant.top_5_total_revenue
 

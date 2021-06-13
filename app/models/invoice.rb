@@ -6,7 +6,7 @@ class Invoice < ApplicationRecord
   has_many :transactions
 
   validates :customer_id, presence: true
-  validates :status, presence: true 
+  validates :status, presence: true
 
   def self.unshipped_items
     joins(:invoice_items)
