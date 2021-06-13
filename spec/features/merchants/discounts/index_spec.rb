@@ -48,4 +48,13 @@ RSpec.describe 'merchant discount index' do
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
   end
+
+  it 'has a link to delete each discount' do
+    within "tr#discount-#{@discount_1.id}" do
+      click_button 'Delete'
+    end
+
+    expect(page).to_not have_content @discount_1.name
+    expect(page).to have_content @discount_2.name
+  end
 end
