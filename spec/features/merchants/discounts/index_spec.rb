@@ -2,18 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'merchant discount index' do
   before :each do
-    allow(GithubService).to receive(:contributors_info).and_return([
-      { id: 26797256, name: 'Molly', contributions: 7 },
-      { id: 78388882, name: 'Sid', contributions: 80 }
-    ])
-    allow(GithubService).to receive(:pull_request_info).and_return([
-      { id: 0o101010011, name: 'Molly', merged_at: '2021-03-07' },
-      { id: 0o1011230011, name: 'Sid', merged_at: '2021-03-08' },
-      { id: 0o1011230011, name: 'Sid', merged_at: nil }
-    ])
-    allow(GithubService).to receive(:repo_info).and_return({
-      name: 'little-shop-of-rails'
-    })
     WebMock.stub_request(:get, /date.nager.at/).
           with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.4.2'}).
           to_return(status: 200, body: [

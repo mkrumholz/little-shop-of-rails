@@ -25,8 +25,8 @@ end
 RSpec.configure do |config|
   config.before(:each) do
     allow(GithubService).to receive(:contributors_info).and_return([
-      { id: 26797256, name: 'Molly', contributions: 7 },
-      { id: 78388882, name: 'Sid', contributions: 80 }
+      { id: 26797256, login: 'Molly', contributions: 7 },
+      { id: 78388882, login: 'Sid', contributions: 80 }
     ])
     allow(GithubService).to receive(:pull_request_info).and_return([
       { id: 0o101010011, name: 'Molly', merged_at: '2021-03-07' },

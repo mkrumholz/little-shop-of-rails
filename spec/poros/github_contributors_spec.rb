@@ -12,7 +12,7 @@ RSpec.describe GithubContributors do
                                                                          },
                                                                          {
                                                                            id: 5_446_926,
-                                                                           name: 'Sa,',
+                                                                           name: 'Sid',
                                                                            contributions: 80
                                                                          }
                                                                        ])
