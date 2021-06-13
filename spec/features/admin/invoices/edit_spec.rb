@@ -2,19 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Invoice Edit' do
   before :each do
-    allow(GithubService).to receive(:contributors_info).and_return([
-                                                                     { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                     { id: 78388882, name: 'Sid', contributions: 80 }
-                                                                   ])
-    allow(GithubService).to receive(:pull_request_info).and_return([
-                                                                { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                { id: 0o1011230011, name: 'Sid', merged_at: 80 },
-                                                                { id: 0o1011230011, name: 'Sid', merged_at: nil }
-                                                              ])
-    allow(GithubService).to receive(:repo_info).and_return({
-                                                             name: 'little-esty-shop'
-                                                           })
-
     @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
     @invoice_1 = @customer_1.invoices.create!(status: 1, created_at: '2001-01-01')
 

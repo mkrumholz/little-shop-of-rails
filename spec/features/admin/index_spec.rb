@@ -2,20 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'index.html.erb' do
   describe 'visit' do
-    before :each do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:pull_request_info).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
-    end
     it 'displays a dashboard' do
       visit '/admin'
 
@@ -23,6 +9,7 @@ RSpec.describe 'index.html.erb' do
         expect(page).to have_content('Admin Dashboard')
       end
     end
+
     it 'has links to the admin merchants index' do
       visit '/admin'
 
@@ -31,6 +18,7 @@ RSpec.describe 'index.html.erb' do
 
       expect(page).to have_current_path('/admin/merchants')
     end
+
     it 'has links to the admin invoices index' do
       visit '/admin'
 
@@ -40,20 +28,9 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_current_path('/admin/invoices')
     end
   end
+
   describe 'Top 5 Customers' do
     before :each do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:pull_request_info).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
       @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
       @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
       @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
@@ -84,6 +61,7 @@ RSpec.describe 'index.html.erb' do
       @invoice_3.transactions.create!(result: 1, credit_card_number: '534', credit_card_expiration_date: 'null')
       visit '/admin'
     end
+
     it 'shows the 5 customers with the most successful transactions' do
       expect(page).to have_content("#{@customer_1.first_name} #{@customer_1.last_name}")
       expect(page).to have_content("#{@customer_3.first_name} #{@customer_3.last_name}")
@@ -92,12 +70,14 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_content("#{@customer_6.first_name} #{@customer_6.last_name}")
       expect(page).to_not have_content("#{@customer_2.first_name} #{@customer_2.last_name}")
     end
+
     it 'orders them by completed transactions, last name' do
       expect(@customer_4.first_name).to appear_before(@customer_6.first_name)
       expect(@customer_6.first_name).to appear_before(@customer_5.first_name)
       expect(@customer_5.first_name).to appear_before(@customer_1.first_name)
       expect(@customer_1.first_name).to appear_before(@customer_3.first_name)
     end
+
     it 'lists the number of completed transactions' do
       expect(page).to have_content('5 transactions')
       expect(page).to have_content('4 transactions')
@@ -106,20 +86,9 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_content('1 transactions')
     end
   end
+
   describe 'Incomplete Invoices' do
     before :each do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:pull_request_info).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
       @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
       @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
       @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
@@ -144,6 +113,7 @@ RSpec.describe 'index.html.erb' do
       InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_6)
       visit '/admin'
     end
+
     it 'displays a list of all invoices with unshipped items' do
       expect(page).to have_content('Incomplete Invoices')
       expect(page).to have_content(@invoice_1.id)
@@ -153,6 +123,7 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_content(@invoice_6.id)
       expect(page).to_not have_content(@invoice_5.id)
     end
+
     it 'links the ids to their admin show page' do
       expect(page).to have_link("Invoice #{@invoice_1.id}")
       expect(page).to have_link("Invoice #{@invoice_2.id}")
@@ -172,6 +143,7 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_content('Monday, January 25, 2021')
       expect(page).to have_content('Saturday, January 25, 2020')
     end
+    
     it 'displays the invoices in order created from oldest to newest' do
       expect(@invoice_4.id.to_s).to appear_before(@invoice_6.id.to_s)
       expect(@invoice_6.id.to_s).to appear_before(@invoice_3.id.to_s)

@@ -23,6 +23,20 @@ SimpleCov.start do
   add_filter 'spec/factories'
 end
 RSpec.configure do |config|
+  config.before(:each) do
+    allow(GithubService).to receive(:contributors_info).and_return([
+      { id: 26797256, name: 'Molly', contributions: 7 },
+      { id: 78388882, name: 'Sid', contributions: 80 }
+    ])
+    allow(GithubService).to receive(:pull_request_info).and_return([
+      { id: 0o101010011, name: 'Molly', merged_at: '2021-03-07' },
+      { id: 0o1011230011, name: 'Sid', merged_at: '2021-03-08' },
+      { id: 0o1011230011, name: 'Sid', merged_at: nil }
+    ])
+    allow(GithubService).to receive(:repo_info).and_return({
+      name: 'little-shop-of-rails'
+    })
+   end
   # rspec-expectations config goes here. You can use an alternate
   # assertion/expectation library such as wrong or the stdlib/minitest
   # assertions if you prefer.
