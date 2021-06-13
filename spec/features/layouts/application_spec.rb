@@ -4,7 +4,7 @@ RSpec.describe 'footer' do
   before :each do
     visit '/admin'
   end
-  
+
   it 'displays repo name' do
     within 'footer' do
       expect(page).to have_content('little-shop-of-rails')

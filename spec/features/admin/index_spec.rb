@@ -143,7 +143,7 @@ RSpec.describe 'index.html.erb' do
       expect(page).to have_content('Monday, January 25, 2021')
       expect(page).to have_content('Saturday, January 25, 2020')
     end
-    
+
     it 'displays the invoices in order created from oldest to newest' do
       expect(@invoice_4.id.to_s).to appear_before(@invoice_6.id.to_s)
       expect(@invoice_6.id.to_s).to appear_before(@invoice_3.id.to_s)

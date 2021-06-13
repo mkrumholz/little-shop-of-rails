@@ -8,7 +8,7 @@ RSpec.describe 'Welcome page' do
 
     visit '/'
   end
-  
+
   describe 'visit' do
     it 'has a button to the admin index' do
       expect(page).to have_link('Admin Index')

@@ -2,20 +2,20 @@ require 'rails_helper'
 
 RSpec.describe 'merchant discount index' do
   before :each do
-    WebMock.stub_request(:get, /date.nager.at/).
-          with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.4.2'}).
-          to_return(status: 200, body: [
-            {date: '2021-07-05', localName: 'Independence Day'}, 
-            {date: '2021-09-06', localName: 'Labor Day'}, 
-            {date: '2021-10-11', localName: 'Columbus Day'},
-            {date: '2021-11-11', localName: 'Veterans Day'}
+    WebMock.stub_request(:get, /date.nager.at/)
+           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Faraday v1.4.2' })
+           .to_return(status: 200, body: [
+            { date: '2021-07-05', localName: 'Independence Day' },
+            { date: '2021-09-06', localName: 'Labor Day' },
+            { date: '2021-10-11', localName: 'Columbus Day' },
+            { date: '2021-11-11', localName: 'Veterans Day' }
             ].to_json,
             headers: {})
-                    
+
     uri = URI('https://date.nager.at/api/v2/NextPublicHolidays/US')
     # allow(NagerHoliday).to receive(:next_3_holidays).and_return([
-    #   {date: '2021-07-05', localName: 'Independence Day'}, 
-    #   {date: '2021-09-06', localName: 'Labor Day'}, 
+    #   {date: '2021-07-05', localName: 'Independence Day'},
+    #   {date: '2021-09-06', localName: 'Labor Day'},
     #   {date: '2021-10-11', localName: 'Columbus Day'},
     #   {date: '2021-11-11', localName: 'Veterans Day'}
     # ])
@@ -77,7 +77,7 @@ RSpec.describe 'merchant discount index' do
   end
 
   it 'displays the next 3 public holidays' do
-    within "section#holidays" do 
+    within 'section#holidays' do
       expect(page).to have_content 'Upcoming Holidays'
       expect(page).to have_content 'Independence Day'
       expect(page).to have_content 'Observed: Monday, July 05, 2021'
@@ -85,7 +85,7 @@ RSpec.describe 'merchant discount index' do
       expect(page).to have_content 'Observed: Monday, September 06, 2021'
       expect(page).to have_content "Indigenous Peoples' Day"
       expect(page).to have_content 'Observed: Monday, October 11, 2021'
-      expect(page).to_not have_content "Veterans Day"
+      expect(page).to_not have_content 'Veterans Day'
     end
   end
 end

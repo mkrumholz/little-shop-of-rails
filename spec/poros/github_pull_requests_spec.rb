@@ -5,9 +5,9 @@ RSpec.describe GithubPullRequests do
     describe '.merged_pulls' do
       it 'returns a count of merged pull requests' do
         allow(GithubService).to receive(:pull_request_info).and_return([
-          {id: 0101010011, merged_at: 7},
-          {id: 01011230011, merged_at: 80},
-          {id: 01011230011, merged_at: nil}
+          { id: 0o101010011, merged_at: 7 },
+          { id: 0o1011230011, merged_at: 80 },
+          { id: 0o1011230011, merged_at: nil }
         ])
 
         expect(GithubPullRequests.merged_pulls).to eq(2)
