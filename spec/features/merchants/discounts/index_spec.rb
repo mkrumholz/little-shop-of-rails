@@ -2,6 +2,19 @@ require 'rails_helper'
 
 RSpec.describe 'merchant discount index' do
   before :each do
+    allow(GithubService).to receive(:contributors_info).and_return([
+      { id: 26797256, name: 'Molly', contributions: 7 },
+      { id: 78388882, name: 'Sid', contributions: 80 }
+    ])
+    allow(GithubService).to receive(:pull_request_info).and_return([
+      { id: 0o101010011, name: 'Molly', merged_at: '2021-03-07' },
+      { id: 0o1011230011, name: 'Sid', merged_at: '2021-03-08' },
+      { id: 0o1011230011, name: 'Sid', merged_at: nil }
+    ])
+    allow(GithubService).to receive(:repo_info).and_return({
+      name: 'little-shop-of-rails'
+    })
+
     @merchant_1 = FactoryBot.create(:merchant)
     @merchant_2 = FactoryBot.create(:merchant)
 
@@ -56,5 +69,36 @@ RSpec.describe 'merchant discount index' do
 
     expect(page).to_not have_content @discount_1.name
     expect(page).to have_content @discount_2.name
+  end
+
+  it 'displays the next 3 public holidays' do
+    WebMock.stub_request(:get, /date.nager.at/).
+          with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.4.2'}).
+          to_return(status: 200, body: [
+            {date: '2021-07-05', localName: 'Independence Day'}, 
+            {date: '2021-09-06', localName: 'Labor Day'}, 
+            {date: '2021-10-11', localName: 'Columbus Day'},
+            {date: '2021-11-11', localName: 'Veterans Day'}
+            ].to_json,
+            headers: {})
+                    
+    uri = URI('https://date.nager.at/api/v2/NextPublicHolidays/US')
+    # allow(NagerService).to receive(:next_3_holidays).and_return([
+    #   {date: '2021-07-05', localName: 'Independence Day'}, 
+    #   {date: '2021-09-06', localName: 'Labor Day'}, 
+    #   {date: '2021-10-11', localName: 'Columbus Day'},
+    #   {date: '2021-11-11', localName: 'Veterans Day'}
+    # ])
+
+    within "section#holidays" do 
+      expect(page).to have_content 'Upcoming Holidays'
+      expect(page).to have content 'Independence Day'
+      expect(page).to have content 'Date: Sunday, July 4th, 2021'
+      expect(page).to have content 'Labor Day'
+      expect(page).to have content 'Date: Monday, September 6th, 2021'
+      expect(page).to have content "Indigenous Peoples' Day"
+      expect(page).to have content 'Date: Monday, October 11th, 2021'
+      expect(page).to_not have content "Veterans Day"
+    end
   end
 end
