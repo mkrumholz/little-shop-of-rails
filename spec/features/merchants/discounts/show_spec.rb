@@ -16,7 +16,7 @@ RSpec.describe 'discount show page' do
   end
 
   it 'has a button to edit the discount details' do
-    click_button 'Edit Discount'
+    click_button 'Edit discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}/edit"
   end
