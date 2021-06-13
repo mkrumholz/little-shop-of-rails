@@ -16,25 +16,25 @@ RSpec.describe 'new discount page' do
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts"
     expect(page).to have_content '11th item free'
-    expect(Merchant.discounts.last.percentage).to eq 0.0909
-    expect(Merchant.discounts.last.quantity_threshold).to eq 11
+    expect(@merchant_1.discounts.last.percentage.to_f).to eq 0.0909
+    expect(@merchant_1.discounts.last.quantity_threshold).to eq 11
   end
 
   it 'requires all fields be completed' do
     click_button 'Create Discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
-    expect(page).to have_content "🛑 Error: Name can't be blank, Percentage can't be blank, Quantity threshold can't be blank"
+    expect(page).to have_content "🛑 Error: Name can't be blank, Quantity threshold can't be blank, Quantity threshold is not a number"
   end
 
-  it 'only allows 2 decimal places for the percentage' do
+  it 'percentage must be between 0 and 100 percent' do
     fill_in 'discount[name]', with: '11th item free'
-    fill_in 'discount[percentage]', with: 9.090909
+    fill_in 'discount[percentage]', with: 900.00
     fill_in 'discount[quantity_threshold]', with: 11
     click_button 'Create Discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
-    expect(page).to have_content "?"
+    expect(page).to have_content '🛑 Error: Percentage must be less than or equal to 1.0'
   end
 
   it 'only allows integers for the quantity_threshold' do
@@ -44,6 +44,6 @@ RSpec.describe 'new discount page' do
     click_button 'Create Discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
-    expect(page).to have_content "🛑 Error: Quantity threshold must be an integer"
+    expect(page).to have_content "🛑 Error: Quantity threshold is not a number"
   end
 end

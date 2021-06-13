@@ -52,7 +52,7 @@ class Merchants::ItemsController < ApplicationController
     def update_item_details(merchant, item, params)
       if item.update(item_params.merge(unit_price: price_to_cents(params[:item][:unit_price])))
         redirect_to merchant_item_path(merchant.id, item.id)
-        flash[:alert] = "Victory! 🥳 This item has been successfully updated."
+        flash[:alert] = 'Victory! 🥳 This item has been successfully updated.'
       else
         redirect_to edit_merchant_item_path(merchant.id, item.id)
         flash[:alert] = "Error: #{error_message(item.errors)}"
