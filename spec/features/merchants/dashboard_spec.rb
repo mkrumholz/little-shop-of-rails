@@ -5,12 +5,12 @@ RSpec.describe 'Dashboard' do
     it 'can see the name of the merchants' do
       allow(GithubService).to receive(:contributors_info).and_return([
                                                                        { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
                                                                      ])
       allow(GithubService).to receive(:pull_request_info).and_return([
                                                                   { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
                                                                 ])
       allow(GithubService).to receive(:repo_info).and_return({
                                                                name: 'little-esty-shop'
@@ -26,12 +26,12 @@ RSpec.describe 'Dashboard' do
     it 'can see links to the merchant items, invoice, and discount indexes' do
       allow(GithubService).to receive(:contributors_info).and_return([
                                                                        { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
                                                                      ])
       allow(GithubService).to receive(:pull_request_info).and_return([
                                                                   { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
                                                                 ])
       allow(GithubService).to receive(:repo_info).and_return({
                                                                name: 'little-esty-shop'
@@ -61,12 +61,12 @@ RSpec.describe 'Dashboard' do
     it 'can see the name of the top 5 customers' do
       allow(GithubService).to receive(:contributors_info).and_return([
                                                                        { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
                                                                      ])
       allow(GithubService).to receive(:pull_request_info).and_return([
                                                                   { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
                                                                 ])
       allow(GithubService).to receive(:repo_info).and_return({
                                                                name: 'little-esty-shop'
@@ -133,12 +133,12 @@ RSpec.describe 'Dashboard' do
     it 'can see the items ready to ship' do
       allow(GithubService).to receive(:contributors_info).and_return([
                                                                        { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
                                                                      ])
       allow(GithubService).to receive(:pull_request_info).and_return([
                                                                   { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
                                                                 ])
       allow(GithubService).to receive(:repo_info).and_return({
                                                                name: 'little-esty-shop'
@@ -235,12 +235,12 @@ RSpec.describe 'Dashboard' do
     it 'can see the invoices sorted by least recent' do
       allow(GithubService).to receive(:contributors_info).and_return([
                                                                        { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
                                                                      ])
       allow(GithubService).to receive(:pull_request_info).and_return([
                                                                   { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
                                                                 ])
       allow(GithubService).to receive(:repo_info).and_return({
                                                                name: 'little-esty-shop'

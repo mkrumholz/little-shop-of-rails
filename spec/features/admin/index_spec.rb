@@ -5,12 +5,12 @@ RSpec.describe 'index.html.erb' do
     before :each do
       allow(GithubService).to receive(:contributors_info).and_return([
                                                                        { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
                                                                      ])
       allow(GithubService).to receive(:pull_request_info).and_return([
                                                                   { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
                                                                 ])
       allow(GithubService).to receive(:repo_info).and_return({
                                                                name: 'little-esty-shop'
@@ -44,12 +44,12 @@ RSpec.describe 'index.html.erb' do
     before :each do
       allow(GithubService).to receive(:contributors_info).and_return([
                                                                        { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
                                                                      ])
       allow(GithubService).to receive(:pull_request_info).and_return([
                                                                   { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
                                                                 ])
       allow(GithubService).to receive(:repo_info).and_return({
                                                                name: 'little-esty-shop'
@@ -110,12 +110,12 @@ RSpec.describe 'index.html.erb' do
     before :each do
       allow(GithubService).to receive(:contributors_info).and_return([
                                                                        { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sa', contributions: 80 }
+                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
                                                                      ])
       allow(GithubService).to receive(:pull_request_info).and_return([
                                                                   { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sa', merged_at: nil }
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
+                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
                                                                 ])
       allow(GithubService).to receive(:repo_info).and_return({
                                                                name: 'little-esty-shop'
