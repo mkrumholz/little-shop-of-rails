@@ -9,8 +9,8 @@ Style/Documentation:
   Enabled: false
 Metrics/BlockLength:
   Max: 150
-Metrics/LineLength:
-  Max: 100
+Layout/LineLength:
+  Max: 110
 Style/WordArray:
   Enabled: false
 Style/SymbolProc:
@@ -24,6 +24,4 @@ Naming/VariableNumber:
 Style/SymbolArray:
   Enabled: false
 Style/ClassAndModuleChildren:
-  Enabled: false
-Layout/LineLength:
   Enabled: false
