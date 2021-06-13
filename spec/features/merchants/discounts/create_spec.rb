@@ -44,6 +44,6 @@ RSpec.describe 'new discount page' do
     click_button 'Create Discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
-    expect(page).to have_content "🛑 Error: Quantity threshold is not a number"
+    expect(page).to have_content '🛑 Error: Quantity threshold is not a number'
   end
 end

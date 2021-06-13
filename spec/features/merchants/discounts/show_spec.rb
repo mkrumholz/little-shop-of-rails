@@ -11,5 +11,5 @@ RSpec.describe 'discount show page' do
     expect(page).to have_content discount_1.name
     expect(page).to have_content '10.00%'
     expect(page).to have_content discount_1.quantity_threshold
-  end 
+  end
 end

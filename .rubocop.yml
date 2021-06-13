@@ -25,4 +25,5 @@ Style/SymbolArray:
   Enabled: false
 Style/ClassAndModuleChildren:
   Enabled: false
-  
+Layout/LineLength:
+  Enabled: false

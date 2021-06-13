@@ -37,9 +37,9 @@ RSpec.describe 'merchant discount index' do
 
   it 'has a link to each discount show page' do
     within "tr#discount-#{@discount_1.id}" do
-      click_on "#{@discount_1.name}"
+      click_on @discount_1.name.to_s
     end
-    
+
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}"
   end
 
