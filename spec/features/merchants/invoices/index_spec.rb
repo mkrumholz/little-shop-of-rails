@@ -16,13 +16,8 @@ RSpec.describe 'Merchant Invoices Index' do
                                                                name: 'little-esty-shop'
                                                              })
     end
+
     it 'can see all of the invoices that include at least one of my merchants items' do
-      # Merchant Invoices Index
-      # As a merchant,
-      # When I visit my merchant's invoices index (/merchants/merchant_id/invoices)
-      # Then I see all of the invoices that include at least one of my merchant's items
-      # And for each invoice I see its id
-      # And each id links to the merchant invoice show page
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       merchant_2 = Merchant.create!(name: 'James Bond')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')

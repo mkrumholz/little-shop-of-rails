@@ -14,6 +14,23 @@ RSpec.describe 'merchant discount index' do
     allow(GithubService).to receive(:repo_info).and_return({
       name: 'little-shop-of-rails'
     })
+    WebMock.stub_request(:get, /date.nager.at/).
+          with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.4.2'}).
+          to_return(status: 200, body: [
+            {date: '2021-07-05', localName: 'Independence Day'}, 
+            {date: '2021-09-06', localName: 'Labor Day'}, 
+            {date: '2021-10-11', localName: 'Columbus Day'},
+            {date: '2021-11-11', localName: 'Veterans Day'}
+            ].to_json,
+            headers: {})
+                    
+    uri = URI('https://date.nager.at/api/v2/NextPublicHolidays/US')
+    # allow(NagerService).to receive(:next_3_holidays).and_return([
+    #   {date: '2021-07-05', localName: 'Independence Day'}, 
+    #   {date: '2021-09-06', localName: 'Labor Day'}, 
+    #   {date: '2021-10-11', localName: 'Columbus Day'},
+    #   {date: '2021-11-11', localName: 'Veterans Day'}
+    # ])
 
     @merchant_1 = FactoryBot.create(:merchant)
     @merchant_2 = FactoryBot.create(:merchant)
@@ -72,33 +89,15 @@ RSpec.describe 'merchant discount index' do
   end
 
   it 'displays the next 3 public holidays' do
-    WebMock.stub_request(:get, /date.nager.at/).
-          with(headers: {'Accept'=>'*/*', 'User-Agent'=>'Faraday v1.4.2'}).
-          to_return(status: 200, body: [
-            {date: '2021-07-05', localName: 'Independence Day'}, 
-            {date: '2021-09-06', localName: 'Labor Day'}, 
-            {date: '2021-10-11', localName: 'Columbus Day'},
-            {date: '2021-11-11', localName: 'Veterans Day'}
-            ].to_json,
-            headers: {})
-                    
-    uri = URI('https://date.nager.at/api/v2/NextPublicHolidays/US')
-    # allow(NagerService).to receive(:next_3_holidays).and_return([
-    #   {date: '2021-07-05', localName: 'Independence Day'}, 
-    #   {date: '2021-09-06', localName: 'Labor Day'}, 
-    #   {date: '2021-10-11', localName: 'Columbus Day'},
-    #   {date: '2021-11-11', localName: 'Veterans Day'}
-    # ])
-
     within "section#holidays" do 
       expect(page).to have_content 'Upcoming Holidays'
-      expect(page).to have content 'Independence Day'
-      expect(page).to have content 'Date: Sunday, July 4th, 2021'
-      expect(page).to have content 'Labor Day'
-      expect(page).to have content 'Date: Monday, September 6th, 2021'
-      expect(page).to have content "Indigenous Peoples' Day"
-      expect(page).to have content 'Date: Monday, October 11th, 2021'
-      expect(page).to_not have content "Veterans Day"
+      expect(page).to have_content 'Independence Day'
+      expect(page).to have_content 'Date Observed: Monday, July 05, 2021'
+      expect(page).to have_content 'Labor Day'
+      expect(page).to have_content 'Date Observed: Monday, September 06, 2021'
+      expect(page).to have_content "Indigenous Peoples' Day"
+      expect(page).to have_content 'Date Observed: Monday, October 11, 2021'
+      expect(page).to_not have_content "Veterans Day"
     end
   end
 end

@@ -18,3 +18,11 @@
 </table><br/>
 
 <%= button_to 'New discount', new_merchant_discount_path(@merchant.id), method: :get, local: true %>
+
+<section id='holidays'>
+  <h2>Upcoming Holidays</h2>
+
+  <% NagerHoliday.next_3_holidays.each do |holiday| %>
+    <p><%= holiday[:localName] %>, Date Observed: <%= Date.parse(holiday[:date]).strftime('%A, %B %d, %Y') %></p>
+  <% end %>
+</section>
