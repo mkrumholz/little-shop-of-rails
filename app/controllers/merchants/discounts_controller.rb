@@ -6,8 +6,7 @@ class Merchants::DiscountsController < ApplicationController
     @discounts = @merchant.discounts.all
   end
 
-  def show
-  end
+  def show; end
 
   def new
     @discount = Discount.new
@@ -24,9 +23,8 @@ class Merchants::DiscountsController < ApplicationController
     end
   end
 
-  def edit
-  end
-  
+  def edit; end
+
   def update
     percentage = params[:discount][:percentage].to_f / 100
     if @discount.update(discount_params.merge(percentage: percentage))

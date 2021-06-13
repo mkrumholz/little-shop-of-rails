@@ -4,6 +4,7 @@ AllCops:
     - 'utility_scripts/**/*'
     - 'data/**/*'
     - '.git/**/*'
+    - 'db/*'
   SuggestExtensions: false
 Style/Documentation:
   Enabled: false
