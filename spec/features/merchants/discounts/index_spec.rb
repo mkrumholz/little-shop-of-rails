@@ -13,7 +13,7 @@ RSpec.describe 'merchant discount index' do
             headers: {})
                     
     uri = URI('https://date.nager.at/api/v2/NextPublicHolidays/US')
-    # allow(NagerService).to receive(:next_3_holidays).and_return([
+    # allow(NagerHoliday).to receive(:next_3_holidays).and_return([
     #   {date: '2021-07-05', localName: 'Independence Day'}, 
     #   {date: '2021-09-06', localName: 'Labor Day'}, 
     #   {date: '2021-10-11', localName: 'Columbus Day'},

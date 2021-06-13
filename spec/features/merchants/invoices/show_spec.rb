@@ -2,21 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant Invoices Show Page' do
   describe 'show page' do
-    before :each do
-      allow(GithubService).to receive(:contributors_info).and_return([
-                                                                       { id: 26797256, name: 'Molly', contributions: 7 },
-                                                                       { id: 78388882, name: 'Sid', contributions: 80 }
-                                                                     ])
-      allow(GithubService).to receive(:pull_request_info).and_return([
-                                                                  { id: 0o101010011, name: 'Molly', merged_at: 7 },
-                                                                  { id: 0o1011230011, name: 'Sid', merged_at: 80 },
-                                                                  { id: 0o1011230011, name: 'Sid', merged_at: nil }
-                                                                ])
-      allow(GithubService).to receive(:repo_info).and_return({
-                                                               name: 'little-esty-shop'
-                                                             })
-    end
-
     it 'can see all of that merchants invoice info' do
       merchant = Merchant.create!(name: 'Schroeder-Jerde')
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
