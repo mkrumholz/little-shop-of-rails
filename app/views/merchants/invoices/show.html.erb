@@ -6,7 +6,8 @@
 
 <p> <%= "Status: #{@invoice.status}" %> </p>
 <p> <%= "Created On: #{@invoice.created_at.strftime('%A, %B %d, %Y')}" %> </p>
-<p><%= "Total revenue: #{ number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id) / 100) }" %></p>
+<p><%= "Full price total: #{ number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id) / 100) }" %></p>
+<p><%= "Total expected revenue (discounts included): #{ number_to_currency(@invoice.discounted_revenue(@merchant.id) / 100) }" %></p>
 
 <h4> Customer: </h4>
 <p> <%= @customer.first_name %> <%= @customer.last_name %> </p>
