@@ -44,7 +44,7 @@ class Invoice < ApplicationRecord
                           (select max(discounts.percentage) from discounts where discounts.merchant_id=items.merchant_id and discounts.quantity_threshold <= invoice_items.quantity) as discount')
                  .where(merchant_id: merchant_id)
                  .group('invoice_items.id, items.merchant_id').to_sql
-    
+                 
     Invoice.select('sum(case when discount is not null then (revenue - (discount * revenue)) else revenue end) rev_end')
            .from("(#{inner}) as t0")
            .take.rev_end.to_i
