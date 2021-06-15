@@ -49,22 +49,22 @@ RSpec.describe InvoiceItem do
         # item for different invoice
         invoice_item_4 = InvoiceItem.create!(quantity: 2, unit_price: 200, item_id: item_4.id, invoice_id: invoice_2.id, status: 1) # should not be counted on invoice 1
   
-        expect(InvoiceItem.with_discounts(merchant_1.id).first.item_name).to eq item_1.name
-        expect(InvoiceItem.with_discounts(merchant_1.id).first.unit_price).to eq item_1.unit_price
-        expect(InvoiceItem.with_discounts(merchant_1.id).first.status).to eq invoice_item_1.status
-        expect(InvoiceItem.with_discounts(merchant_1.id).first.discount).to be_nil
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).first.item_name).to eq item_1.name
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).first.unit_price).to eq invoice_item_1.unit_price
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).first.status).to eq invoice_item_1.status
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).first.discount_id).to be_nil
 
-        expect(InvoiceItem.with_discounts(merchant_1.id).second.item_name).to eq item_2.name
-        expect(InvoiceItem.with_discounts(merchant_1.id).second.unit_price).to eq item_2.unit_price
-        expect(InvoiceItem.with_discounts(merchant_1.id).second.status).to eq invoice_item_2.status
-        expect(InvoiceItem.with_discounts(merchant_1.id).second.status).to eq discount_1.id
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).second.item_name).to eq item_2.name
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).second.unit_price).to eq invoice_item_2.unit_price
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).second.status).to eq invoice_item_2.status
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).second.discount_id).to eq discount_1.id
 
-        expect(InvoiceItem.with_discounts(merchant_1.id).second.item_name).to eq item_3.name
-        expect(InvoiceItem.with_discounts(merchant_1.id).second.unit_price).to eq item_3.unit_price
-        expect(InvoiceItem.with_discounts(merchant_1.id).second.status).to eq invoice_item_3.status
-        expect(InvoiceItem.with_discounts(merchant_1.id).second.status).to eq discount_3.id
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).third.item_name).to eq item_3.name
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).third.unit_price).to eq invoice_item_3.unit_price
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).third.status).to eq invoice_item_3.status
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).third.discount_id).to eq discount_3.id
 
-        expect(InvoiceItem.with_discounts(merchant_1.id)).to_not include(invoice_item_5)
+        expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id)).to_not include(invoice_item_5)
       end
     end
   end
