@@ -88,4 +88,12 @@ RSpec.describe 'merchant discount index' do
       expect(page).to_not have_content 'Veterans Day'
     end
   end
+
+  it 'has a link to create a holiday discount for each holiday' do
+    within 'section#holidays' do
+      click_button 'Create Independence Day Discount'
+    end
+
+    expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
+  end
 end
