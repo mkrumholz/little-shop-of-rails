@@ -6,6 +6,6 @@ FactoryBot.define do
     sequence :unit_price do |p|
       500 + (1000 * p)
     end
-    status { :completed }
+    status { :packaged }
   end
 end

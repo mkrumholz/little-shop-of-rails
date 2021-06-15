@@ -6,7 +6,8 @@
 
 <p> <%= "Status: #{@invoice.status}" %> </p>
 <p> <%= "Created On: #{@invoice.created_at.strftime('%A, %B %d, %Y')}" %> </p>
-<p><%= "Total revenue: #{ number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id) / 100) }" %></p>
+<p> <%= "Full price total: #{ number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id) / 100) }" %> </p>
+<p> <%= "Total expected revenue (discounts included): #{ number_to_currency(@invoice.discounted_revenue_for_merchant(@merchant.id) / 100) }" %> </p>
 
 <h4> Customer: </h4>
 <p> <%= @customer.first_name %> <%= @customer.last_name %> </p>
@@ -17,12 +18,18 @@
     <th> Item Name </th>
     <th> Quantity </th>
     <th> Unit Price </th>
+    <th> Discounts Applied </th>
     <th> Status </th>
-    <% @invoice_items.each do |invoice_item|  %>
+    <% @invoice.items_with_discounts(@merchant.id).each do |invoice_item|  %>
       <tr id="ii-<%= invoice_item.id %>">
         <td> <%= invoice_item.item_name %> </td>
         <td> <%= invoice_item.quantity %> </td>
         <td> <%= number_to_currency(invoice_item.unit_price / 100 ) %> </td>
+        <% if invoice_item.discount_name.present? %>
+          <td> <%= link_to invoice_item.discount_name, merchant_discount_path(@merchant.id, invoice_item.discount_id), local: true %> </td>
+        <% else %>
+          <td> None </td>
+        <% end %>
         <td> 
           <%= form_with model: [@merchant, invoice_item], local: true do |f| %>
             <%= f.select :status, [['Pending', :pending], ['Packaged', :packaged], ['Shipped', :shipped]], selected: invoice_item.status %>
