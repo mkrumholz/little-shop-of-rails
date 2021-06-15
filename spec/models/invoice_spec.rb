@@ -19,18 +19,22 @@ RSpec.describe Invoice do
   before :each do
     @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
     @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
+
     @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
     @customer_3 = Customer.create!(first_name: 'Shim', last_name: 'Stalone')
     @customer_4 = Customer.create!(first_name: 'Bado', last_name: 'Reason')
     @customer_5 = Customer.create!(first_name: 'Timothy', last_name: 'Richard')
     @customer_6 = Customer.create!(first_name: 'Alex', last_name: '19th')
+
     @invoice_1 = @customer_1.invoices.create!(status: 1)
     @invoice_2 = @customer_2.invoices.create!(status: 1)
     @invoice_3 = @customer_3.invoices.create!(status: 1)
     @invoice_4 = @customer_4.invoices.create!(status: 1)
     @invoice_5 = @customer_5.invoices.create!(status: 1)
     @invoice_6 = @customer_6.invoices.create!(status: 1)
+
     @item_1 = @merchant_1.items.create!(name: 'Pogs', description: 'Stack of pogs.', unit_price: 500)
+
     InvoiceItem.create!(quantity: 15, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_1)
     InvoiceItem.create!(quantity: 2, unit_price: 550, status: 2, item: @item_1, invoice: @invoice_1)
     InvoiceItem.create!(quantity: 1, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_2)
@@ -119,10 +123,54 @@ RSpec.describe Invoice do
     end
 
     describe '#total_revenue' do
-      it 'returns all items from an invoice and the amount they sold for and number sold' do
-        actual = @invoice_1.total_revenue
+      it 'returns the total (non-discounted) revenue for the whole invoice' do
+        expect(@invoice_1.total_revenue).to eq(9350)
+      end
+    end
 
-        expect(actual).to eq(9350)
+    describe '#discounted_total' do
+      it 'returns the total revenue with discounts factored in for the whole invoice' do
+        merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
+        merchant_2 = Merchant.create!(name: 'James Bond')
+
+        customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
+        customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
+
+        invoice_1 = customer_1.invoices.create!(status: 1, updated_at: '2021-03-01')
+        invoice_2 = customer_2.invoices.create!(status: 1, created_at: '2012-03-07 00:54:24 UTC')
+
+        # merchant #1 items
+        item_1 = create(:item, merchant: merchant_1, unit_price: 10005)
+        item_2 = create(:item, merchant: merchant_1, unit_price: 5005)
+        item_3 = create(:item, merchant: merchant_1, unit_price: 1005)
+        item_4 = create(:item, merchant: merchant_1, unit_price: 205)
+
+        # merchant #2 items
+        item_5 = create(:item, merchant: merchant_2, unit_price: 3005)
+        item_6 = create(:item, merchant: merchant_2, unit_price: 2005)
+
+        # merchant #1 discounts
+        discount_1 = merchant_1.discounts.create!(name: '4 or More', percentage: 0.1, quantity_threshold: 4)
+        discount_2 = merchant_1.discounts.create!(name: '5+ get 15%', percentage: 0.18, quantity_threshold: 5) # should not apply, half dozen is the better discount
+        discount_3 = merchant_1.discounts.create!(name: 'Half dozen discount', percentage: 0.2, quantity_threshold: 6)
+
+        # merchant #2 discounts
+        discount_4 = merchant_2.discounts.create!(name: '5 Plus', percentage: 0.1, quantity_threshold: 5)
+
+        # merchant 1 items for invoice 1
+        invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 10000, item_id: item_1.id, invoice_id: invoice_1.id, status: 1) # $200, no discount
+        invoice_item_2 = InvoiceItem.create!(quantity: 4, unit_price: 5000, item_id: item_2.id, invoice_id: invoice_1.id, status: 1) # $200 srp, discount_1, $180 sale price
+        invoice_item_3 = InvoiceItem.create!(quantity: 6, unit_price: 1000, item_id: item_3.id, invoice_id: invoice_1.id, status: 1) # $60 srp, discount_3, $48 sale price
+
+        # merchant 2 items for invoice 1
+        invoice_item_5 = InvoiceItem.create!(quantity: 2, unit_price: 3000, item_id: item_5.id, invoice_id: invoice_1.id, status: 1) # $60, no discount
+        invoice_item_6 = InvoiceItem.create!(quantity: 5, unit_price: 2000, item_id: item_6.id, invoice_id: invoice_1.id, status: 2) # $100 srp, discount_4, $90 sale price
+
+        # item for different invoice (shouldn't count)
+        invoice_item_4 = InvoiceItem.create!(quantity: 2, unit_price: 200, item_id: item_4.id, invoice_id: invoice_2.id, status: 1) # should not be counted on invoice 1
+
+        expect(invoice_1.total_revenue).to eq(62000)
+        expect(invoice_1.discounted_total).to eq(57800)
       end
     end
 

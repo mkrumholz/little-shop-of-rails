@@ -51,14 +51,13 @@ RSpec.describe 'Merchant Invoices Show Page' do
       # item for different invoice
       invoice_item_4 = InvoiceItem.create!(quantity: 2, unit_price: 200, item_id: @item_4.id, invoice_id: @invoice_2.id, status: 1) # should not be counted on invoice 1
 
-
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
       expect(page).to have_content(@item_1.name)
       expect(page).to have_content(invoice_item_1.quantity)
       expect(page).to have_content('$100.00')
       expect(page).to have_select('invoice_item[status]', selected: 'Packaged')
-      
+
       expect(page).to_not have_content(@item_4.name)
       expect(page).to_not have_content(@item_5.name)
       expect(page).to_not have_content(@item_6.name)

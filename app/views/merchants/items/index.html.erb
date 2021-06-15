@@ -28,15 +28,17 @@
 </section>
 
 <section id="popular">
-  <h3>Top 5 Items</h3>
-
-  <ol>
+  <table id="top-5">
+    <h3>Top 5 Items</h3>
+    <th>Item</th>
+    <th>Total Revenue</th>
+    <th>Best Revenue Day</th>
     <% @items.top_5_by_revenue.each do |item| %>
-      <li id="item-<%= item.id %>">
-        <p><%= link_to "#{item.name}", merchant_item_path(@merchant.id, item.id) %></p>
-        <p>Total revenue: <%= number_to_currency(item.revenue / 100 ) %></p>
-        <p>Best revenue day: <%= item.highest_revenue_date.strftime('%A, %B %d, %Y') %></p>
-      </li>
+      <tr id="item-<%= item.id %>">
+        <td><%= link_to "#{item.name}", merchant_item_path(@merchant.id, item.id) %></td>
+        <td><%= number_to_currency(item.revenue / 100 ) %></td>
+        <td><%= item.highest_revenue_date.strftime('%A, %B %d, %Y') %></td>
+      </tr>
     <% end %>
-  </ol>
+  </table>
 </section>

@@ -16,14 +16,28 @@
 
 table {
   border-collapse: collapse;
+  margin: 10px;
 }
 
 td, th {
   border: 1px solid #dddddd;
   text-align: left;
-  padding: 8px;
+  padding: 10px;
 }
 
 tr:nth-child(even) {
   background-color: #dddddd;
 }
+
+h1 {
+  padding: 25px 0px;
+}
+
+h2 {
+  padding: 10px 0px;
+}
+
+h3 {
+  padding: 10px 0px;
+}
+

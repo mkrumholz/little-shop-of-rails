@@ -11,9 +11,9 @@ RSpec.describe 'Welcome page' do
 
   describe 'visit' do
     it 'has a button to the admin index' do
-      expect(page).to have_link('Admin Index')
+      expect(page).to have_link('Admin Dashboard')
 
-      click_link('Admin Index')
+      click_link('Admin Dashboard')
 
       expect(page).to have_current_path('/admin')
     end
