@@ -26,7 +26,11 @@
     <div>
       <h4><%= holiday[:localName] %></h4>
       <p>Observed: <%= Date.parse(holiday[:date]).strftime('%A, %B %d, %Y') %></p>
-      <%= button_to "Create #{holiday[:localName]} Discount", new_merchant_discount_path(@merchant.id), method: :get, params: {discount: {name: "#{holiday[:localName]} discount", percentage: 30.0, quantity_threshold: 2}} %>
+      <% if @discounts.find_by_holiday(holiday[:localName]).present? %>
+        <%= link_to 'View discount', merchant_discount_path(@merchant.id, @discounts.find_by_holiday(holiday[:localName]).id) %>
+      <% else %>
+        <%= button_to "Create #{holiday[:localName]} Discount", new_merchant_discount_path(@merchant.id), method: :get, params: {discount: {name: "#{holiday[:localName]} discount", percentage: 30.0, quantity_threshold: 2}} %>
+      <% end %>
     </div><br/>
   <% end %>
 </section>
