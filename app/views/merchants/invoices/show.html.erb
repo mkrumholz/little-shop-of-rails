@@ -2,17 +2,20 @@
   <%= render partial: './partials/merchant_nav' %>
 <% end %>
 
-<h3> <%= "Invoice ##{@invoice.id}" %> </h3>
+<h2> <%= "Invoice ##{@invoice.id}" %> </h2>
 
-<p> <%= "Status: #{@invoice.status}" %> </p>
-<p> <%= "Created On: #{@invoice.created_at.strftime('%A, %B %d, %Y')}" %> </p>
-<p> <%= "Full price total: #{ number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id) / 100) }" %> </p>
-<p> <%= "Total expected revenue (discounts included): #{ number_to_currency(@invoice.discounted_revenue_for_merchant(@merchant.id) / 100) }" %> </p>
+<h4> Details: </h4>
+<p> <%= "Status: #{@invoice.status.capitalize}" %> </p>
+<p> <%= "Created on: #{@invoice.created_at.strftime('%A, %B %d, %Y')}" %> </p>
 
 <h4> Customer: </h4>
 <p> <%= @customer.first_name %> <%= @customer.last_name %> </p>
 
-<h4> Items on this Invoice: </h4>
+<h4> Summary: </h4>
+<p><b> Full price total: </b> <%= number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id) / 100) %> </p>
+<p><b> Total expected revenue (discounts included): </b> <%= number_to_currency(@invoice.discounted_revenue_for_merchant(@merchant.id) / 100) %> </p>
+
+<h3> Items </h3>
 <section>
   <table>
     <th> Item Name </th>

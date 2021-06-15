@@ -2,31 +2,36 @@
   <%= render partial: './partials/admin_nav' %>
 <% end %>
 
-<h1>Invoice Show Page</h1>
+<h2><%= "Invoice ##{@invoice.id}" %></h2>
 
-<h2><%= "Invoice: #{@invoice.id}" %></h2>
-<h3 id="status" ><%= "Status: #{@invoice.status}" %></h3>
-<h3><%= "Created on: #{@invoice.created_at.strftime('%A, %B %d, %Y')}"%></h3>
-<h3><%= "Customer: #{@customer.first_name} #{@customer.last_name}" %></h3>
---------------------------------------
-<h4>Update status:</h4>
-<%= form_with model: [:admin, @invoice], url: admin_invoice_path(@invoice.id), method: :patch, local: true do |f| %>
-  <%= f.select :status, [['In Progress', :in_progress], ['Completed', :completed], ['Cancelled', :cancelled]], selected: @invoice.status %>
-  <%= f.submit 'Update' %>
-<% end %>
+<h4> Details: </h4><br/>
+  <%= form_with model: [:admin, @invoice], url: admin_invoice_path(@invoice.id), method: :patch, layout: :inline, local: true do |f| %>
+    <%= f.label :status %>
+    <%= f.select :status, [['In Progress', :in_progress], ['Completed', :completed], ['Cancelled', :cancelled]], selected: @invoice.status %>
+    <%= f.submit 'Update' %>
+  <% end %><br/>
+<p><%= "Created on: #{@invoice.created_at.strftime('%A, %B %d, %Y')}"%></p>
 
-<h2>Items:</h2>
-<ol>
-  <% @items.each do |item| %>
-    <li><%= "Item: #{item.name}" %>
-      <ul>
-        <li><%= "Quantity: #{item.sale_quantity}" %></li>
-        <% price = item.sale_price.to_f %>
-        <li><%= "Sale Price: #{number_to_currency(price/100)}" %></li>
-      </ul>
-    </li>
-  <% end %>
-</ol><br>
+<h4> Customer: </h4>
+<p> <%= @customer.first_name %> <%= @customer.last_name %> </p>
 
-<h2><%= "Total Revenue: #{number_to_currency(@invoice.total_revenue.to_f / 100)}" %></h2>
-<h2><%= "Discounted Total: #{number_to_currency(@invoice.discounted_total.to_f / 100)}" %></h2>
+<h4> Summary: </h4>
+<p><b> Total Revenue: </b> <%= number_to_currency(@invoice.total_revenue.to_f / 100) %></p>
+<p><b> Discounted Total: </b> <%= number_to_currency(@invoice.discounted_total.to_f / 100) %></p>
+
+
+<h3> Items </h3>
+<section>
+  <table>
+    <th> Item Name </th>
+    <th> Quantity </th>
+    <th> Sale Price </th>
+    <% @items.each do |item| %>
+      <tr>
+        <td> <%= item.name %> </td>
+        <td> <%= item.sale_quantity %> </td>
+        <td> <%= number_to_currency(item.sale_price.to_f/100) %> </td>
+      </tr>
+    <% end %>
+  </table>
+</section>

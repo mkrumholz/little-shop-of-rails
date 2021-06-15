@@ -27,7 +27,7 @@ RSpec.describe 'admin/invoices/show.html.erb' do
   describe 'visit' do
     it 'displays invoice data' do
       expect(page).to have_content(@invoice_1.id)
-      expect(page).to have_content(@invoice_1.status)
+      expect(page).to have_content(@invoice_1.status.capitalize)
       expect(page).to have_content('Monday, January 01, 2001')
     end
 

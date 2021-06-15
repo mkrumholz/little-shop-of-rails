@@ -53,4 +53,24 @@ RSpec.describe 'new discount page' do
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
     expect(page).to have_content '🛑 Error: Quantity threshold is not a number'
   end
+
+  it 'can fill in fields for a holiday discount, when relevant' do
+    visit "/merchants/#{@merchant_1.id}/discounts"
+
+    click_button 'Create Independence Day Discount'
+
+    expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
+    expect(page).to have_selector("input[value='Independence Day discount']")
+    expect(page).to have_selector("input[value='30.0']")
+    expect(page).to have_selector("input[value='2']")
+
+    fill_in 'discount[percentage]', with: 25.0
+
+    click_button 'Create Discount'
+
+    expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts"
+    expect(page).to have_content 'Independence Day discount'
+    expect(@merchant_1.discounts.last.percentage.to_f).to eq 0.25
+    expect(@merchant_1.discounts.last.quantity_threshold).to eq 2
+  end
 end

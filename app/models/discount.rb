@@ -5,4 +5,8 @@ class Discount < ApplicationRecord
   validates_numericality_of :percentage, less_than_or_equal_to: 1.0
   validates_numericality_of :percentage, greater_than_or_equal_to: 0.0
   validates_numericality_of :quantity_threshold, only_integer: true
+
+  def self.find_by_holiday(holiday_name)
+    where('name like ?', "%#{sanitize_sql_like(holiday_name)}%").take
+  end
 end
