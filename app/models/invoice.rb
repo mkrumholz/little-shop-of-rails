@@ -30,6 +30,16 @@ class Invoice < ApplicationRecord
       .sum('invoice_items.unit_price * invoice_items.quantity')
   end
 
+  def discounted_total
+    inner = items.select('invoice_items.id, sum(invoice_items.quantity * invoice_items.unit_price) as revenue,
+                          (select max(discounts.percentage) from discounts where discounts.merchant_id=items.merchant_id and discounts.quantity_threshold <= invoice_items.quantity) as discount')
+                 .group('invoice_items.id, items.merchant_id').to_sql
+
+    Invoice.select('sum(case when discount is not null then (revenue - (discount * revenue)) else revenue end) rev_end')
+           .from("(#{inner}) as t0")
+           .take.rev_end.to_i
+  end
+
   def total_revenue_for_merchant(merchant_id)
     items
       .where(merchant_id: merchant_id)
