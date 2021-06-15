@@ -10,7 +10,7 @@ RSpec.describe 'admin/invoices/show.html.erb' do
     @item_1 = @merchant_1.items.create!(name: 'Pogs', description: 'Stack of pogs.', unit_price: 500)
     @item_2 = @merchant_1.items.create!(name: 'Frog statue', description: 'Statue of a frog', unit_price: 10000)
     @item_3 = @merchant_1.items.create!(name: 'Rabid Wolverine', description: 'No refunds', unit_price: 10)
-    @item_4 = create!(:item, merchant: @merchant_1, unit_price: 1005)
+    @item_4 = create(:item, merchant: @merchant_1, unit_price: 1005)
 
     InvoiceItem.create!(quantity: 50, unit_price: 550, status: 0, item: @item_1, invoice: @invoice_1)
     InvoiceItem.create!(quantity: 3, unit_price: 11500, status: 1, item: @item_2, invoice: @invoice_1)
