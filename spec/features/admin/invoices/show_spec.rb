@@ -57,9 +57,9 @@ RSpec.describe 'admin/invoices/show.html.erb' do
     end
   end
 
-  describe 'discounted revenue' do
+  describe 'discounted total revenue' do
     it 'shows the total revenue the invoice will generate with discounts factored in' do
-      expect(page).to have_content('Discounted Revenue: $601.16')
+      expect(page).to have_content('Discounted Total: $601.16')
     end
   end
 end
