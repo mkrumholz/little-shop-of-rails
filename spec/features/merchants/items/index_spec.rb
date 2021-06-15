@@ -135,40 +135,40 @@ RSpec.describe 'The merchant items index' do
 
   it 'displays the total revenue generated for each popular item' do
     within 'section#popular' do
-      within "li#item-#{@item_1.id}" do
-        expect(page).to have_content 'Total revenue: $100.00'
+      within "tr#item-#{@item_1.id}" do
+        expect(page).to have_content '$100.00'
       end
-      within "li#item-#{@item_2.id}" do
-        expect(page).to have_content 'Total revenue: $50.00'
+      within "tr#item-#{@item_2.id}" do
+        expect(page).to have_content '$50.00'
       end
-      within "li#item-#{@item_4.id}" do
-        expect(page).to have_content 'Total revenue: $20.00'
+      within "tr#item-#{@item_4.id}" do
+        expect(page).to have_content '$20.00'
       end
-      within "li#item-#{@item_5.id}" do
-        expect(page).to have_content 'Total revenue: $10.00'
+      within "tr#item-#{@item_5.id}" do
+        expect(page).to have_content '$10.00'
       end
-      within "li#item-#{@item_6.id}" do
-        expect(page).to have_content 'Total revenue: $4.00'
+      within "tr#item-#{@item_6.id}" do
+        expect(page).to have_content '$4.00'
       end
     end
   end
 
   it 'lists the top selling (invoice) date for each item' do
     within 'section#popular' do
-      within "li#item-#{@item_1.id}" do
-        expect(page).to have_content 'Best revenue day: Monday, March 01, 2021'
+      within "tr#item-#{@item_1.id}" do
+        expect(page).to have_content 'Monday, March 01, 2021'
       end
-      within "li#item-#{@item_2.id}" do
-        expect(page).to have_content 'Best revenue day: Monday, March 01, 2021'
+      within "tr#item-#{@item_2.id}" do
+        expect(page).to have_content 'Monday, March 01, 2021'
       end
-      within "li#item-#{@item_4.id}" do
-        expect(page).to have_content 'Best revenue day: Monday, March 01, 2021'
+      within "tr#item-#{@item_4.id}" do
+        expect(page).to have_content 'Monday, March 01, 2021'
       end
-      within "li#item-#{@item_5.id}" do
-        expect(page).to have_content 'Best revenue day: Monday, February 08, 2021'
+      within "tr#item-#{@item_5.id}" do
+        expect(page).to have_content 'Monday, February 08, 2021'
       end
-      within "li#item-#{@item_6.id}" do
-        expect(page).to have_content 'Best revenue day: Monday, February 08, 2021'
+      within "tr#item-#{@item_6.id}" do
+        expect(page).to have_content 'Monday, February 08, 2021'
       end
     end
   end
