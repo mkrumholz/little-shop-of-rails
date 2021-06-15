@@ -1,6 +1,5 @@
 class Merchant < ApplicationRecord
   has_many :items, dependent: :destroy
-  has_many :invoice_items, through: :items
   has_many :discounts, dependent: :destroy
 
   after_initialize :init
