@@ -1,6 +1,6 @@
 FactoryBot.define do
   factory :invoice do
-    status { :packaged }
+    status { :completed }
     customer
   end
 end

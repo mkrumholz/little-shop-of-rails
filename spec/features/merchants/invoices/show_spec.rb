@@ -26,8 +26,8 @@ RSpec.describe 'Merchant Invoices Show Page' do
 
   describe 'show page' do
     it 'can see all of that merchants invoice info' do
-      invoice_item_1 = InvoiceItem.create!(item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1, unit_price: 10000)
-      invoice_item_2 = InvoiceItem.create!(item_id: @item_2.id, invoice_id: @invoice_2.id, status: 1, unit_price: 5000)
+      invoice_item_1 = create(:invoice_item, item_id: @item_1.id, invoice_id: @invoice_1.id)
+      invoice_item_2 = create(:invoice_item, item_id: @item_2.id, invoice_id: @invoice_2.id)
 
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
 
