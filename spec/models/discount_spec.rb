@@ -17,7 +17,7 @@ RSpec.describe Discount do
   end
 
   describe 'class methods' do
-    describe '.find_by_holiday' do 
+    describe '.find_by_holiday' do
       before :each do
         @merchant_1 = create(:merchant)
 
@@ -31,7 +31,7 @@ RSpec.describe Discount do
 
         expect(Discount.find_by_holiday('Independence Day')).to eq discount_4
       end
-      
+
       it 'returns nil if no discount exists for the holiday' do
         expect(Discount.find_by_holiday('Independence Day')).to be_nil
       end

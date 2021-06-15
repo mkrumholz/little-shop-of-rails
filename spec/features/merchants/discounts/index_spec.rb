@@ -101,7 +101,7 @@ RSpec.describe 'merchant discount index' do
     holiday_discount = @merchant_1.discounts.create!(name: 'Independence Day discount', percentage: 0.25, quantity_threshold: 2)
 
     visit "/merchants/#{@merchant_1.id}/discounts"
-    
+
     within 'section#holidays' do
       expect(page).to_not have_button 'Create Independence Day Discount'
       click_link 'View discount'
