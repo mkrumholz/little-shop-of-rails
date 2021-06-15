@@ -18,12 +18,18 @@
     <th> Item Name </th>
     <th> Quantity </th>
     <th> Unit Price </th>
+    <th> Discounts Applied </th>
     <th> Status </th>
     <% @invoice_items.each do |invoice_item|  %>
       <tr id="ii-<%= invoice_item.id %>">
         <td> <%= invoice_item.item_name %> </td>
         <td> <%= invoice_item.quantity %> </td>
         <td> <%= number_to_currency(invoice_item.unit_price / 100 ) %> </td>
+        <% if invoice_item.discount_name.present? %>
+          <td> <%= link_to invoice_item.discount_name, merchant_discount_path(@merchant.id, invoice_item.discount_id), local: true %> </td>
+        <% else %>
+          <td> None </td>
+        <% end %>
         <td> 
           <%= form_with model: [@merchant, invoice_item], local: true do |f| %>
             <%= f.select :status, [['Pending', :pending], ['Packaged', :packaged], ['Shipped', :shipped]], selected: invoice_item.status %>
