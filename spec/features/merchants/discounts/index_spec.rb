@@ -96,4 +96,15 @@ RSpec.describe 'merchant discount index' do
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
   end
+
+  it 'has a link to the discount if a discount for the holiday already exists' do
+    holiday_discount = @merchant_1.discounts.create!(name: 'Independence Day discount', percentage: 0.25, quantity_threshold: 2)
+
+    within 'section#holidays' do
+      expect(page).to_not have_button 'Create Independence Day Discount'
+      click_link 'View current discount'
+    end
+
+    expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/#{holiday_discount.id}"
+  end
 end
