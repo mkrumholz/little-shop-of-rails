@@ -20,7 +20,7 @@
     <th> Unit Price </th>
     <th> Discounts Applied </th>
     <th> Status </th>
-    <% @invoice_items.each do |invoice_item|  %>
+    <% @invoice.items_with_discounts(@merchant.id).each do |invoice_item|  %>
       <tr id="ii-<%= invoice_item.id %>">
         <td> <%= invoice_item.item_name %> </td>
         <td> <%= invoice_item.quantity %> </td>
