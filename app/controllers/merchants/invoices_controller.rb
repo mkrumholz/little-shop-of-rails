@@ -8,6 +8,6 @@ class Merchants::InvoicesController < ApplicationController
     @merchant = Merchant.find(params[:merchant_id])
     @invoice = Invoice.find(params[:id])
     @customer = Customer.find(@invoice.customer_id)
-    @invoice_items = InvoiceItem.invoice_items_show(@invoice.id, @merchant.id)
+    @invoice_items = InvoiceItem.with_discounts(@invoice.id, @merchant.id)
   end
 end
