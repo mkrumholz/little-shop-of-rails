@@ -41,14 +41,14 @@ RSpec.describe InvoiceItem do
         invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 10000, item_id: item_1.id, invoice_id: invoice_1.id, status: 1) # $200, no discount
         invoice_item_2 = InvoiceItem.create!(quantity: 4, unit_price: 5000, item_id: item_2.id, invoice_id: invoice_1.id, status: 1) # $200 srp, discount_1, $180 sale price
         invoice_item_3 = InvoiceItem.create!(quantity: 6, unit_price: 1000, item_id: item_3.id, invoice_id: invoice_1.id, status: 1) # $60 srp, discount_3, $48 sale price
-  
+
         # merchant 2 items for invoice 1
         invoice_item_5 = InvoiceItem.create!(quantity: 2, unit_price: 3000, item_id: item_5.id, invoice_id: invoice_1.id, status: 1) # Other merchant rev
         invoice_item_6 = InvoiceItem.create!(quantity: 2, unit_price: 2000, item_id: item_6.id, invoice_id: invoice_1.id, status: 2) # Other merchant rev
-  
+
         # item for different invoice
         invoice_item_4 = InvoiceItem.create!(quantity: 2, unit_price: 200, item_id: item_4.id, invoice_id: invoice_2.id, status: 1) # should not be counted on invoice 1
-  
+
         expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).first.item_name).to eq item_1.name
         expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).first.unit_price).to eq invoice_item_1.unit_price
         expect(InvoiceItem.with_discounts(invoice_1.id, merchant_1.id).first.status).to eq invoice_item_1.status

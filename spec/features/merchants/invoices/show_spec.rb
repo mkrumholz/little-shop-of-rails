@@ -62,27 +62,27 @@ RSpec.describe 'Merchant Invoices Show Page' do
       expect(page).to have_select('invoice_item[status]', selected: 'Packaged')
       expect(page).to_not have_content(@item_5.name)
     end
-    
+
     it 'can update an invoice item status' do
       invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 10000, item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1)
       invoice_item_2 = InvoiceItem.create!(quantity: 2, unit_price: 5000, item_id: @item_2.id, invoice_id: @invoice_1.id, status: 1)
-      
+
       visit "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
-      
+
       within "tr#ii-#{invoice_item_1.id}" do
         expect(page).to have_select('invoice_item[status]', selected: 'Packaged')
-        
+
         select 'Shipped', from: 'invoice_item[status]'
         click_button 'Update'
       end
-      
+
       expect(current_path).to eq "/merchants/#{@merchant_1.id}/invoices/#{@invoice_1.id}"
-      
+
       within "tr#ii-#{invoice_item_1.id}" do
         expect(page).to have_select('invoice_item[status]', selected: 'Shipped')
       end
     end
-    
+
     it 'displays the total expected revenue (full price) from all of my items on the invoice' do
       # merchant 1 items for invoice 1
       invoice_item_1 = InvoiceItem.create!(quantity: 2, unit_price: 10000, item_id: @item_1.id, invoice_id: @invoice_1.id, status: 1) # $200
