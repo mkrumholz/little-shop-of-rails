@@ -32,7 +32,6 @@ class Invoice < ApplicationRecord
       .sum('invoice_items.unit_price * invoice_items.quantity')
   end
 
-
   def discounted_revenue_for_merchant(merchant_id)
     inner = items.select('invoice_items.id, sum(invoice_items.quantity * invoice_items.unit_price) as revenue,
                           (select max(discounts.percentage) from discounts where discounts.merchant_id=items.merchant_id and discounts.quantity_threshold <= invoice_items.quantity) as discount')

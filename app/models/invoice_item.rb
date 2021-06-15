@@ -5,15 +5,15 @@ class InvoiceItem < ApplicationRecord
 
   def self.with_discounts(invoice_id, merchant_id)
     inner = joins(:item)
-              .select( 'invoice_items.*, 
+            .select('invoice_items.*,
                       items.name as item_name,
                       d.id as discount_id,
-                      d.name as discount_name, 
+                      d.name as discount_name,
                       d.quantity_threshold,
                       d.percentage,
                       rank() over (partition by invoice_items.id order by percentage desc) rank')
-              .joins('left join discounts d on d.merchant_id=items.merchant_id and invoice_items.quantity >= d.quantity_threshold')
-              .where(invoice_id: invoice_id, items: {merchant_id: merchant_id}).to_sql
+            .joins('left join discounts d on d.merchant_id=items.merchant_id and invoice_items.quantity >= d.quantity_threshold')
+            .where(invoice_id: invoice_id, items: { merchant_id: merchant_id }).to_sql
 
     InvoiceItem
       .select('t0.*')
