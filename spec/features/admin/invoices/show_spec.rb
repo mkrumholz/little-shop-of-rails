@@ -19,7 +19,7 @@ RSpec.describe 'admin/invoices/show.html.erb' do
 
     @discount_1 = @merchant_1.discounts.create!(name: '4 or More', percentage: 0.1, quantity_threshold: 4)
     @discount_2 = @merchant_1.discounts.create!(name: '5+ get 15%', percentage: 0.15, quantity_threshold: 5) # should not apply, half dozen is the better discount
-    @discount_3 = @merchant_1.discounts.create!(name: 'Half dozen discount', percentage: 0.2, quantity_threshold: 6) 
+    @discount_3 = @merchant_1.discounts.create!(name: 'Half dozen discount', percentage: 0.2, quantity_threshold: 6)
 
     visit "/admin/invoices/#{@invoice_1.id}"
   end

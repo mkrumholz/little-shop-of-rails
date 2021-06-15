@@ -34,3 +34,5 @@ Layout/FirstArrayElementIndentation:
   Enabled: false
 Layout/FirstHashElementIndentation:
   Enabled: false
+Lint/UselessAssignment:
+  Enabled: false

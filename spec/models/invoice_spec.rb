@@ -162,7 +162,7 @@ RSpec.describe Invoice do
         invoice_item_2 = InvoiceItem.create!(quantity: 4, unit_price: 5000, item_id: item_2.id, invoice_id: invoice_1.id, status: 1) # $200 srp, discount_1, $180 sale price
         invoice_item_3 = InvoiceItem.create!(quantity: 6, unit_price: 1000, item_id: item_3.id, invoice_id: invoice_1.id, status: 1) # $60 srp, discount_3, $48 sale price
 
-        # merchant 2 items for invoice 1 
+        # merchant 2 items for invoice 1
         invoice_item_5 = InvoiceItem.create!(quantity: 2, unit_price: 3000, item_id: item_5.id, invoice_id: invoice_1.id, status: 1) # $60, no discount
         invoice_item_6 = InvoiceItem.create!(quantity: 5, unit_price: 2000, item_id: item_6.id, invoice_id: invoice_1.id, status: 2) # $100 srp, discount_4, $90 sale price
 
