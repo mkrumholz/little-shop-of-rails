@@ -15,4 +15,26 @@ RSpec.describe Discount do
     it { should validate_numericality_of(:percentage).is_greater_than_or_equal_to(0.0) }
     it { should validate_numericality_of(:quantity_threshold).only_integer }
   end
+
+  describe 'class methods' do
+    describe '.find_by_holiday' do 
+      before :each do
+        @merchant_1 = create(:merchant)
+
+        @discount_1 = @merchant_1.discounts.create!(name: '4 or More', percentage: 0.1, quantity_threshold: 4)
+        @discount_2 = @merchant_1.discounts.create!(name: '5+ get 15%', percentage: 0.18, quantity_threshold: 5) # should not apply, half dozen is the better discount
+        @discount_3 = @merchant_1.discounts.create!(name: 'Half dozen discount', percentage: 0.2, quantity_threshold: 6)
+      end
+
+      it 'returns the discount for that holiday, if one exists' do
+        discount_4 = @merchant_1.discounts.create!(name: 'Independence Day discount', percentage: 0.25, quantity_threshold: 3)
+
+        expect(Discount.find_by_holiday('Independence Day')).to eq discount_4
+      end
+      
+      it 'returns nil if no discount exists for the holiday' do
+        expect(Discount.find_by_holiday('Independence Day')).to be_nil
+      end
+    end
+  end
 end
