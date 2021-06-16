@@ -12,8 +12,8 @@
 <p> <%= @customer.first_name %> <%= @customer.last_name %> </p>
 
 <h4> Summary: </h4>
-<p><b> Full price total: </b> <%= number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id) / 100) %> </p>
-<p><b> Total expected revenue (discounts included): </b> <%= number_to_currency(@invoice.discounted_revenue_for_merchant(@merchant.id) / 100) %> </p>
+<p><b> Full price total: </b> <%= number_to_currency(@invoice.total_revenue_for_merchant(@merchant.id).to_f / 100) %> </p>
+<p><b> Total expected revenue (discounts included): </b> <%= number_to_currency(@invoice.discounted_revenue_for_merchant(@merchant.id).to_f / 100) %> </p>
 
 <h3> Items </h3>
 <section>
@@ -27,7 +27,7 @@
       <tr id="ii-<%= invoice_item.id %>">
         <td> <%= invoice_item.item_name %> </td>
         <td> <%= invoice_item.quantity %> </td>
-        <td> <%= number_to_currency(invoice_item.unit_price / 100 ) %> </td>
+        <td> <%= number_to_currency(invoice_item.unit_price.to_f / 100 ) %> </td>
         <% if invoice_item.discount_name.present? %>
           <td> <%= link_to invoice_item.discount_name, merchant_discount_path(@merchant.id, invoice_item.discount_id), local: true %> </td>
         <% else %>

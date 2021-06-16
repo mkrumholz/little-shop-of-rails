@@ -5,8 +5,7 @@ RSpec.describe 'new discount page' do
     allow(NagerHoliday).to receive(:next_3_holidays).and_return([
       { date: '2021-07-05', localName: 'Independence Day' },
       { date: '2021-09-06', localName: 'Labor Day' },
-      { date: '2021-10-11', localName: 'Columbus Day' },
-      { date: '2021-11-11', localName: 'Veterans Day' }
+      { date: '2021-10-11', localName: "Indigenous Peoples' Day" }
     ])
 
     @merchant_1 = FactoryBot.create(:merchant)
