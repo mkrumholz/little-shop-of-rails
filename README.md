@@ -79,6 +79,6 @@ Front End
 1. [Evaluation](./doc/evaluation.md)
 
 ## Additonal References
-- [Base Repository](https://github.com/turingschool-examples/little-esty-shop) used for Turing's Backend Development .
-- [Github Documentation](https://docs.github.com/en/rest) used for Github documentation.
+- [Base Repository](https://github.com/turingschool-examples/little-esty-shop)
+- [Github Documentation](https://docs.github.com/en/rest)
 - [Nager.Date API Documentation](https://date.nager.at/API)
