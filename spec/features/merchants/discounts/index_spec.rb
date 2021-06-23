@@ -14,8 +14,8 @@ RSpec.describe 'merchant discount index' do
 
     uri = URI('https://date.nager.at/api/v2/NextPublicHolidays/US')
 
-    @merchant_1 = FactoryBot.create(:merchant)
-    @merchant_2 = FactoryBot.create(:merchant)
+    @merchant_1 = create(:merchant)
+    @merchant_2 = create(:merchant)
 
     # merchant_1 discounts
     @discount_1 = @merchant_1.discounts.create!(name: '4 or More', percentage: 0.1000, quantity_threshold: 4)

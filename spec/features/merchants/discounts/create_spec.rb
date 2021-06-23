@@ -8,8 +8,8 @@ RSpec.describe 'new discount page' do
       { date: '2021-10-11', localName: "Indigenous Peoples' Day" }
     ])
 
-    @merchant_1 = FactoryBot.create(:merchant)
-    @merchant_2 = FactoryBot.create(:merchant)
+    @merchant_1 = create(:merchant)
+    @merchant_2 = create(:merchant)
 
     visit "/merchants/#{@merchant_1.id}/discounts/new"
   end

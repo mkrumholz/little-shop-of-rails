@@ -5,7 +5,7 @@ RSpec.describe 'Welcome page' do
     @merchant_1 = create(:merchant)
     @merchant_2 = create(:merchant)
     @merchant_3 = create(:merchant)
-    
+
     visit '/'
   end
 
@@ -51,7 +51,7 @@ RSpec.describe 'Welcome page' do
       password = 'test'
 
       fill_in :name, with: merchant_name
-      fill_in :password, with: password
+      fill_in :merchant_password, with: password
 
       click_on 'Create Merchant Account'
 

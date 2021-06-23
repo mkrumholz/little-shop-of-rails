@@ -2,8 +2,8 @@ require 'rails_helper'
 
 RSpec.describe 'The merchant items index' do
   before :each do
-    @merchant = FactoryBot.create(:merchant_with_items)
-    @customer = FactoryBot.create(:customer)
+    @merchant = create(:merchant_with_items)
+    @customer = create(:customer)
 
     @item_1 = @merchant.items.first
     @item_2 = @merchant.items.create!(name: 'Bouquet of roses', description: '12 red roses', unit_price: '1900', enabled: true)

@@ -2,16 +2,16 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Merchants Index' do
   before :each do
-    @signs = Merchant.create!(name: "Sal's Signs", status: true)
-    @tees = Merchant.create!(name: 'T-shirts by Terry', status: true)
-    @amphs = Merchant.create!(name: 'All About Amphibians', status: false)
+    @signs = create(:merchant, status: true, password: 'testing')
+    @tees = create(:merchant, status: true)
+    @amphs = create(:merchant, status: false)
 
-    @merch_1 = Merchant.create!(name: 'Merchant 1', status: true)
-    @merch_2 = Merchant.create!(name: 'Merchant 2', status: true)
-    @merch_3 = Merchant.create!(name: 'Merchant 3', status: false)
-    @merch_4 = Merchant.create!(name: 'Merchant 4', status: true)
-    @merch_5 = Merchant.create!(name: 'Merchant 5', status: true)
-    @merch_6 = Merchant.create!(name: 'Merchant 6', status: false)
+    @merch_1 = create(:merchant, status: true)
+    @merch_2 = create(:merchant, status: true)
+    @merch_3 = create(:merchant, status: false)
+    @merch_4 = create(:merchant, status: true)
+    @merch_5 = create(:merchant, status: true)
+    @merch_6 = create(:merchant, status: false)
 
     @item_1 = @merch_1.items.create!(name: 'thing1', description: 'thing1 is a thing', unit_price: 10)
     @item_2 = @merch_1.items.create!(name: 'thing2', description: 'thing1 is a thing', unit_price: 10)

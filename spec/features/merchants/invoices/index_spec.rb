@@ -3,8 +3,8 @@ require 'rails_helper'
 RSpec.describe 'Merchant Invoices Index' do
   describe 'index page' do
     it 'can see all of the invoices that include at least one of my merchants items' do
-      merchant = Merchant.create!(name: 'Schroeder-Jerde')
-      merchant_2 = Merchant.create!(name: 'James Bond')
+      merchant = create(:merchant)
+      merchant_2 = create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       item_1 = merchant.items.create!(name: 'Gold Ring', description: 'Jewelery', unit_price: 10000)
       item_4 = merchant.items.create!(name: 'Hair Clip', description: 'Accessories', unit_price: 200)

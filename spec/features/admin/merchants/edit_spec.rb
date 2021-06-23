@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Admin Merchant Edit' do
   before :each do
-    @signs = Merchant.create!(name: "Sal's Signs", status: true)
+    @signs = create(:merchant, status: true)
 
     visit("/admin/merchants/#{@signs.id}/edit")
   end
@@ -13,6 +13,7 @@ RSpec.describe 'Admin Merchant Edit' do
 
   it 'submitting form redirects to the merchant admin show page, showing updated info' do
     fill_in 'Name', with: 'Salmander Signage'
+    fill_in 'Password', with: 'a_better_password'
     click_button 'Update Merchant'
 
     expect(page).to have_current_path("/admin/merchants/#{@signs.id}?update=true")
@@ -36,6 +37,8 @@ RSpec.describe 'Admin Merchant Edit' do
 
   it 'shows a flash message confirming information update' do
     fill_in 'Name', with: 'Salmander Signage'
+    fill_in 'Password', with: 'a_better_password'
+
     click_button 'Update Merchant'
 
     expect(page).to have_current_path("/admin/merchants/#{@signs.id}?update=true")

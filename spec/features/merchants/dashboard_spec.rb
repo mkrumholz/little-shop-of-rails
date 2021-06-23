@@ -12,7 +12,7 @@ RSpec.describe 'Dashboard' do
 
   describe 'dashboard' do
     it 'can see the name of the merchants' do
-      merchant = FactoryBot.create(:merchant)
+      merchant = create(:merchant)
 
       visit "/merchants/#{merchant.id}/dashboard"
 
@@ -20,7 +20,7 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see links to the merchant items, invoice, and discount indexes' do
-      merchant = FactoryBot.create(:merchant)
+      merchant = create(:merchant)
 
       visit "/merchants/#{merchant.id}/dashboard"
 
@@ -42,7 +42,7 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see the name of the top 5 customers' do
-      merchant = FactoryBot.create(:merchant)
+      merchant = create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
@@ -101,7 +101,7 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see the items ready to ship' do
-      merchant = FactoryBot.create(:merchant)
+      merchant = create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
@@ -190,7 +190,7 @@ RSpec.describe 'Dashboard' do
     end
 
     it 'can see the invoices sorted by least recent' do
-      merchant = FactoryBot.create(:merchant)
+      merchant = create(:merchant)
       customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
       customer_3 = Customer.create!(first_name: 'Yasha', last_name: 'West')
       customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')

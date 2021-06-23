@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'merchant header nav' do
   before :each do
-    @merchant = FactoryBot.create(:merchant)
+    @merchant = create(:merchant)
 
     visit "/merchants/#{@merchant.id}/dashboard"
   end
