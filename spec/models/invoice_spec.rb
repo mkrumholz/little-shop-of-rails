@@ -17,7 +17,7 @@ RSpec.describe Invoice do
   end
 
   before :each do
-    @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
+    @merchant_1 = create(:merchant)
     @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
 
     @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
@@ -67,8 +67,8 @@ RSpec.describe Invoice do
 
     describe '#items_with_discounts' do
       it 'returns all items on the invoice for a given merchant along with which discounts were applied' do
-        merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
-        merchant_2 = Merchant.create!(name: 'James Bond')
+        merchant_1 = create(:merchant)
+        merchant_2 = create(:merchant)
 
         customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
         customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
@@ -130,8 +130,8 @@ RSpec.describe Invoice do
 
     describe '#discounted_total' do
       it 'returns the total revenue with discounts factored in for the whole invoice' do
-        merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
-        merchant_2 = Merchant.create!(name: 'James Bond')
+        merchant_1 = create(:merchant)
+        merchant_2 = create(:merchant)
 
         customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
         customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
@@ -177,8 +177,8 @@ RSpec.describe Invoice do
     describe 'merchant rev methods' do
       describe '#total_revenue_for_merchant' do
         it 'returns the total revenue expected for the invoice only for items belonging to given merchant' do
-          merchant = Merchant.create!(name: 'Little Shop of Horrors')
-          merchant_2 = Merchant.create!(name: 'James Bond')
+          merchant = create(:merchant)
+          merchant_2 = create(:merchant)
 
           customer = Customer.create!(first_name: 'Audrey', last_name: 'I')
           invoice_1 = customer.invoices.create!(status: 1, updated_at: '2021-03-01')
@@ -209,8 +209,8 @@ RSpec.describe Invoice do
 
       describe '#discounted_revenue_for_merchant' do
         it 'displays the total expected discounted revenue for the merchant' do
-          merchant_1 = Merchant.create!(name: 'Little Shop of Horrors')
-          merchant_2 = Merchant.create!(name: 'James Bond')
+          merchant_1 = create(:merchant)
+          merchant_2 = create(:merchant)
 
           customer_1 = Customer.create!(first_name: 'Audrey', last_name: 'I')
           customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')
