@@ -1,0 +1,6 @@
+<%= bootstrap_form_with url: login_path, method: :post do |f| %>
+  <%= f.text_field :name, label: 'Name:' %>
+  <%= f.text_field :password, label: 'Password:' %>
+  <%= f.submit 'Log In' %>
+<% end %>
+

@@ -57,5 +57,39 @@ RSpec.describe 'Welcome page' do
 
       expect(page).to have_content("Welcome, #{merchant_name}!")
     end
+
+    it 'can log in with valid credentials' do
+      merchant = create(:merchant, name: 'FunBucket13', password: 'test')
+
+      visit '/'
+
+      click_on 'I already have an account'
+
+      expect(current_path).to eq(login_path)
+
+      fill_in :name, with: merchant.name
+      fill_in :password, with: merchant.password
+
+      click_on 'Log In'
+
+      expect(current_path).to eq('/')
+
+      expect(page).to have_content("Welcome, #{merchant.name}!")
+    end
+
+    it 'cannot log in with bad credentials' do
+      merchant = create(:merchant, name: 'FunBucket13', password: 'test')
+
+      visit login_path
+
+      fill_in :name, with: merchant.name
+      fill_in :password, with: 'incorrect password'
+
+      click_on 'Log In'
+
+      expect(current_path).to eq(login_path)
+
+      expect(page).to have_content('🙅🏻‍♀️ Incorrect name or password')
+    end
   end
 end

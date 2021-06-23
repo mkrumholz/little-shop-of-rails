@@ -19,4 +19,7 @@ Rails.application.routes.draw do
       resources :discounts
     end
   end
+
+  get '/login', to: 'merchants#login_form'
+  post '/login', to: 'merchants#login'
 end
