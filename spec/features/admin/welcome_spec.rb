@@ -2,10 +2,10 @@ require 'rails_helper'
 
 RSpec.describe 'Welcome page' do
   before :each do
-    @merchant_1 = Merchant.create!(name: 'Tims my time', status: false)
-    @merchant_2 = Merchant.create!(name: 'Future Fun', status: false)
-    @merchant_3 = Merchant.create!(name: 'Dozen a Dime', status: false)
-
+    @merchant_1 = create(:merchant)
+    @merchant_2 = create(:merchant)
+    @merchant_3 = create(:merchant)
+    
     visit '/'
   end
 
