@@ -38,4 +38,24 @@ RSpec.describe 'Welcome page' do
       expect(page).to have_current_path("/merchants/#{@merchant_1.id}/dashboard")
     end
   end
+
+  describe 'authorization flow' do
+    it 'creates a new merchant' do
+      visit '/'
+
+      click_on 'Register as a Merchant' 
+
+      expect(current_path).to eq(new_merchant_path)
+
+      merchant_name = 'funbucket13'
+      password = 'test'
+
+      fill_in :name, with: merchant_name
+      fill_in :password, with: password
+
+      click_on 'Create Merchant Account'
+
+      expect(page).to have_content("Welcome, #{merchant_name}!")
+    end
+  end
 end

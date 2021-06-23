@@ -10,7 +10,7 @@ Rails.application.routes.draw do
    patch '/merchants', to: 'merchants#update_status'
   end
 
-  resources :merchants, only: [:show] do
+  resources :merchants, only: [:show, :new, :create] do
     get '/dashboard', to: 'dashboard#show'
     scope module: :merchants do
       resources :items
