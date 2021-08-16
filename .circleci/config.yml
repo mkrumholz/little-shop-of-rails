@@ -22,11 +22,7 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - run: bundle install
-      - run:
-          name: set up DB
-          command: |
-            bundle exec rake db:create db:schema:load --trace
-            bundle exec rake db:migrate
+      - run: bundle exec rake db:setup
           environment:
               DATABASE_URL: "postgres://circleci@localhost:5432/little-etsy-shop_test"
       - run: bundle exec rspec spec
