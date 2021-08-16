@@ -2,18 +2,6 @@ require 'rails_helper'
 
 RSpec.describe 'merchant discount index' do
   before :each do
-    WebMock.stub_request(:get, /date.nager.at/)
-           .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Faraday v1.4.2' })
-           .to_return(status: 200, body: [
-            { date: '2021-07-05', localName: 'Independence Day' },
-            { date: '2021-09-06', localName: 'Labor Day' },
-            { date: '2021-10-11', localName: 'Columbus Day' },
-            { date: '2021-11-11', localName: 'Veterans Day' }
-            ].to_json,
-                      headers: {})
-
-    uri = URI('https://date.nager.at/api/v2/NextPublicHolidays/US')
-
     @merchant_1 = create(:merchant)
     @merchant_2 = create(:merchant)
 
@@ -27,16 +15,16 @@ RSpec.describe 'merchant discount index' do
     visit "/merchants/#{@merchant_1.id}/discounts"
   end
 
-  it 'displays the names of all of the merchant discounts' do
+  it 'displays the names of all of the merchant discounts', :vcr do
     expect(page).to have_content @discount_1.name
     expect(page).to have_content @discount_2.name
   end
 
-  it 'does not display discounts for other merchants' do
+  it 'does not display discounts for other merchants', :vcr do
     expect(page).to_not have_content @discount_3.name
   end
 
-  it 'displays the percentages and quantity_thresholds of each discount' do
+  it 'displays the percentages and quantity_thresholds of each discount', :vcr do
     within "tr#discount-#{@discount_1.id}" do
       expect(page).to have_content '10.00%'
       expect(page).to have_content @discount_1.quantity_threshold
@@ -47,7 +35,7 @@ RSpec.describe 'merchant discount index' do
     end
   end
 
-  it 'has a link to each discount show page' do
+  it 'has a link to each discount show page', :vcr do
     within "tr#discount-#{@discount_1.id}" do
       click_on @discount_1.name.to_s
     end
@@ -55,13 +43,13 @@ RSpec.describe 'merchant discount index' do
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}"
   end
 
-  it 'has a link to create a new discount' do
+  it 'has a link to create a new discount', :vcr do
     click_on 'New discount'
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
   end
 
-  it 'has a link to delete each discount' do
+  it 'has a link to delete each discount', :vcr do
     within "tr#discount-#{@discount_1.id}" do
       click_button 'Delete'
     end
@@ -70,7 +58,7 @@ RSpec.describe 'merchant discount index' do
     expect(page).to have_content @discount_2.name
   end
 
-  it 'displays the next 3 public holidays' do
+  it 'displays the next 3 public holidays', :vcr do
     within 'section#holidays' do
       expect(page).to have_content 'Upcoming Holidays'
       expect(page).to have_content 'Independence Day'
@@ -83,7 +71,7 @@ RSpec.describe 'merchant discount index' do
     end
   end
 
-  it 'has a link to create a holiday discount for each holiday' do
+  it 'has a link to create a holiday discount for each holiday', :vcr do
     within 'section#holidays' do
       click_button 'Create Independence Day Discount'
     end
@@ -91,7 +79,7 @@ RSpec.describe 'merchant discount index' do
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
   end
 
-  it 'has a link to the discount if a discount for the holiday already exists' do
+  it 'has a link to the discount if a discount for the holiday already exists', :vcr do
     holiday_discount = @merchant_1.discounts.create!(name: 'Independence Day discount', percentage: 0.25, quantity_threshold: 2)
 
     visit "/merchants/#{@merchant_1.id}/discounts"
