@@ -41,7 +41,7 @@ jobs:
             bundle exec rails db:schema:load --trace
           environment:
               DATABASE_URL: "postgres://circleci@localhost:5432/little-etsy-shop_test"
-      - ruby/rspec-test
+      - run: bundle exec rspec spec
 
 workflows:
   version: 2
