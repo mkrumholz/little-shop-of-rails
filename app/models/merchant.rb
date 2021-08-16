@@ -9,6 +9,8 @@ class Merchant < ApplicationRecord
 
   has_secure_password
 
+  enum role: %w(default manager admin)
+
   def init
     self.status = false if status.nil?
   end
