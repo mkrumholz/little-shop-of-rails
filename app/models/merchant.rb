@@ -9,7 +9,7 @@ class Merchant < ApplicationRecord
 
   has_secure_password
 
-  enum role: %w(default manager admin)
+  enum role: %w[default manager admin]
 
   def init
     self.status = false if status.nil?
@@ -66,6 +66,7 @@ class Merchant < ApplicationRecord
   end
 
   private
+
   def password_required?
     @enforce_password_validation || password.present?
   end
