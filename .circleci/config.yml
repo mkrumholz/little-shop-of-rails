@@ -12,4 +12,5 @@ jobs:
       - run:
           name: Which bundler?
           command: bundle -v
+      - run: gem install bundler:2.2.17
       - ruby/bundle-install
