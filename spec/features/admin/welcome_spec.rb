@@ -43,7 +43,7 @@ RSpec.describe 'Welcome page' do
     it 'creates a new merchant' do
       visit '/'
 
-      click_on 'Register as a Merchant' 
+      click_on 'Register as a Merchant'
 
       expect(current_path).to eq(new_merchant_path)
 
