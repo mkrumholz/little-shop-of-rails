@@ -80,6 +80,8 @@ test:
 #
 production:
   <<: *default
-  database: little-etsy-shop_production
-  username: little-etsy-shop
-  password: <%= ENV['LITTLE-ETSY-SHOP_DATABASE_PASSWORD'] %>
+  # database: little-etsy-shop_production
+  # username: little-etsy-shop
+  # password: <%= ENV['LITTLE-ETSY-SHOP_DATABASE_PASSWORD'] %>
+  url: <%= ENV['DATABASE_URL'] %>
+
