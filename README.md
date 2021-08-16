@@ -3,7 +3,7 @@
 ## About this Project
 [Little Shop of Rails](https://little-shop-of-rails.herokuapp.com/) is a solo project that builds off of a 4-person group project, [Little Esty Shop](https://little-rails-shop.herokuapp.com/). The original group project required our team to build a fictitious e-commerce platform where merchants and admins could manage inventory and fulfill customer invoices. 
 
-In this solo extension, I explore Rails and ActiveRecord through creating and integrating bulk discounts, which are unique to specific merchants within the app. All work on bulk discounts is mine, as well as all of the implementation for FactoryBot, WebMock, and the Nager.Date API. for public holidays.
+In this solo extension, I explore Rails and ActiveRecord through creating and integrating bulk discounts, which are unique to specific merchants within the app. Work on bulk discounts is mine, along with the implementation for FactoryBot, WebMock, and the Nager.Date API for public holidays.
 
 **Timeframe:** 9 days (for the original project) + 6 days (for my solo extension)
 
@@ -44,7 +44,7 @@ Testing
 * [capybara](https://github.com/teamcapybara/capybara)
 * [shoulda-matchers](https://github.com/thoughtbot/shoulda-matchers)
 * [simplecov](https://github.com/simplecov-ruby/simplecov)
-* [orderly](https://github.com/simplecov-ruby/simplecov)
+* [orderly](https://github.com/jmondo/orderly)
 * [factory_bot_rails](https://github.com/thoughtbot/factory_bot_rails)
 * [webmock](https://github.com/bblimke/webmock)
 
