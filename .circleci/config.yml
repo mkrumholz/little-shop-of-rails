@@ -6,6 +6,24 @@ jobs:
   build:
     docker:
       - image: circleci/ruby:2.7.2
+    steps:
+      - checkout
+
+  test:
+    docker:
+      - image: circleci/ruby:2.7.2
+      - image: postgres:13.3
+        environment:
+          POSTGRES_USER: circleci
+          POSTGRES_DB: little-etsy-shop_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+    environment:
+      BUNDLE_JOBS: "3"
+      BUNDLE_RETRY: "3"
+      PGHOST: 127.0.0.1
+      PGUSER: circleci
+      POSTGRES_HOST_AUTH_METHOD: trust
+      RAILS_ENV: test
     executor: ruby/default
     steps:
       - checkout
@@ -14,3 +32,22 @@ jobs:
           name: Which bundler?
           command: bundle -v
       - run: bundle install
+      - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
+          name: set up DB
+          command: |
+            bundle exec rails db:schema:load --trace
+          environment:
+              DATABASE_URL: "postgres://circleci@localhost:5432/little-etsy-shop_test"
+      - run: bundle exec rspec spec
+
+workflows:
+  version: 2
+  build_and_test:     # The name of our workflow is "build_and_test"
+    jobs:             # The list of jobs we run as part of this workflow.
+      - build         # Run build first.
+      - test:         # Then run test,
+          requires:   # Test requires that build passes for it to run.
+            - build   # Finally, run the build job.
