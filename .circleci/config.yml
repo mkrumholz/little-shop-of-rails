@@ -1,0 +1,32 @@
+version: 2.1
+orbs:
+  ruby: circleci/ruby@0.1.2 
+
+jobs:
+  build:
+    docker:
+      - image: circleci/ruby:2.7.2
+        environment:
+          PG_HOST: localhost
+          PG_USER: circleci
+      - image: postgres:13.3
+        environment:
+          POSTGRES_USER: circleci
+          POSTGRES_DB: little-etsy-shop_test
+          POSTGRES_HOST_AUTH_METHOD: trust
+    executor: ruby/default
+    steps:
+      - checkout
+      - run: gem install bundler:2.2.17
+      - run:
+          name: Which bundler?
+          command: bundle -v
+      - run: bundle install
+      - run:
+          name: set up DB
+          command: |
+            bundle exec rake db:create db:schema:load --trace
+            bundle exec rake db:migrate
+          environment:
+              DATABASE_URL: "postgres://circleci@localhost:5432/little-esty-shop_test"
+      - run: bundle exec rspec spec
