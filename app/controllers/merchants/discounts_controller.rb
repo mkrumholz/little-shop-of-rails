@@ -10,7 +10,9 @@ class Merchants::DiscountsController < ApplicationController
 
   def new
     @discount = Discount.new
-    @discount = Discount.new(discount_params.merge(percentage: params[:discount][:percentage].to_f / 100)) if params[:discount].present?
+    if params[:discount].present?
+      @discount = Discount.new(discount_params.merge(percentage: params[:discount][:percentage].to_f / 100))
+    end
   end
 
   def create

@@ -1,5 +1,5 @@
 class MerchantsController < ApplicationController
-  def new 
+  def new
     @merchant = Merchant.new
   end
 
@@ -9,8 +9,7 @@ class MerchantsController < ApplicationController
     redirect_to '/'
   end
 
-  def login_form
-  end
+  def login_form; end
 
   def login
     merchant = Merchant.find_by(name: params[:name])
@@ -25,6 +24,7 @@ class MerchantsController < ApplicationController
   end
 
   private
+
   def merchant_params
     params.require(:merchant).permit(:name, :status, :password)
   end
