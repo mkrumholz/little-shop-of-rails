@@ -23,9 +23,12 @@ jobs:
           command: bundle -v
       - run: bundle install
       - run:
+          name: Wait for DB
+          command: dockerize -wait tcp://localhost:5432 -timeout 1m
+      - run:
           name: set up DB
           command: |
-            bundle exec rake db:setup
+            bundle exec rails db:schema:load --trace
           environment:
               DATABASE_URL: "postgres://circleci@localhost:5432/little-etsy-shop_test"
       - run: bundle exec rspec spec
