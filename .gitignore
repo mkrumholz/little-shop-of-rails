@@ -31,3 +31,6 @@
 
 # Ignore heroku folder
 /rocky-earth-65375
+
+# Ignore application configuration
+/config/application.yml
