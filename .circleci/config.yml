@@ -58,4 +58,4 @@ workflows:
             - test
           filters:
             branches:
-              only: deploy_test 
+              only: main 
