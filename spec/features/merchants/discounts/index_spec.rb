@@ -61,31 +61,31 @@ RSpec.describe 'merchant discount index' do
   it 'displays the next 3 public holidays', :vcr do
     within 'section#holidays' do
       expect(page).to have_content 'Upcoming Holidays'
-      expect(page).to have_content 'Independence Day'
-      expect(page).to have_content 'Observed: Monday, July 05, 2021'
       expect(page).to have_content 'Labor Day'
       expect(page).to have_content 'Observed: Monday, September 06, 2021'
       expect(page).to have_content "Indigenous Peoples' Day"
       expect(page).to have_content 'Observed: Monday, October 11, 2021'
-      expect(page).to_not have_content 'Veterans Day'
+      expect(page).to have_content "Veterans Day"
+      expect(page).to have_content 'Observed: Thursday, November 11, 2021'
+      expect(page).to_not have_content 'Thanksgiving'
     end
   end
 
   it 'has a link to create a holiday discount for each holiday', :vcr do
     within 'section#holidays' do
-      click_button 'Create Independence Day Discount'
+      click_button 'Create Labor Day Discount'
     end
 
     expect(current_path).to eq "/merchants/#{@merchant_1.id}/discounts/new"
   end
 
   it 'has a link to the discount if a discount for the holiday already exists', :vcr do
-    holiday_discount = @merchant_1.discounts.create!(name: 'Independence Day discount', percentage: 0.25, quantity_threshold: 2)
+    holiday_discount = @merchant_1.discounts.create!(name: 'Labor Day discount', percentage: 0.25, quantity_threshold: 2)
 
     visit "/merchants/#{@merchant_1.id}/discounts"
 
     within 'section#holidays' do
-      expect(page).to_not have_button 'Create Independence Day Discount'
+      expect(page).to_not have_button 'Create Labor Day Discount'
       click_link 'View discount'
     end
 
