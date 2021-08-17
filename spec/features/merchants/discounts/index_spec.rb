@@ -65,7 +65,7 @@ RSpec.describe 'merchant discount index' do
       expect(page).to have_content 'Observed: Monday, September 06, 2021'
       expect(page).to have_content "Indigenous Peoples' Day"
       expect(page).to have_content 'Observed: Monday, October 11, 2021'
-      expect(page).to have_content "Veterans Day"
+      expect(page).to have_content 'Veterans Day'
       expect(page).to have_content 'Observed: Thursday, November 11, 2021'
       expect(page).to_not have_content 'Thanksgiving'
     end

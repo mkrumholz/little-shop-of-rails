@@ -52,8 +52,8 @@ group :development, :test do
   gem 'simplecov', require: false
   gem 'launchy'
   gem 'factory_bot_rails'
-  gem 'webmock'
   gem 'vcr'
+  gem 'webmock'
 end
 
 group :development do
