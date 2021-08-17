@@ -7,6 +7,7 @@ RSpec.describe 'New merchant page' do
 
   it 'has a form to create a new merchant' do
     expect(page).to have_field('Name')
+    expect(page).to have_field('Password')
     expect(page).to have_button('Create Merchant')
   end
 
@@ -20,6 +21,7 @@ RSpec.describe 'New merchant page' do
 
   it 'when I submit, I\'m redirected to the merchant admin index where my merchant shows as disabled' do
     fill_in 'Name', with: 'Cado Avocado Frozen Desserts'
+    fill_in 'Password', with: 'avocad0rable'
     click_button('Create Merchant')
 
     expect(page).to have_current_path('/admin/merchants')

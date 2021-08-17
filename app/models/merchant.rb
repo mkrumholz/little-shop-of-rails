@@ -4,7 +4,12 @@ class Merchant < ApplicationRecord
 
   after_initialize :init
 
-  validates :name, presence: true
+  validates :name, uniqueness: true, presence: true
+  validates_presence_of :password, require: true, if: :password_required?
+
+  has_secure_password
+
+  enum role: %w[default manager admin]
 
   def init
     self.status = false if status.nil?
@@ -54,5 +59,15 @@ class Merchant < ApplicationRecord
       .group('merchants.id')
       .order(revenue: :desc)
       .limit(5)
+  end
+
+  def enforce_password_validation
+    @enforce_password_validation = true
+  end
+
+  private
+
+  def password_required?
+    @enforce_password_validation || password.present?
   end
 end

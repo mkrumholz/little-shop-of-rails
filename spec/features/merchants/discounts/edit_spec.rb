@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'merchant discount edit' do
   before :each do
-    @merchant_1 = FactoryBot.create(:merchant)
+    @merchant_1 = create(:merchant)
     @discount_1 = @merchant_1.discounts.create!(name: '4 or More', percentage: 0.1000, quantity_threshold: 4)
 
     visit "/merchants/#{@merchant_1.id}/discounts/#{@discount_1.id}/edit"

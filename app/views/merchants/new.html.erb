@@ -1,0 +1,5 @@
+<%= bootstrap_form_with model: @merchant do |f| %>
+  <%= f.text_field :name, label: 'Merchant name:' %>
+  <%= f.password_field :password, label: 'Password:' %>
+  <%= f.submit 'Create Merchant Account' %>
+<% end %>

@@ -2,6 +2,7 @@ FactoryBot.define do
   factory :merchant do
     sequence(:id) { |n| n }
     sequence(:name) { |n| "Little Shop of #{n} Horror(s)" }
+    password { 'test_password_123' }
 
     factory :merchant_with_items do
       transient do

@@ -4,6 +4,7 @@ AllCops:
     - 'utility_scripts/**/*'
     - 'data/**/*'
     - '.git/**/*'
+    - 'lib/tasks/*'
     - 'db/*'
   SuggestExtensions: false
 Style/Documentation:

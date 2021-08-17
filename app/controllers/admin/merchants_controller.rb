@@ -15,6 +15,7 @@ class Admin::MerchantsController < ApplicationController
 
   def update
     merchant = Merchant.find(params[:id])
+    merchant.enforce_password_validation
 
     if merchant.update(merchant_params)
       redirect_to "/admin/merchants/#{merchant.id}?update=true"
@@ -49,6 +50,6 @@ class Admin::MerchantsController < ApplicationController
   private
 
   def merchant_params
-    params.require(:merchant).permit(:name, :status)
+    params.require(:merchant).permit(:name, :status, :password)
   end
 end

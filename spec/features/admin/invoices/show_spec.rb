@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'admin/invoices/show.html.erb' do
   before :each do
-    @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
+    @merchant_1 = create(:merchant)
     @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
 
     @invoice_1 = @customer_1.invoices.create!(status: 1, created_at: '2001-01-01')

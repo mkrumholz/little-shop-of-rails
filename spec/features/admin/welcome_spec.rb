@@ -2,9 +2,9 @@ require 'rails_helper'
 
 RSpec.describe 'Welcome page' do
   before :each do
-    @merchant_1 = Merchant.create!(name: 'Tims my time', status: false)
-    @merchant_2 = Merchant.create!(name: 'Future Fun', status: false)
-    @merchant_3 = Merchant.create!(name: 'Dozen a Dime', status: false)
+    @merchant_1 = create(:merchant)
+    @merchant_2 = create(:merchant)
+    @merchant_3 = create(:merchant)
 
     visit '/'
   end
@@ -36,6 +36,60 @@ RSpec.describe 'Welcome page' do
       click_link("Merchant ##{@merchant_1.id}")
 
       expect(page).to have_current_path("/merchants/#{@merchant_1.id}/dashboard")
+    end
+  end
+
+  describe 'authorization flow' do
+    it 'creates a new merchant' do
+      visit '/'
+
+      click_on 'Register as a Merchant'
+
+      expect(current_path).to eq(new_merchant_path)
+
+      merchant_name = 'funbucket13'
+      password = 'test'
+
+      fill_in :name, with: merchant_name
+      fill_in :merchant_password, with: password
+
+      click_on 'Create Merchant Account'
+
+      expect(page).to have_content("Welcome, #{merchant_name}!")
+    end
+
+    it 'can log in with valid credentials' do
+      merchant = create(:merchant, name: 'FunBucket13', password: 'test')
+
+      visit '/'
+
+      click_on 'I already have an account'
+
+      expect(current_path).to eq(login_path)
+
+      fill_in :name, with: merchant.name
+      fill_in :password, with: merchant.password
+
+      click_on 'Log In'
+
+      expect(current_path).to eq('/')
+
+      expect(page).to have_content("Welcome, #{merchant.name}!")
+    end
+
+    it 'cannot log in with bad credentials' do
+      merchant = create(:merchant, name: 'FunBucket13', password: 'test')
+
+      visit login_path
+
+      fill_in :name, with: merchant.name
+      fill_in :password, with: 'incorrect password'
+
+      click_on 'Log In'
+
+      expect(current_path).to eq(login_path)
+
+      expect(page).to have_content('🙅🏻‍♀️ Incorrect name or password')
     end
   end
 end

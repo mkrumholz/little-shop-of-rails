@@ -31,7 +31,7 @@ RSpec.describe 'index.html.erb' do
 
   describe 'Top 5 Customers' do
     before :each do
-      @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
+      @merchant_1 = create(:merchant)
       @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
       @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
       @customer_3 = Customer.create!(first_name: 'Shim', last_name: 'Stalone')
@@ -89,7 +89,7 @@ RSpec.describe 'index.html.erb' do
 
   describe 'Incomplete Invoices' do
     before :each do
-      @merchant_1 = Merchant.create!(name: "Ralph's Monkey Hut")
+      @merchant_1 = create(:merchant)
       @customer_1 = Customer.create!(first_name: 'Madi', last_name: 'Johnson')
       @customer_2 = Customer.create!(first_name: 'Emmy', last_name: 'Lost')
       @customer_3 = Customer.create!(first_name: 'Shim', last_name: 'Stalone')

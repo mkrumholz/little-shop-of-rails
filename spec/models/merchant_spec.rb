@@ -8,22 +8,30 @@ RSpec.describe Merchant do
 
   describe 'validations' do
     it { should validate_presence_of(:name) }
+    it { should validate_uniqueness_of(:name) }
+    it { should validate_presence_of(:password) }
   end
 
   describe 'callbacks' do
     it 'after_initialization it sets status to false if nil' do
-      test = Merchant.create!(name: 'test')
+      test = Merchant.create!(name: 'test', password: 'test')
       expect(test.status).to eq(false)
     end
   end
 
   before :each do
-    @merch_1 = Merchant.create!(name: "Sal's Signs", status: true)
-    @merch_2 = Merchant.create!(name: 'T-shirts by Terry', status: true)
-    @merch_3 = Merchant.create!(name: 'All About Amphibians', status: false)
-    @merch_4 = Merchant.create!(name: "Will's Widdles", status: true)
-    @merch_5 = Merchant.create!(name: 'Rugula by Ron', status: true)
-    @merch_6 = Merchant.create!(name: 'Gemeni Gems', status: false)
+    @merch_1 = create(:merchant, status: true)
+    @merch_2 = create(:merchant, status: true)
+    @merch_3 = create(:merchant, status: false)
+    @merch_4 = create(:merchant, status: true)
+    @merch_5 = create(:merchant, status: true)
+    @merch_6 = create(:merchant, status: false)
+    # @merch_1 = Merchant.create!(name: "Sal's Signs", status: true)
+    # @merch_2 = Merchant.create!(name: 'T-shirts by Terry', status: true)
+    # @merch_3 = Merchant.create!(name: 'All About Amphibians', status: false)
+    # @merch_4 = Merchant.create!(name: "Will's Widdles", status: true)
+    # @merch_5 = Merchant.create!(name: 'Rugula by Ron', status: true)
+    # @merch_6 = Merchant.create!(name: 'Gemeni Gems', status: false)
 
     @item_1 = @merch_1.items.create!(name: 'thing1', description: 'thing1 is a thing', unit_price: 10)
     @item_2 = @merch_1.items.create!(name: 'thing2', description: 'thing1 is a thing', unit_price: 10)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'Merchant item create page' do
   before :each do
-    @merchant = FactoryBot.create(:merchant)
+    @merchant = create(:merchant)
 
     visit "/merchants/#{@merchant.id}/items/new"
   end

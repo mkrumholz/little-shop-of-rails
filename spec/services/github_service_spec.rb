@@ -3,13 +3,7 @@ require 'rails_helper'
 RSpec.describe GithubService do
   describe 'class methods', :service do
     describe '#repo_info' do
-      it 'queries repo info on GitHub' do
-        WebMock.stub_request(:get, /api.github.com/)
-               .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Faraday v1.4.2' })
-               .to_return(status: 200, body: { name: 'little-shop-of-rails' }.to_json, headers: {})
-
-        uri = URI('https://api.github.com/repos/mkrumholz/little-shop-of-rails')
-
+      it 'queries repo info on GitHub', :vcr do
         response = GithubService.repo_info
 
         expect(response).to be_an_instance_of(Hash)
@@ -18,31 +12,20 @@ RSpec.describe GithubService do
     end
 
     describe '#contributors_info' do
-      it 'queries contributor info on GitHub' do
-        WebMock.stub_request(:get, /api.github.com/)
-               .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Faraday v1.4.2' })
-               .to_return(status: 200, body: { login: 'mkrumholz', contributions: 177 }.to_json, headers: {})
-
-        uri = URI('https://api.github.com/repos/mkrumholz/little-shop-of-rails/contributors')
-
+      it 'queries contributor info on GitHub', :vcr do
         response = GithubService.contributors_info
 
-        expect(response[:login]).to eq('mkrumholz')
-        expect(response[:contributions]).to eq(177)
+        expect(response.first[:login]).to eq('mkrumholz')
+        expect(response.first[:contributions]).to eq(258)
       end
     end
 
     describe '#pull_request_info' do
-      it 'queries pull request info on GitHub' do
-        WebMock.stub_request(:get, /api.github.com/)
-               .with(headers: { 'Accept' => '*/*', 'User-Agent' => 'Faraday v1.4.2' })
-               .to_return(status: 200, body: { id: 668978499, merged_at: '2021-06-13T02:31:59Z' }.to_json, headers: {})
-
-        uri = URI('https://api.github.com/repos/mkrumholz/little-shop-of-rails/pulls?state=closed')
-
+      it 'queries pull request info on GitHub', :vcr do
         response = GithubService.pull_request_info
-        expect(response[:id]).to eq 668978499
-        expect(response[:merged_at]).to eq '2021-06-13T02:31:59Z'
+
+        expect(response.first[:id]).to eq 713687037
+        expect(response.first[:merged_at]).to eq '2021-08-16T19:23:06Z'
       end
     end
   end

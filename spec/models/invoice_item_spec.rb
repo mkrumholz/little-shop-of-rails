@@ -13,8 +13,8 @@ RSpec.describe InvoiceItem do
   describe 'class methods' do
     describe '.with_discounts' do
       it 'returns all items for a given merchants invoice id along with which discounts were applied' do
-        merchant_1 = Merchant.create!(name: 'Schroeder-Jerde')
-        merchant_2 = Merchant.create!(name: 'James Bond')
+        merchant_1 = create(:merchant)
+        merchant_2 = create(:merchant)
 
         customer_1 = Customer.create!(first_name: 'Sally', last_name: 'Shopper')
         customer_2 = Customer.create!(first_name: 'Evan', last_name: 'East')

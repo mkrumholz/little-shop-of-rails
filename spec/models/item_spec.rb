@@ -15,7 +15,7 @@ RSpec.describe Item do
   end
 
   before :each do
-    @merchant = Merchant.create!(name: 'Little Shop of Horrors')
+    @merchant = create(:merchant)
     @customer = Customer.create!(first_name: 'Audrey', last_name: 'I')
 
     @item_1 = @merchant.items.create!(name: 'Audrey II', description: 'Large, man-eating plant', unit_price: '100000000', enabled: true)

@@ -2,7 +2,7 @@ require 'rails_helper'
 
 RSpec.describe 'discount show page' do
   before :each do
-    @merchant_1 = FactoryBot.create(:merchant)
+    @merchant_1 = create(:merchant)
     @discount_1 = @merchant_1.discounts.create!(name: '4 or More', percentage: 0.1000, quantity_threshold: 4)
     @discount_2 = @merchant_1.discounts.create!(name: '20% for 10', percentage: 0.2000, quantity_threshold: 10)
 
